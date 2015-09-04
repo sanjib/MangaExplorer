@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+    <entity name="Manga" representedClassName="MangaExplorer.Manga" syncable="YES">
+        <attribute name="bayesianAverage" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="imageRemotePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plotSummary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Manga" positionX="-54" positionY="-9" width="128" height="120"/>
+    </elements>
 </model>
