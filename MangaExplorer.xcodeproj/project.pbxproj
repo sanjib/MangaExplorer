@@ -1,0 +1,443 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		208A93D01B9A29170098F0FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A93CF1B9A29170098F0FC /* AppDelegate.swift */; };
+		208A93D31B9A29170098F0FC /* MangaExplorer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 208A93D11B9A29170098F0FC /* MangaExplorer.xcdatamodeld */; };
+		208A93D51B9A29170098F0FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A93D41B9A29170098F0FC /* ViewController.swift */; };
+		208A93D81B9A29170098F0FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 208A93D61B9A29170098F0FC /* Main.storyboard */; };
+		208A93DA1B9A29170098F0FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 208A93D91B9A29170098F0FC /* Images.xcassets */; };
+		208A93DD1B9A29170098F0FC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 208A93DB1B9A29170098F0FC /* LaunchScreen.xib */; };
+		208A93E91B9A29170098F0FC /* MangaExplorerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A93E81B9A29170098F0FC /* MangaExplorerTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		208A93E31B9A29170098F0FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 208A93C21B9A29160098F0FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 208A93C91B9A29170098F0FC;
+			remoteInfo = MangaExplorer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		208A93CA1B9A29170098F0FC /* MangaExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MangaExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		208A93CE1B9A29170098F0FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		208A93CF1B9A29170098F0FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		208A93D21B9A29170098F0FC /* MangaExplorer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MangaExplorer.xcdatamodel; sourceTree = "<group>"; };
+		208A93D41B9A29170098F0FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		208A93D71B9A29170098F0FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		208A93D91B9A29170098F0FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		208A93DC1B9A29170098F0FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		208A93E21B9A29170098F0FC /* MangaExplorerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MangaExplorerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		208A93E71B9A29170098F0FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		208A93E81B9A29170098F0FC /* MangaExplorerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaExplorerTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		208A93C71B9A29170098F0FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		208A93DF1B9A29170098F0FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		208A93C11B9A29160098F0FC = {
+			isa = PBXGroup;
+			children = (
+				208A93CC1B9A29170098F0FC /* MangaExplorer */,
+				208A93E51B9A29170098F0FC /* MangaExplorerTests */,
+				208A93CB1B9A29170098F0FC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		208A93CB1B9A29170098F0FC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				208A93CA1B9A29170098F0FC /* MangaExplorer.app */,
+				208A93E21B9A29170098F0FC /* MangaExplorerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		208A93CC1B9A29170098F0FC /* MangaExplorer */ = {
+			isa = PBXGroup;
+			children = (
+				208A93CF1B9A29170098F0FC /* AppDelegate.swift */,
+				208A93D41B9A29170098F0FC /* ViewController.swift */,
+				208A93D61B9A29170098F0FC /* Main.storyboard */,
+				208A93D91B9A29170098F0FC /* Images.xcassets */,
+				208A93DB1B9A29170098F0FC /* LaunchScreen.xib */,
+				208A93D11B9A29170098F0FC /* MangaExplorer.xcdatamodeld */,
+				208A93CD1B9A29170098F0FC /* Supporting Files */,
+			);
+			path = MangaExplorer;
+			sourceTree = "<group>";
+		};
+		208A93CD1B9A29170098F0FC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				208A93CE1B9A29170098F0FC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		208A93E51B9A29170098F0FC /* MangaExplorerTests */ = {
+			isa = PBXGroup;
+			children = (
+				208A93E81B9A29170098F0FC /* MangaExplorerTests.swift */,
+				208A93E61B9A29170098F0FC /* Supporting Files */,
+			);
+			path = MangaExplorerTests;
+			sourceTree = "<group>";
+		};
+		208A93E61B9A29170098F0FC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				208A93E71B9A29170098F0FC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		208A93C91B9A29170098F0FC /* MangaExplorer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 208A93EC1B9A29170098F0FC /* Build configuration list for PBXNativeTarget "MangaExplorer" */;
+			buildPhases = (
+				208A93C61B9A29170098F0FC /* Sources */,
+				208A93C71B9A29170098F0FC /* Frameworks */,
+				208A93C81B9A29170098F0FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MangaExplorer;
+			productName = MangaExplorer;
+			productReference = 208A93CA1B9A29170098F0FC /* MangaExplorer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		208A93E11B9A29170098F0FC /* MangaExplorerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 208A93EF1B9A29170098F0FC /* Build configuration list for PBXNativeTarget "MangaExplorerTests" */;
+			buildPhases = (
+				208A93DE1B9A29170098F0FC /* Sources */,
+				208A93DF1B9A29170098F0FC /* Frameworks */,
+				208A93E01B9A29170098F0FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				208A93E41B9A29170098F0FC /* PBXTargetDependency */,
+			);
+			name = MangaExplorerTests;
+			productName = MangaExplorerTests;
+			productReference = 208A93E21B9A29170098F0FC /* MangaExplorerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		208A93C21B9A29160098F0FC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Object Coder";
+				TargetAttributes = {
+					208A93C91B9A29170098F0FC = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					208A93E11B9A29170098F0FC = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 208A93C91B9A29170098F0FC;
+					};
+				};
+			};
+			buildConfigurationList = 208A93C51B9A29160098F0FC /* Build configuration list for PBXProject "MangaExplorer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 208A93C11B9A29160098F0FC;
+			productRefGroup = 208A93CB1B9A29170098F0FC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				208A93C91B9A29170098F0FC /* MangaExplorer */,
+				208A93E11B9A29170098F0FC /* MangaExplorerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		208A93C81B9A29170098F0FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				208A93D81B9A29170098F0FC /* Main.storyboard in Resources */,
+				208A93DD1B9A29170098F0FC /* LaunchScreen.xib in Resources */,
+				208A93DA1B9A29170098F0FC /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		208A93E01B9A29170098F0FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		208A93C61B9A29170098F0FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				208A93D51B9A29170098F0FC /* ViewController.swift in Sources */,
+				208A93D01B9A29170098F0FC /* AppDelegate.swift in Sources */,
+				208A93D31B9A29170098F0FC /* MangaExplorer.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		208A93DE1B9A29170098F0FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				208A93E91B9A29170098F0FC /* MangaExplorerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		208A93E41B9A29170098F0FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 208A93C91B9A29170098F0FC /* MangaExplorer */;
+			targetProxy = 208A93E31B9A29170098F0FC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		208A93D61B9A29170098F0FC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				208A93D71B9A29170098F0FC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		208A93DB1B9A29170098F0FC /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				208A93DC1B9A29170098F0FC /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		208A93EA1B9A29170098F0FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		208A93EB1B9A29170098F0FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		208A93ED1B9A29170098F0FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MangaExplorer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		208A93EE1B9A29170098F0FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MangaExplorer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		208A93F01B9A29170098F0FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MangaExplorerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MangaExplorer.app/MangaExplorer";
+			};
+			name = Debug;
+		};
+		208A93F11B9A29170098F0FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MangaExplorerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MangaExplorer.app/MangaExplorer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		208A93C51B9A29160098F0FC /* Build configuration list for PBXProject "MangaExplorer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				208A93EA1B9A29170098F0FC /* Debug */,
+				208A93EB1B9A29170098F0FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		208A93EC1B9A29170098F0FC /* Build configuration list for PBXNativeTarget "MangaExplorer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				208A93ED1B9A29170098F0FC /* Debug */,
+				208A93EE1B9A29170098F0FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		208A93EF1B9A29170098F0FC /* Build configuration list for PBXNativeTarget "MangaExplorerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				208A93F01B9A29170098F0FC /* Debug */,
+				208A93F11B9A29170098F0FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		208A93D11B9A29170098F0FC /* MangaExplorer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				208A93D21B9A29170098F0FC /* MangaExplorer.xcdatamodel */,
+			);
+			currentVersion = 208A93D21B9A29170098F0FC /* MangaExplorer.xcdatamodel */;
+			path = MangaExplorer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 208A93C21B9A29160098F0FC /* Project object */;
+}
