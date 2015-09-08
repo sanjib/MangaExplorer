@@ -9,8 +9,8 @@
 import Foundation
 import CoreData
 
-let SQLITE_FILE_NAME = "MangaReaderAlpha.sqlite"
-let CORE_DATA_MODEL_NAME = "MangaReaderAlpha"
+let SQLITE_FILE_NAME = "MangaExplorer.sqlite"
+let CORE_DATA_MODEL_NAME = "MangaExplorer"
 
 class CoreDataStackManager {
     

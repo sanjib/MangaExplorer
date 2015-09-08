@@ -26,6 +26,23 @@ class AnimeNewsNetworkApi: CommonRESTApi {
         static let detail = "api.xml"
     }
     
+    func getAllMangasXMLData(completionHandler: (xmlData: NSData?, errorString: String?) -> Void) {
+        let methodParams: [String:AnyObject] = [
+            "id": 155,
+            "type": "manga",
+            "nlist": "all"
+        ]
+        let url = Constants.baseURL + Methods.report + urlParamsFromDictionary(methodParams)
+        println(url)
+        httpGet(url) { xmlData, error in
+            if error != nil {
+                completionHandler(xmlData: nil, errorString: error?.localizedDescription)
+            } else {
+                completionHandler(xmlData: xmlData as? NSData, errorString: nil)
+            }
+        }
+    }
+    
     func getAllMangas(completionHandler: (mangaProperties: [[String:AnyObject]]?, errorString: String?) -> Void) {
         let methodParams: [String:AnyObject] = [
             "id": 155,
@@ -61,9 +78,28 @@ class AnimeNewsNetworkApi: CommonRESTApi {
         }
     }
     
+    func getTopRatedMangasXMLData(completionHandler: (xmlData: NSData?, errorString: String?) -> Void) {
+        let methodParams: [String:AnyObject] = [
+            "id": 173,
+            "nlist": "all"
+        ]
+        let url = Constants.baseURL + Methods.report + urlParamsFromDictionary(methodParams)
+        println(url)
+        let nsurl = NSURL(string: url)
+        
+        httpGet(url) { xmlData, error in
+            if error != nil {
+                completionHandler(xmlData: nil, errorString: error?.localizedDescription)
+            } else {
+                completionHandler(xmlData: xmlData as? NSData, errorString: nil)
+            }
+        }
+    }
+    
     func getTopRatedMangas(completionHandler: (mangaProperties: [[String:AnyObject]]?, errorString: String?) -> Void) {
         let methodParams: [String:AnyObject] = [
-            "id": 173
+            "id": 173,
+            "nlist": "all"
         ]
         let url = Constants.baseURL + Methods.report + urlParamsFromDictionary(methodParams)
         println(url)

@@ -2,12 +2,13 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="JDu-GE-uEd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Genres View Controller-->
         <scene sceneID="5yV-9b-1ec">
             <objects>
-                <viewController id="1El-P9-P15" sceneMemberID="viewController">
+                <viewController id="1El-P9-P15" customClass="GenresViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jez-jI-8I9"/>
                         <viewControllerLayoutGuide type="bottom" id="aRY-Ri-dbn"/>
@@ -23,28 +24,10 @@
             </objects>
             <point key="canvasLocation" x="2092" y="885"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="LWK-Mm-BZ1">
-            <objects>
-                <viewController id="yDl-mR-KaU" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rxI-gx-ejQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="WwM-hy-vCw"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="nfl-rf-R7E">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uc8-PZ-2wW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2092" y="-540"/>
-        </scene>
-        <!--View Controller-->
+        <!--Top Rated View Controller-->
         <scene sceneID="U66-RX-Ls0">
             <objects>
-                <viewController id="min-ee-bdF" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TopRatedMangasStoryboard" id="min-ee-bdF" customClass="TopRatedViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hCY-eW-9j3"/>
                         <viewControllerLayoutGuide type="bottom" id="8s5-hn-F9k"/>
@@ -56,7 +39,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="73Q-gt-knE"/>
                     <connections>
-                        <segue destination="yDl-mR-KaU" kind="presentation" identifier="InitDataSegue" id="4NT-aC-p8P"/>
+                        <segue destination="fW4-jV-pbO" kind="presentation" identifier="InitDataSegue" id="zMJ-Xf-Ytm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7E-t4-uhE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -120,8 +103,91 @@
             </objects>
             <point key="canvasLocation" x="1280" y="885"/>
         </scene>
+        <!--Init Data View Controller-->
+        <scene sceneID="MFH-2w-JKD">
+            <objects>
+                <viewController id="fW4-jV-pbO" customClass="InitDataViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="u1X-Cw-u8F"/>
+                        <viewControllerLayoutGuide type="bottom" id="tTj-xX-lM2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cXb-uW-c8n">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0% completed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZFb-Ng-Jpu">
+                                <rect key="frame" x="229" y="201" width="141.5" height="25.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="078-dF-NJ5">
+                                <rect key="frame" x="200" y="233" width="200" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="0Gk-z3-hg2"/>
+                                </constraints>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initializing manga data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGf-JX-W5E">
+                                <rect key="frame" x="214" y="239" width="171.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dogWaggingTailOrig" translatesAutoresizingMaskIntoConstraints="NO" id="mge-I1-h0w">
+                                <rect key="frame" x="250" y="290" width="100" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="JyV-5z-eaE"/>
+                                    <constraint firstAttribute="width" constant="100" id="mBJ-dp-usU"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="078-dF-NJ5" secondAttribute="centerX" id="3zr-4D-QR6"/>
+                            <constraint firstAttribute="centerX" secondItem="mge-I1-h0w" secondAttribute="centerX" id="9yW-ey-kZT"/>
+                            <constraint firstAttribute="centerX" secondItem="QGf-JX-W5E" secondAttribute="centerX" id="Bx1-eP-fDD"/>
+                            <constraint firstAttribute="centerX" secondItem="078-dF-NJ5" secondAttribute="centerX" id="D7Z-Fv-baJ"/>
+                            <constraint firstItem="mge-I1-h0w" firstAttribute="height" secondItem="cXb-uW-c8n" secondAttribute="height" multiplier="1:2.5" id="Eax-Y2-YZ8"/>
+                            <constraint firstItem="QGf-JX-W5E" firstAttribute="top" secondItem="078-dF-NJ5" secondAttribute="bottom" constant="4" id="Ihf-Mc-pCw"/>
+                            <constraint firstAttribute="centerY" secondItem="078-dF-NJ5" secondAttribute="centerY" constant="80" id="J4j-lc-cav"/>
+                            <constraint firstItem="078-dF-NJ5" firstAttribute="top" secondItem="ZFb-Ng-Jpu" secondAttribute="bottom" constant="6.5" id="LY2-tQ-cd1"/>
+                            <constraint firstItem="mge-I1-h0w" firstAttribute="top" secondItem="QGf-JX-W5E" secondAttribute="bottom" constant="30" id="ScX-Ht-MML"/>
+                            <constraint firstAttribute="centerX" secondItem="ZFb-Ng-Jpu" secondAttribute="centerX" id="Wgu-GU-9tP"/>
+                            <constraint firstAttribute="centerY" secondItem="ZFb-Ng-Jpu" secondAttribute="centerY" constant="100" id="XT1-JA-Uz3"/>
+                            <constraint firstAttribute="centerY" secondItem="mge-I1-h0w" secondAttribute="centerY" constant="-70" id="YlJ-QM-RNZ"/>
+                            <constraint firstAttribute="centerX" secondItem="ZFb-Ng-Jpu" secondAttribute="centerX" constant="0.25" id="ZnZ-Sp-4Yd"/>
+                            <constraint firstAttribute="centerX" secondItem="QGf-JX-W5E" secondAttribute="centerX" id="hJr-31-uuk"/>
+                            <constraint firstAttribute="centerY" secondItem="mge-I1-h0w" secondAttribute="centerY" constant="-84" id="mI1-g9-XO9"/>
+                            <constraint firstAttribute="centerY" secondItem="QGf-JX-W5E" secondAttribute="centerY" constant="65" id="qJ7-83-V4N"/>
+                            <constraint firstItem="mge-I1-h0w" firstAttribute="width" secondItem="cXb-uW-c8n" secondAttribute="width" multiplier="1:4" id="qPL-Od-HWT"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Wgu-GU-9tP"/>
+                                <exclude reference="XT1-JA-Uz3"/>
+                                <exclude reference="D7Z-Fv-baJ"/>
+                                <exclude reference="J4j-lc-cav"/>
+                                <exclude reference="Bx1-eP-fDD"/>
+                                <exclude reference="qJ7-83-V4N"/>
+                                <exclude reference="Eax-Y2-YZ8"/>
+                                <exclude reference="mI1-g9-XO9"/>
+                                <exclude reference="qPL-Od-HWT"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="mge-I1-h0w" id="wIE-V9-aSM"/>
+                        <outlet property="progressLabel" destination="ZFb-Ng-Jpu" id="cND-dz-jrw"/>
+                        <outlet property="progressView" destination="078-dF-NJ5" id="PnQ-Tm-fGq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zxV-zF-qOa" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2092" y="-555"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="dogWaggingTailOrig" width="201" height="308"/>
         <image name="genres" width="33" height="33"/>
         <image name="topRated" width="33" height="33"/>
     </resources>

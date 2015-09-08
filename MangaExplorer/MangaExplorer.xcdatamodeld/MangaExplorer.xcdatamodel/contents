@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AlternativeTitle" representedClassName="MangaExplorer.AlternativeTitle" syncable="YES">
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="manga" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Manga" inverseName="alternativeTitle" inverseEntity="Manga" syncable="YES"/>
+    </entity>
+    <entity name="Genre" representedClassName="MangaExplorer.Genre" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="manga" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Manga" inverseName="genre" inverseEntity="Manga" syncable="YES"/>
+    </entity>
     <entity name="Manga" representedClassName="MangaExplorer.Manga" syncable="YES">
         <attribute name="bayesianAverage" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="imageRemotePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="plotSummary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="alternativeTitle" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="AlternativeTitle" inverseName="manga" inverseEntity="AlternativeTitle" syncable="YES"/>
+        <relationship name="genre" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Genre" inverseName="manga" inverseEntity="Genre" syncable="YES"/>
+        <relationship name="staff" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Staff" inverseName="manga" inverseEntity="Staff" syncable="YES"/>
+    </entity>
+    <entity name="Staff" representedClassName="MangaExplorer.Staff" syncable="YES">
+        <attribute name="person" attributeType="String" syncable="YES"/>
+        <attribute name="task" attributeType="String" syncable="YES"/>
+        <relationship name="manga" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Manga" inverseName="staff" inverseEntity="Manga" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Manga" positionX="-54" positionY="-9" width="128" height="120"/>
+        <element name="Manga" positionX="-54" positionY="-9" width="128" height="165"/>
+        <element name="AlternativeTitle" positionX="-54" positionY="27" width="128" height="75"/>
+        <element name="Genre" positionX="-45" positionY="36" width="128" height="75"/>
+        <element name="Staff" positionX="-27" positionY="45" width="128" height="90"/>
     </elements>
 </model>
