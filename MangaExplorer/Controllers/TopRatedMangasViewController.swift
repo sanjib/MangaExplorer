@@ -9,10 +9,7 @@
 import UIKit
 import CoreData
 
-class TopRatedViewController: UIViewController, NSFetchedResultsControllerDelegate {
-    
-    private let numberOfMangaDetailsToFetchPerHTTPRequest = 480/2
-    private var fetchedObjectsCount = 0
+class TopRatedMangasViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,20 +18,19 @@ class TopRatedViewController: UIViewController, NSFetchedResultsControllerDelega
         fetchedResultsController.delegate = self
         println("will perform fetch")
         fetchedResultsController.performFetch(nil)
-        if let fetchedObjectsCount = fetchedResultsController.fetchedObjects?.count {
-            self.fetchedObjectsCount = fetchedObjectsCount
-        }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "performFetchForFetchedResultsController", name: "performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         
-        if fetchedObjectsCount == 0 {
+        // Init data if manga table is empty
+        if fetchedResultsController.fetchedObjects?.count == 0 {
             println("init data segue")
             performSegueWithIdentifier("InitDataSegue", sender: self)
         }
@@ -54,8 +50,8 @@ class TopRatedViewController: UIViewController, NSFetchedResultsControllerDelega
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Manga")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bayesianAverage", ascending: false)]
-        fetchRequest.fetchBatchSize = 48
-        fetchRequest.fetchLimit = self.fetchLimitForCurrentBatch()
+        fetchRequest.fetchBatchSize = 12
+        fetchRequest.fetchLimit = 480/2
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
             managedObjectContext: self.sharedContext,
@@ -64,8 +60,10 @@ class TopRatedViewController: UIViewController, NSFetchedResultsControllerDelega
         return fetchedResultsController
     }()
     
-    private func fetchLimitForCurrentBatch() -> Int {
-        return fetchedObjectsCount + numberOfMangaDetailsToFetchPerHTTPRequest
+    
+    // For post notification from InitViewController
+    func performFetchForFetchedResultsController() {
+        fetchedResultsController.performFetch(nil)
     }
     
     // MARK: - Navigation

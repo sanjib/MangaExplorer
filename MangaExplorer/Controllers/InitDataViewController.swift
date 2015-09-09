@@ -44,15 +44,12 @@ class InitDataViewController: UIViewController {
                 
                 let methodEnd = NSDate()
                 let executionTime = methodEnd.timeIntervalSinceDate(methodStart)
-                println("\(executionTime)")
-                
-                let vc = UIStoryboard().instantiateViewControllerWithIdentifier("TopRatedMangasStoryboard") as! TopRatedViewController
-                vc.fetchedResultsController.performFetch(nil)                
+                println("\(executionTime)")                
+                NSNotificationCenter.defaultCenter().postNotificationName("performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
-        
     }
     
     // MARK: - Data import
