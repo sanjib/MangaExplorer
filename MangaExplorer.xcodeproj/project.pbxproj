@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		202579741B9FB0C900695410 /* TopRatedMangaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202579731B9FB0C900695410 /* TopRatedMangaCollectionViewCell.swift */; };
 		2037B5671B9A2E3200F3094A /* IJReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B5661B9A2E3200F3094A /* IJReachability.swift */; };
 		2037B5691B9A2E6F00F3094A /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B5681B9A2E6F00F3094A /* CoreDataStackManager.swift */; };
 		2037B56B1B9A3B2000F3094A /* InitDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B56A1B9A3B2000F3094A /* InitDataViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		202579731B9FB0C900695410 /* TopRatedMangaCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopRatedMangaCollectionViewCell.swift; path = Views/TopRatedMangaCollectionViewCell.swift; sourceTree = "<group>"; };
 		2037B5661B9A2E3200F3094A /* IJReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IJReachability.swift; sourceTree = "<group>"; };
 		2037B5681B9A2E6F00F3094A /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		2037B56A1B9A3B2000F3094A /* InitDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InitDataViewController.swift; path = Controllers/InitDataViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 		208A93F31B9A29340098F0FC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				202579731B9FB0C900695410 /* TopRatedMangaCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				208A93FB1B9A297F0098F0FC /* AnimeNewsNetworkApi.swift in Sources */,
 				2037B56B1B9A3B2000F3094A /* InitDataViewController.swift in Sources */,
 				20ECD5311B9F7797004DCEB3 /* AlternativeTitle.swift in Sources */,
+				202579741B9FB0C900695410 /* TopRatedMangaCollectionViewCell.swift in Sources */,
 				2037B56F1B9A3B5600F3094A /* GenresViewController.swift in Sources */,
 				2037B5671B9A2E3200F3094A /* IJReachability.swift in Sources */,
 				208A93FE1B9A297F0098F0FC /* AnimeNewsNetworkXMLParserForMangaListWithIdAndTitle.swift in Sources */,
