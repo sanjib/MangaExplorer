@@ -112,7 +112,7 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.reloadData()
     }
     
-    // MARK: - CollectionView layout
+    // MARK: - Layout
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
