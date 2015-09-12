@@ -16,15 +16,18 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
     
     // Cell layout properties
     let cellsPerRowInPortraitMode: CGFloat = 3
-    let cellsPerRowInLandscpaeMode: CGFloat = 6
-    let minimumSpacingPerCell: CGFloat = 5
+    let cellsPerRowInLandscpaeMode: CGFloat = 5
+    let minimumSpacingPerCell: CGFloat = 8
     
-    private let photoPlaceholderImageData = NSData(data: UIImagePNGRepresentation(UIImage(named: "mangaPlaceholder")))
+    private let photoPlaceholderImage = UIImage(named: "mangaPlaceholder")
     
     private var selectedIndexes = [NSIndexPath]()
     private var insertedIndexPaths: [NSIndexPath]!
     private var deletedIndexPaths: [NSIndexPath]!
     private var updatedIndexPaths: [NSIndexPath]!
+    
+    private var cache = NSCache()
+    let backgroundQueue = dispatch_queue_create("MangaExplorerTopRated", DISPATCH_QUEUE_SERIAL)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +39,7 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
         fetchedResultsController.delegate = self
         println("will perform fetch")
         fetchedResultsController.performFetch(nil)
+        setMangaImagesInCache()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "performFetchForFetchedResultsController", name: "performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
     }
@@ -59,6 +63,29 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
         println("didReceiveMemoryWarning: TopRatedViewController")
     }
     
+    // MARK: - NSCache
+    
+    private func setMangaImagesInCache() {
+        dispatch_async(backgroundQueue) {
+            if self.fetchedResultsController.fetchedObjects?.count > 0 {
+                var counter = 0
+                for manga in self.fetchedResultsController.fetchedObjects as! [Manga] {
+                    if let imageData = manga.imageData {
+                        if let image = UIImage(data: imageData) {
+                            self.cache.setObject(image, forKey: manga.imageName!)
+                        }
+                    }
+                    counter++
+                    if counter >= 32 {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - CoreData
     
     var sharedContext: NSManagedObjectContext {
@@ -68,8 +95,8 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Manga")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bayesianAverage", ascending: false)]
-        fetchRequest.fetchBatchSize = 12
-        fetchRequest.fetchLimit = 480/2
+        fetchRequest.fetchBatchSize = 30
+        fetchRequest.fetchLimit = 5 * 3 * 50
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
             managedObjectContext: self.sharedContext,
@@ -82,6 +109,7 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
     // For post notification from InitViewController
     func performFetchForFetchedResultsController() {
         fetchedResultsController.performFetch(nil)
+        collectionView.reloadData()
     }
     
     // MARK: - CollectionView layout
@@ -94,14 +122,21 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
         layout.minimumLineSpacing = minimumSpacingPerCell
         layout.minimumInteritemSpacing = minimumSpacingPerCell
         
-        var width: CGFloat!
+        var cellWidth: CGFloat!
+        
         if UIApplication.sharedApplication().statusBarOrientation.isLandscape == true {
-            width = (CGFloat(collectionView.frame.size.width) / cellsPerRowInLandscpaeMode) - (minimumSpacingPerCell - (minimumSpacingPerCell / cellsPerRowInLandscpaeMode))
+            let totalSpacingBetweenCells = (minimumSpacingPerCell * cellsPerRowInLandscpaeMode) - minimumSpacingPerCell
+            let availableWidthForCells = collectionView.frame.size.width - totalSpacingBetweenCells
+            cellWidth = availableWidthForCells / cellsPerRowInLandscpaeMode
         } else {
-            width = (CGFloat(collectionView.frame.size.width) / cellsPerRowInPortraitMode) - (minimumSpacingPerCell - (minimumSpacingPerCell / cellsPerRowInPortraitMode))
+            let totalSpacingBetweenCells = (minimumSpacingPerCell * cellsPerRowInPortraitMode) - minimumSpacingPerCell
+            let availableWidthForCells = collectionView.frame.size.width - totalSpacingBetweenCells
+            cellWidth = availableWidthForCells / cellsPerRowInPortraitMode
         }
         
-        layout.itemSize = CGSize(width: width, height: (width*1.3) + 26)
+        // In storyboard, the manga image height:width ratio is specified as 1.3:1, 
+        // 26 points is fixed space allocated to title and author labels
+        layout.itemSize = CGSize(width: cellWidth, height: (cellWidth*1.3) + 44)
         collectionView.collectionViewLayout = layout
     }
     
@@ -113,6 +148,7 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: - CollectionView delegates
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        selectedIndexes = [indexPath]
         performSegueWithIdentifier("MangaDetailsSegue", sender: self)
     }
     
@@ -128,7 +164,6 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! TopRatedMangaCollectionViewCell
         configureCell(cell, atIndexPath: indexPath)
         return cell
@@ -146,35 +181,49 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
             if author.isEmpty {
                 author = staff.person
             } else {
+                if staff.person == author {
+                    continue
+                }
                 author = author + ", " + staff.person
             }
             
         }
         cell.authorLabel.text = author
-
         
         // to round ratings to single digit precision, multiply by 10, round it, then divide by 10
         let ratings = Double(round(manga.bayesianAverage*10)/10)
         cell.ratingsLabel.text = "\(ratings)"
         
-        if let imageData = manga.imageData {
-            cell.activityIndicator.stopAnimating()
-            cell.mangaImageView.image = UIImage(data: imageData)
-        } else {
-            cell.mangaImageView.image = UIImage(data: photoPlaceholderImageData)
-            
-            if manga.imageRemotePath != nil && manga.fetchInProgress == false {
-                cell.activityIndicator.startAnimating()
-                
-                manga.fetchImageData { fetchComplete in
-                    if fetchComplete == true {
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.collectionView.reloadItemsAtIndexPaths([indexPath])
+        // if imageName: check in cache, else check if already downloaded, else fetch
+        if let imageName = manga.imageName {
+            if let image = cache.objectForKey(imageName) as? UIImage {
+                cell.mangaImageView.image = image
+                cell.activityIndicator.stopAnimating()
+            } else {
+                if let imageData = manga.imageData {
+                    let image = UIImage(data: imageData)!
+                    cache.setObject(image, forKey: imageName)
+                    cell.mangaImageView.image = image
+                    cell.activityIndicator.stopAnimating()
+                } else {
+                    cell.mangaImageView.image = photoPlaceholderImage
+                    cell.activityIndicator.startAnimating()
+                    if !manga.fetchInProgress {
+                        manga.fetchImageData { fetchComplete in
+                            if fetchComplete {
+                                dispatch_async(dispatch_get_main_queue()) {
+                                    self.collectionView.reloadItemsAtIndexPaths([indexPath])
+                                }
+                            }
                         }
                     }
                 }
             }
+        } else {
+            cell.mangaImageView.image = photoPlaceholderImage
+            cell.activityIndicator.stopAnimating()
         }
+
     }
     
     // MARK: - NSFetchedResultsController delegates
@@ -216,7 +265,10 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
+        if segue.identifier == "MangaDetailsSegue" {
+            let vc = segue.destinationViewController as! MangaDetailsViewController
+            vc.manga = fetchedResultsController.objectAtIndexPath(selectedIndexes.first!) as! Manga
+        }
     }
 
 }

@@ -22,10 +22,7 @@ class TopRatedMangaCollectionViewCell: UICollectionViewCell {
         mangaImageView.contentMode = UIViewContentMode.ScaleAspectFill
         mangaImageView.clipsToBounds = true
         
-        ratingsLabel.layer.borderColor = UIColor.yellowColor().CGColor
-        ratingsLabel.layer.borderWidth = 0.25
-        
-        titleLabel.textColor = UIColor.whiteColor()
-        authorLabel.textColor = UIColor.whiteColor()
+        ratingsLabel.layer.cornerRadius = 1.5
+        ratingsLabel.clipsToBounds = true
     }
 }
