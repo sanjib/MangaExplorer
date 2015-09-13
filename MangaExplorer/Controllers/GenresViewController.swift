@@ -11,7 +11,9 @@ import CoreData
 
 class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
+
     private var allGenres = [String]()
+    private var selectedGenre: String?
 
     private let genreImages = [
         "action": UIImage(named: "action"),
@@ -92,6 +94,11 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedGenre = allGenres[indexPath.row]
+        performSegueWithIdentifier("GenreCollectionSegue", sender: self)
+    }
+    
     // MARK: - Configure cell
     
     func configureCell(cell: GenreTableViewCell, atIndexPath indexPath: NSIndexPath) {
@@ -106,5 +113,14 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         cell.genreLabel.text = genreName.capitalizedString
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "GenreCollectionSegue" {
+            let vc = segue.destinationViewController as! TopRatedMangasViewController
+            vc.genre = selectedGenre
+        }
     }
 }

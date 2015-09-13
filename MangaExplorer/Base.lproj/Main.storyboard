@@ -70,13 +70,14 @@
                     <navigationItem key="navigationItem" title="Genres" id="Qa6-3g-2ya"/>
                     <connections>
                         <outlet property="tableView" destination="qo5-AT-dnP" id="5L4-AZ-IAo"/>
+                        <segue destination="min-ee-bdF" kind="show" identifier="GenreCollectionSegue" id="yaC-pP-Trv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iBj-ng-e5n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2092" y="885"/>
         </scene>
-        <!--Top Rated-->
+        <!--Top Rated Mangas View Controller-->
         <scene sceneID="U66-RX-Ls0">
             <objects>
                 <viewController id="min-ee-bdF" customClass="TopRatedMangasViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
@@ -187,7 +188,7 @@
                             <constraint firstItem="1bJ-Di-1Ni" firstAttribute="leading" secondItem="7zI-2V-Li3" secondAttribute="leadingMargin" constant="-8" id="xvD-m4-haK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Top Rated" id="73Q-gt-knE"/>
+                    <navigationItem key="navigationItem" id="73Q-gt-knE"/>
                     <connections>
                         <outlet property="collectionView" destination="1bJ-Di-1Ni" id="3UG-oR-HoE"/>
                         <segue destination="fW4-jV-pbO" kind="presentation" identifier="InitDataSegue" animates="NO" id="zMJ-Xf-Ytm"/>
@@ -546,4 +547,7 @@
         <image name="genres" width="33" height="33"/>
         <image name="topRated" width="33" height="33"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="yaC-pP-Trv"/>
+    </inferredMetricsTieBreakers>
 </document>

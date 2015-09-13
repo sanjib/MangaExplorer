@@ -13,11 +13,15 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var collectionView: UICollectionView!
     
     let cellReuseIdentifier = "MangaCell"
+    var genre: String?
     
     // Cell layout properties
     let cellsPerRowInPortraitMode: CGFloat = 3
     let cellsPerRowInLandscpaeMode: CGFloat = 5
     let minimumSpacingPerCell: CGFloat = 8
+    
+    // Core data
+    let fetchBatchSize = 30
     
     private let photoPlaceholderImage = UIImage(named: "mangaPlaceholder")
     
@@ -34,12 +38,19 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        if let genre = genre {
+            navigationItem.title = genre.capitalizedString
+        } else {
+            navigationItem.title = "Top Rated"
+        }
 
         // CoreData
         fetchedResultsController.delegate = self
-        println("will perform fetch")
+        
         fetchedResultsController.performFetch(nil)
-        setMangaImagesInCache()
+        println("fetched objects count: \(self.fetchedResultsController.fetchedObjects?.count)")
+        setMangaImagesInCacheForFirstFetchBatchSize()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "performFetchForFetchedResultsController", name: "performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
     }
@@ -65,7 +76,7 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
     
     // MARK: - NSCache
     
-    private func setMangaImagesInCache() {
+    private func setMangaImagesInCacheForFirstFetchBatchSize() {
         dispatch_async(backgroundQueue) {
             if self.fetchedResultsController.fetchedObjects?.count > 0 {
                 var counter = 0
@@ -76,10 +87,11 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
                         }
                     }
                     counter++
-                    if counter >= 32 {
+                    if counter >= self.fetchBatchSize {
                         dispatch_async(dispatch_get_main_queue()) {
                             self.collectionView.reloadData()
                         }
+                        break
                     }
                 }
             }
@@ -94,9 +106,17 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Manga")
+        
+        if let genre = self.genre {
+            println(genre)
+            fetchRequest.predicate = NSPredicate(format: "ANY genre.name == %@", genre)
+        } else {
+            fetchRequest.fetchLimit = 5 * 3 * 50
+        }
+        
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bayesianAverage", ascending: false)]
-        fetchRequest.fetchBatchSize = 30
-        fetchRequest.fetchLimit = 5 * 3 * 50
+        fetchRequest.fetchBatchSize = self.fetchBatchSize
+        
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
             managedObjectContext: self.sharedContext,
@@ -190,9 +210,16 @@ class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, 
         }
         cell.authorLabel.text = author
         
-        // to round ratings to single digit precision, multiply by 10, round it, then divide by 10
-        let ratings = Double(round(manga.bayesianAverage*10)/10)
-        cell.ratingsLabel.text = "\(ratings)"
+        if manga.bayesianAverage > 0 {
+            cell.ratingsLabel.hidden = false
+            
+            // to round ratings to single digit precision, multiply by 10, round it, then divide by 10
+            let ratings = Double(round(manga.bayesianAverage*10)/10)
+            cell.ratingsLabel.text = "\(ratings)"
+        } else {
+            cell.ratingsLabel.hidden = true
+        }
+
         
         // if imageName: check in cache, else check if already downloaded, else fetch
         if let imageName = manga.imageName {

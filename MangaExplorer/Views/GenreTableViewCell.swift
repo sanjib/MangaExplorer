@@ -18,6 +18,10 @@ class GenreTableViewCell: UITableViewCell {
         genreImageView.contentMode = UIViewContentMode.ScaleAspectFit
         genreImageView.clipsToBounds = true
         genreImageView.tintColor = UIColor.lightGrayColor()
+        
+        let backgroundView = UIView(frame: frame)
+        backgroundView.backgroundColor = UIColor.blackColor()
+        selectedBackgroundView = backgroundView
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
