@@ -7,7 +7,7 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Genres View Controller-->
+        <!--Genres-->
         <scene sceneID="5yV-9b-1ec">
             <objects>
                 <viewController id="1El-P9-P15" customClass="GenresViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,9 +18,59 @@
                     <view key="view" contentMode="scaleToFill" id="DtP-QV-GBW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="qo5-AT-dnP">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.29803922772407532" green="0.29803922772407532" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GenreCell" rowHeight="48" id="9Rs-VR-cdV" customClass="GenreTableViewCell" customModule="MangaExplorer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Rs-VR-cdV" id="gix-Bo-Etz">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Jd-kv-mvq">
+                                                    <rect key="frame" x="8" y="8" width="32" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="b3X-AT-fpA"/>
+                                                        <constraint firstAttribute="height" constant="32" id="geE-CO-fpA"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNi-yn-94g">
+                                                    <rect key="frame" x="48" y="14" width="46" height="20"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aNi-yn-94g" firstAttribute="top" secondItem="6Jd-kv-mvq" secondAttribute="bottom" constant="-26" id="10B-OU-lpP"/>
+                                                <constraint firstItem="aNi-yn-94g" firstAttribute="leading" secondItem="6Jd-kv-mvq" secondAttribute="trailing" constant="8" id="5ag-Rl-kQA"/>
+                                                <constraint firstItem="6Jd-kv-mvq" firstAttribute="leading" secondItem="gix-Bo-Etz" secondAttribute="leadingMargin" id="vAx-Yx-CV9"/>
+                                                <constraint firstItem="6Jd-kv-mvq" firstAttribute="top" secondItem="gix-Bo-Etz" secondAttribute="topMargin" id="zzB-mx-A89"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="genreImageView" destination="6Jd-kv-mvq" id="3hd-0u-jaH"/>
+                                            <outlet property="genreLabel" destination="aNi-yn-94g" id="e3B-15-axV"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="qo5-AT-dnP" firstAttribute="leading" secondItem="DtP-QV-GBW" secondAttribute="leadingMargin" constant="-16" id="ATI-NR-0vi"/>
+                            <constraint firstItem="qo5-AT-dnP" firstAttribute="bottom" secondItem="DtP-QV-GBW" secondAttribute="bottomMargin" id="N4T-YK-JQT"/>
+                            <constraint firstItem="qo5-AT-dnP" firstAttribute="top" secondItem="DtP-QV-GBW" secondAttribute="topMargin" id="rL3-R1-AzQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qo5-AT-dnP" secondAttribute="trailing" constant="-16" id="wwC-zT-N2L"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Qa6-3g-2ya"/>
+                    <navigationItem key="navigationItem" title="Genres" id="Qa6-3g-2ya"/>
+                    <connections>
+                        <outlet property="tableView" destination="qo5-AT-dnP" id="5L4-AZ-IAo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iBj-ng-e5n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -395,7 +445,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9XN-WY-LMj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Genres" image="genres" id="Rs6-Se-c3o"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="315-c6-MP2">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="315-c6-MP2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
