@@ -1,15 +1,24 @@
 //
-//  MangasCollectionViewController.swift
+//  MangaCollectionViewController.swift
 //  MangaExplorer
 //
 //  Created by Sanjib Ahmad on 9/5/15.
 //  Copyright (c) 2015 Object Coder. All rights reserved.
 //
 
+/*
+ * The MangaCollectionViewController class is utilized to show:
+ *
+ *   1. Top rated mangas,
+ *   2. Manga genres.
+ *
+ * The public property genre: String? is utilized to determine whether top rated or manga genres should be shown.
+ */
+
 import UIKit
 import CoreData
 
-class MangasCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
+class MangaCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     
     let cellReuseIdentifier = "MangaCell"
@@ -57,6 +66,7 @@ class MangasCollectionViewController: UIViewController, UICollectionViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+
     }
     
     override func viewDidAppear(animated: Bool) {
