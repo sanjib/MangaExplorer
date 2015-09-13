@@ -12,7 +12,7 @@ import CoreData
 class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
 
-    private var allGenres = [String]()
+    private var allGenres = [[String:Int]]()
     private var selectedGenre: String?
 
     private let genreImages = [
@@ -55,27 +55,37 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return CoreDataStackManager.sharedInstance.managedObjectContext!
     }
     
-    func fetchAllGenres() -> [String] {
+    func fetchAllGenres() -> [[String:Int]] {
         let fetchRequest = NSFetchRequest()
         fetchRequest.entity = NSEntityDescription.entityForName("Genre", inManagedObjectContext: sharedContext)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
-        fetchRequest.returnsDistinctResults = true
+//        fetchRequest.returnsDistinctResults = true
         fetchRequest.propertiesToFetch = ["name"]
         
         var error: NSError? = nil
         var results = sharedContext.executeFetchRequest(fetchRequest, error: &error)
         if let error = error {
-            return [String]()
+            return [[String:Int]]()
         }
 
-        var genres = [String]()
+        var genres = [String:Int]()
         for genre in results as! [NSDictionary] {
             if let genreName = genre["name"] as? String {
-                genres.append(genreName)
+                if genres[genreName] != nil {
+                   genres[genreName] = genres[genreName]! + 1
+                } else {
+                    genres[genreName] = 1
+                }
             }
         }
-        return genres
+        let sortedGenreNames = sorted(genres.keys, <)
+        
+        var allGenres = [[String:Int]]()
+        for genreName in sortedGenreNames {
+            allGenres.append([genreName: genres[genreName]!])
+        }
+        return allGenres
     }
     
     // MARK: - TableView delegates & data source
@@ -95,15 +105,16 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedGenre = allGenres[indexPath.row]
+        selectedGenre = allGenres[indexPath.row].keys.first
         performSegueWithIdentifier("GenreCollectionSegue", sender: self)
     }
     
     // MARK: - Configure cell
     
     func configureCell(cell: GenreTableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let genreName = allGenres[indexPath.row]
-        
+        let genreName = allGenres[indexPath.row].keys.first!
+        let genreCount = allGenres[indexPath.row][genreName]!
+
         if let genreImage = genreImages[genreName] {
             cell.genreImageView.image = genreImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         } else {
@@ -113,6 +124,7 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         cell.genreLabel.text = genreName.capitalizedString
+        cell.genreCountLabel.text = "(\(genreCount))"
     }
     
     // MARK: - Navigation
