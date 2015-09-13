@@ -119,7 +119,7 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "GenreCollectionSegue" {
-            let vc = segue.destinationViewController as! TopRatedMangasViewController
+            let vc = segue.destinationViewController as! MangasCollectionViewController
             vc.genre = selectedGenre
         }
     }

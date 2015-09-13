@@ -12,7 +12,7 @@
 		2037B5671B9A2E3200F3094A /* IJReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B5661B9A2E3200F3094A /* IJReachability.swift */; };
 		2037B5691B9A2E6F00F3094A /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B5681B9A2E6F00F3094A /* CoreDataStackManager.swift */; };
 		2037B56B1B9A3B2000F3094A /* InitDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B56A1B9A3B2000F3094A /* InitDataViewController.swift */; };
-		2037B56D1B9A3B4400F3094A /* TopRatedMangasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B56C1B9A3B4400F3094A /* TopRatedMangasViewController.swift */; };
+		2037B56D1B9A3B4400F3094A /* MangasCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B56C1B9A3B4400F3094A /* MangasCollectionViewController.swift */; };
 		2037B56F1B9A3B5600F3094A /* GenresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B56E1B9A3B5600F3094A /* GenresViewController.swift */; };
 		205CBF661BA4E05F00CADACF /* GenreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CBF651BA4E05F00CADACF /* GenreTableViewCell.swift */; };
 		206331E71BA40B9500709DB8 /* AddToButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206331E61BA40B9500709DB8 /* AddToButton.swift */; };
@@ -50,7 +50,7 @@
 		2037B5661B9A2E3200F3094A /* IJReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IJReachability.swift; sourceTree = "<group>"; };
 		2037B5681B9A2E6F00F3094A /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		2037B56A1B9A3B2000F3094A /* InitDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InitDataViewController.swift; path = Controllers/InitDataViewController.swift; sourceTree = "<group>"; };
-		2037B56C1B9A3B4400F3094A /* TopRatedMangasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopRatedMangasViewController.swift; path = Controllers/TopRatedMangasViewController.swift; sourceTree = "<group>"; };
+		2037B56C1B9A3B4400F3094A /* MangasCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MangasCollectionViewController.swift; path = Controllers/MangasCollectionViewController.swift; sourceTree = "<group>"; };
 		2037B56E1B9A3B5600F3094A /* GenresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenresViewController.swift; path = Controllers/GenresViewController.swift; sourceTree = "<group>"; };
 		205CBF651BA4E05F00CADACF /* GenreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenreTableViewCell.swift; path = Views/GenreTableViewCell.swift; sourceTree = "<group>"; };
 		206331E61BA40B9500709DB8 /* AddToButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddToButton.swift; path = Views/AddToButton.swift; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				2037B56A1B9A3B2000F3094A /* InitDataViewController.swift */,
-				2037B56C1B9A3B4400F3094A /* TopRatedMangasViewController.swift */,
+				2037B56C1B9A3B4400F3094A /* MangasCollectionViewController.swift */,
 				2037B56E1B9A3B5600F3094A /* GenresViewController.swift */,
 				202579771B9FBD3E00695410 /* MangaDetailsViewController.swift */,
 			);
@@ -300,7 +300,7 @@
 				2037B5691B9A2E6F00F3094A /* CoreDataStackManager.swift in Sources */,
 				208A93FC1B9A297F0098F0FC /* AnimeNewsNetworkXMLParserForMangaDetail.swift in Sources */,
 				208A93D01B9A29170098F0FC /* AppDelegate.swift in Sources */,
-				2037B56D1B9A3B4400F3094A /* TopRatedMangasViewController.swift in Sources */,
+				2037B56D1B9A3B4400F3094A /* MangasCollectionViewController.swift in Sources */,
 				205CBF661BA4E05F00CADACF /* GenreTableViewCell.swift in Sources */,
 				208A93D31B9A29170098F0FC /* MangaExplorer.xcdatamodeld in Sources */,
 				20ECD5331B9F77AB004DCEB3 /* Genre.swift in Sources */,

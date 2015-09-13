@@ -1,5 +1,5 @@
 //
-//  TopRatedViewController.swift
+//  MangasCollectionViewController.swift
 //  MangaExplorer
 //
 //  Created by Sanjib Ahmad on 9/5/15.
@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TopRatedMangasViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
+class MangasCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     
     let cellReuseIdentifier = "MangaCell"

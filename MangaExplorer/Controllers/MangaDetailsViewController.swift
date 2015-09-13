@@ -111,29 +111,18 @@ class MangaDetailsViewController: UIViewController {
             
             allStaffAttributedString.appendAttributedString(staffAttributedString)
         }
-        
-//        for staff in manga.staff {
-//            var staffAttributedString = NSMutableAttributedString(string: "")
-//            if !allStaffDidAddFirstLine {
-//                allStaffDidAddFirstLine = true
-//                staffAttributedString.appendAttributedString(NSMutableAttributedString(string: staff.task))
-//            } else {
-//                staffAttributedString.appendAttributedString(NSMutableAttributedString(string: "\n" + staff.task))
-//            }
-//            staffAttributedString.addAttributes(attributesForStaffHeading, range: NSRange(location: 0, length: staffAttributedString.length))
-//            staffAttributedString.appendAttributedString(NSAttributedString(string: " " + staff.person))
-//            
-//            allStaffAttributedString.appendAttributedString(staffAttributedString)
-//        }
+
         staffLabel.attributedText = allStaffAttributedString
     }
     
     private func setBayesianAverage() {
         if manga.bayesianAverage > 0 {
+            bayesianAverageLabel.hidden = false
+            
             let average = Double(round(manga.bayesianAverage*10)/10)
             bayesianAverageLabel.text = "\(average)"
         } else {
-            bayesianAverageLabel.text = ""
+            bayesianAverageLabel.hidden = true
         }
     }
     

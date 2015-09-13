@@ -77,10 +77,10 @@
             </objects>
             <point key="canvasLocation" x="2092" y="885"/>
         </scene>
-        <!--Top Rated Mangas View Controller-->
+        <!--Mangas Collection View Controller-->
         <scene sceneID="U66-RX-Ls0">
             <objects>
-                <viewController id="min-ee-bdF" customClass="TopRatedMangasViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="min-ee-bdF" customClass="MangasCollectionViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hCY-eW-9j3"/>
                         <viewControllerLayoutGuide type="bottom" id="8s5-hn-F9k"/>
