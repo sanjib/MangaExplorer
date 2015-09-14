@@ -229,7 +229,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         } else {
             cell.ratingsLabel.hidden = true
         }
-
         
         // if imageName: check in cache, else check if already downloaded, else fetch
         if let imageName = manga.imageName {

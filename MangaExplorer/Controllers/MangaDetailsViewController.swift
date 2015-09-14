@@ -71,10 +71,26 @@ class MangaDetailsViewController: UIViewController {
     // MARK: - set content
     
     private func setMangaImage() {
+//        if let imageData = manga.imageData {
+//            mangaImageView.image = UIImage(data: imageData)
+//        } else {
+//            mangaImageView.image = photoPlaceholderImage
+//        }
+        
         if let imageData = manga.imageData {
-            mangaImageView.image = UIImage(data: imageData)
+            mangaImageView.image = UIImage(data: imageData)!
         } else {
             mangaImageView.image = photoPlaceholderImage
+            if !manga.fetchInProgress {
+                manga.fetchImageData { fetchComplete in
+                    if fetchComplete {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.mangaImageView.image = UIImage(data: self.manga.imageData!)
+                            self.mangaImageView.setNeedsDisplay()
+                        }
+                    }
+                }
+            }
         }
     }
     
