@@ -199,6 +199,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="T7S-1O-98z">
+                                <rect key="frame" x="281.5" y="281.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -206,10 +209,13 @@
                             <constraint firstItem="LmB-cw-3um" firstAttribute="top" secondItem="CsU-qf-HpK" secondAttribute="topMargin" id="Dhl-ab-kuF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LmB-cw-3um" secondAttribute="trailing" constant="-16" id="bIb-XI-teP"/>
                             <constraint firstItem="LmB-cw-3um" firstAttribute="leading" secondItem="CsU-qf-HpK" secondAttribute="leadingMargin" constant="-16" id="l87-Zw-tf0"/>
+                            <constraint firstAttribute="centerY" secondItem="T7S-1O-98z" secondAttribute="centerY" id="lsj-sp-xdF"/>
+                            <constraint firstAttribute="centerX" secondItem="T7S-1O-98z" secondAttribute="centerX" id="y0p-as-Qyg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="j16-rb-RtU"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="T7S-1O-98z" id="Nl5-DL-6Hb"/>
                         <outlet property="searchDisplayController" destination="0vF-Ie-hJX" id="fti-I8-f9c"/>
                         <outlet property="tableView" destination="LmB-cw-3um" id="nLd-vR-Qrp"/>
                         <segue destination="TcX-Qf-PJT" kind="show" identifier="MangaDetailsSegue" id="PDU-5d-VPO"/>

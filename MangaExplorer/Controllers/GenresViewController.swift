@@ -60,7 +60,6 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         fetchRequest.entity = NSEntityDescription.entityForName("Genre", inManagedObjectContext: sharedContext)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
-//        fetchRequest.returnsDistinctResults = true
         fetchRequest.propertiesToFetch = ["name"]
         
         var error: NSError? = nil
