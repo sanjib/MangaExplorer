@@ -15,7 +15,7 @@ class GenreTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
         genreImageView.contentMode = UIViewContentMode.ScaleAspectFit
         genreImageView.clipsToBounds = true
         genreImageView.tintColor = UIColor.grayColor()

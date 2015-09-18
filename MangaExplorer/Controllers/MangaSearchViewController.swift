@@ -15,13 +15,10 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     
     var searchController: UISearchController!
 
-
     private var cache = NSCache()
     private var searchResults = [Manga]()
     private var selectedManga: Manga?
-    
     private var fetchInProgressCount = 0
-    
     private let photoPlaceholderImage = UIImage(named: "mangaPlaceholder")
     
     override func viewDidLoad() {
@@ -138,11 +135,6 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     // MARK: - Configure cell
     
     func configureCell(cell: SearchResultTableViewCell, atIndexPath indexPath: NSIndexPath) {
-//        if let manga = self.searchResults.count > indexPath.row ? self.searchResults[indexPath.row] : nil {
-//            println("configureCell found manga at: \(indexPath.row)")
-//            cell.titleLabel.text = manga.title
-//        }
-//        return
         
         if let manga = searchResults.count > indexPath.row ? searchResults[indexPath.row] : nil {
             println("configureCell found manga at: \(indexPath.row)")

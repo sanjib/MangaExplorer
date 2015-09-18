@@ -19,50 +19,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="qo5-AT-dnP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="69" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="qo5-AT-dnP">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.29803922772407532" green="0.29803922772407532" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GenreCell" rowHeight="48" id="9Rs-VR-cdV" customClass="GenreTableViewCell" customModule="MangaExplorer" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="GenreCell" rowHeight="56" id="9Rs-VR-cdV" customClass="GenreTableViewCell" customModule="MangaExplorer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Rs-VR-cdV" id="gix-Bo-Etz">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Jd-kv-mvq">
-                                                    <rect key="frame" x="8" y="8" width="32" height="32"/>
+                                                    <rect key="frame" x="16" y="10" width="36" height="36"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="b3X-AT-fpA"/>
-                                                        <constraint firstAttribute="height" constant="32" id="geE-CO-fpA"/>
+                                                        <constraint firstAttribute="height" constant="36" id="3aL-EM-hou"/>
+                                                        <constraint firstAttribute="width" constant="36" id="lJK-T6-noT"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNi-yn-94g">
-                                                    <rect key="frame" x="48" y="14" width="46" height="20"/>
+                                                    <rect key="frame" x="62" y="18" width="46" height="20"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neT-Mq-e4G">
-                                                    <rect key="frame" x="102" y="15" width="16" height="17"/>
+                                                    <rect key="frame" x="116" y="19.5" width="15.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="aNi-yn-94g" firstAttribute="top" secondItem="6Jd-kv-mvq" secondAttribute="bottom" constant="-26" id="10B-OU-lpP"/>
-                                                <constraint firstItem="aNi-yn-94g" firstAttribute="leading" secondItem="6Jd-kv-mvq" secondAttribute="trailing" constant="8" id="5ag-Rl-kQA"/>
-                                                <constraint firstItem="neT-Mq-e4G" firstAttribute="top" secondItem="gix-Bo-Etz" secondAttribute="topMargin" constant="7" id="LZo-cM-OO6"/>
-                                                <constraint firstItem="aNi-yn-94g" firstAttribute="centerX" secondItem="neT-Mq-e4G" secondAttribute="centerX" constant="-39" id="cma-NW-RrA"/>
-                                                <constraint firstItem="neT-Mq-e4G" firstAttribute="leading" secondItem="aNi-yn-94g" secondAttribute="trailing" constant="8" id="lHk-to-BQS"/>
-                                                <constraint firstItem="6Jd-kv-mvq" firstAttribute="leading" secondItem="gix-Bo-Etz" secondAttribute="leadingMargin" id="vAx-Yx-CV9"/>
-                                                <constraint firstItem="6Jd-kv-mvq" firstAttribute="top" secondItem="gix-Bo-Etz" secondAttribute="topMargin" id="zzB-mx-A89"/>
+                                                <constraint firstItem="6Jd-kv-mvq" firstAttribute="leading" secondItem="gix-Bo-Etz" secondAttribute="leadingMargin" constant="8" id="Iim-3Z-GWL"/>
+                                                <constraint firstItem="neT-Mq-e4G" firstAttribute="leading" secondItem="aNi-yn-94g" secondAttribute="trailing" constant="8" id="J0e-W8-NE7"/>
+                                                <constraint firstItem="aNi-yn-94g" firstAttribute="top" secondItem="neT-Mq-e4G" secondAttribute="bottom" constant="-18" id="Vva-Rm-4oy"/>
+                                                <constraint firstItem="6Jd-kv-mvq" firstAttribute="centerY" secondItem="aNi-yn-94g" secondAttribute="centerY" id="WNz-Md-I5d"/>
+                                                <constraint firstItem="6Jd-kv-mvq" firstAttribute="top" secondItem="gix-Bo-Etz" secondAttribute="topMargin" constant="2" id="bdJ-MY-50G"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6Jd-kv-mvq" secondAttribute="bottom" constant="2" id="eS2-R0-G8p"/>
+                                                <constraint firstItem="aNi-yn-94g" firstAttribute="leading" secondItem="6Jd-kv-mvq" secondAttribute="trailing" constant="10" id="min-5v-Vhd"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="cma-NW-RrA"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -76,10 +71,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="qo5-AT-dnP" firstAttribute="leading" secondItem="DtP-QV-GBW" secondAttribute="leadingMargin" constant="-16" id="ATI-NR-0vi"/>
-                            <constraint firstItem="qo5-AT-dnP" firstAttribute="bottom" secondItem="DtP-QV-GBW" secondAttribute="bottomMargin" id="N4T-YK-JQT"/>
-                            <constraint firstItem="qo5-AT-dnP" firstAttribute="top" secondItem="DtP-QV-GBW" secondAttribute="topMargin" id="rL3-R1-AzQ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qo5-AT-dnP" secondAttribute="trailing" constant="-16" id="wwC-zT-N2L"/>
+                            <constraint firstItem="qo5-AT-dnP" firstAttribute="bottom" secondItem="DtP-QV-GBW" secondAttribute="bottomMargin" id="CYJ-OF-pKJ"/>
+                            <constraint firstItem="qo5-AT-dnP" firstAttribute="leading" secondItem="DtP-QV-GBW" secondAttribute="leadingMargin" constant="-16" id="HLB-Go-jK7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qo5-AT-dnP" secondAttribute="trailing" constant="-16" id="qS4-0Z-AZj"/>
+                            <constraint firstItem="qo5-AT-dnP" firstAttribute="top" secondItem="DtP-QV-GBW" secondAttribute="topMargin" id="s9P-5k-pPj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Genres" id="Qa6-3g-2ya"/>
@@ -812,6 +807,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yaC-pP-Trv"/>
-        <segue reference="PDU-5d-VPO"/>
+        <segue reference="slS-5P-aSo"/>
     </inferredMetricsTieBreakers>
 </document>
