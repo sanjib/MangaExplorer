@@ -120,7 +120,7 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MangaSearchResultCell", forIndexPath: indexPath) as! SearchResultTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("MangaSearchResultCell", forIndexPath: indexPath) as! MangaTableViewCell
         configureCell(cell, atIndexPath: indexPath)
         return cell
     }
@@ -134,7 +134,7 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     
     // MARK: - Configure cell
     
-    func configureCell(cell: SearchResultTableViewCell, atIndexPath indexPath: NSIndexPath) {
+    func configureCell(cell: MangaTableViewCell, atIndexPath indexPath: NSIndexPath) {
         
         if let manga = searchResults.count > indexPath.row ? searchResults[indexPath.row] : nil {
             println("configureCell found manga at: \(indexPath.row)")

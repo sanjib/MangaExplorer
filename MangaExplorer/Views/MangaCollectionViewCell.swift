@@ -1,5 +1,5 @@
 //
-//  TopRatedMangaCollectionViewCell.swift
+//  MangaCollectionViewCell.swift
 //  MangaExplorer
 //
 //  Created by Sanjib Ahmad on 9/9/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopRatedMangaCollectionViewCell: UICollectionViewCell {
+class MangaCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var mangaImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!

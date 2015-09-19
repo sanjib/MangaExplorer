@@ -39,7 +39,7 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 62.0
+        tableView.estimatedRowHeight = 56.0
         tableView.rowHeight = UITableViewAutomaticDimension
 
         // CoreData

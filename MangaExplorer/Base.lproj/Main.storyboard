@@ -90,7 +90,7 @@
         <!--Manga Lists-->
         <scene sceneID="4gz-8T-zDz">
             <objects>
-                <viewController id="CcP-OO-kPN" sceneMemberID="viewController">
+                <viewController id="CcP-OO-kPN" customClass="MangaListViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mks-sa-j8O"/>
                         <viewControllerLayoutGuide type="bottom" id="x37-fO-zIN"/>
@@ -98,9 +98,105 @@
                     <view key="view" contentMode="scaleToFill" id="MK2-h8-mgD">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="duW-af-cyH">
+                                <rect key="frame" x="205" y="72" width="191" height="29"/>
+                                <segments>
+                                    <segment title="Wish List"/>
+                                    <segment title="Favorites List"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="EYb-dH-r3c">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MangaListCell" rowHeight="62" id="oD1-SM-XwL" customClass="MangaTableViewCell" customModule="MangaExplorer" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="118" width="600" height="62"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oD1-SM-XwL" id="0FP-UN-iKU">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hnw-Fg-fnc">
+                                                    <rect key="frame" x="8" y="8" width="46" height="46"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="46" id="V9y-9x-lX4"/>
+                                                        <constraint firstAttribute="height" constant="46" id="fCd-7w-a4s"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ltk-VM-NfA">
+                                                    <rect key="frame" x="62" y="8" width="505" height="17.5"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alternative Titles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yt-MT-o6p">
+                                                    <rect key="frame" x="62" y="26" width="505" height="14"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creators" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mi7-CQ-fGD">
+                                                    <rect key="frame" x="62" y="40" width="505" height="14"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                    <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Hnw-Fg-fnc" firstAttribute="bottom" secondItem="0FP-UN-iKU" secondAttribute="bottomMargin" id="2dz-sq-tdK"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="7yt-MT-o6p" secondAttribute="bottom" constant="14.5" id="7E3-ez-cLQ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Ltk-VM-NfA" secondAttribute="trailing" constant="-8" id="EJO-HT-3KW"/>
+                                                <constraint firstItem="7yt-MT-o6p" firstAttribute="leading" secondItem="Hnw-Fg-fnc" secondAttribute="trailing" constant="8" id="Gza-9M-DYE"/>
+                                                <constraint firstItem="Mi7-CQ-fGD" firstAttribute="top" secondItem="0FP-UN-iKU" secondAttribute="topMargin" constant="32" id="H10-5S-OXY"/>
+                                                <constraint firstItem="Mi7-CQ-fGD" firstAttribute="top" secondItem="Ltk-VM-NfA" secondAttribute="bottom" constant="8" id="HQG-kH-Ihf"/>
+                                                <constraint firstItem="7yt-MT-o6p" firstAttribute="top" secondItem="0FP-UN-iKU" secondAttribute="topMargin" constant="18" id="Ik0-z6-G9q"/>
+                                                <constraint firstItem="Ltk-VM-NfA" firstAttribute="top" secondItem="0FP-UN-iKU" secondAttribute="topMargin" id="NVJ-8F-6yZ"/>
+                                                <constraint firstItem="Ltk-VM-NfA" firstAttribute="leading" secondItem="Hnw-Fg-fnc" secondAttribute="trailing" constant="8" id="Sv4-DQ-nEK"/>
+                                                <constraint firstItem="Mi7-CQ-fGD" firstAttribute="top" secondItem="Ltk-VM-NfA" secondAttribute="bottom" constant="8" id="YBE-IV-oKm"/>
+                                                <constraint firstItem="Hnw-Fg-fnc" firstAttribute="top" secondItem="0FP-UN-iKU" secondAttribute="topMargin" id="YuF-JS-YxP"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Mi7-CQ-fGD" secondAttribute="bottom" constant="0.5" id="cuk-KF-crc"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="7yt-MT-o6p" secondAttribute="trailing" constant="-8" id="lDH-ET-3dF"/>
+                                                <constraint firstItem="Mi7-CQ-fGD" firstAttribute="leading" secondItem="Hnw-Fg-fnc" secondAttribute="trailing" constant="8" id="qft-qU-H3s"/>
+                                                <constraint firstItem="Mi7-CQ-fGD" firstAttribute="leading" secondItem="Hnw-Fg-fnc" secondAttribute="trailing" constant="13" id="tB5-wD-11f"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Mi7-CQ-fGD" secondAttribute="trailing" constant="-8" id="xUt-I7-oVZ"/>
+                                                <constraint firstItem="Hnw-Fg-fnc" firstAttribute="leading" secondItem="0FP-UN-iKU" secondAttribute="leadingMargin" id="zSS-DW-xhh"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="2dz-sq-tdK"/>
+                                                    <exclude reference="7E3-ez-cLQ"/>
+                                                    <exclude reference="cuk-KF-crc"/>
+                                                    <exclude reference="YBE-IV-oKm"/>
+                                                    <exclude reference="tB5-wD-11f"/>
+                                                    <exclude reference="HQG-kH-Ihf"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="alternativeTitlesLabel" destination="7yt-MT-o6p" id="2Vq-1B-qQ6"/>
+                                            <outlet property="creatorsLabel" destination="Mi7-CQ-fGD" id="jlR-dD-Wdh"/>
+                                            <outlet property="mangaImageView" destination="Hnw-Fg-fnc" id="zQJ-gb-Qcj"/>
+                                            <outlet property="titleLabel" destination="Ltk-VM-NfA" id="hrg-Zt-C9Y"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="EYb-dH-r3c" secondAttribute="trailing" constant="-16" id="CnE-xz-VA9"/>
+                            <constraint firstItem="x37-fO-zIN" firstAttribute="top" secondItem="EYb-dH-r3c" secondAttribute="bottom" constant="-49" id="DnH-fp-2np"/>
+                            <constraint firstItem="EYb-dH-r3c" firstAttribute="leading" secondItem="MK2-h8-mgD" secondAttribute="leadingMargin" constant="-16" id="Ful-2E-cz8"/>
+                            <constraint firstItem="duW-af-cyH" firstAttribute="top" secondItem="mks-sa-j8O" secondAttribute="bottom" constant="8" id="LaM-s9-WhT"/>
+                            <constraint firstAttribute="centerX" secondItem="duW-af-cyH" secondAttribute="centerX" constant="-0.5" id="Lm0-ta-FF0"/>
+                            <constraint firstItem="EYb-dH-r3c" firstAttribute="top" secondItem="duW-af-cyH" secondAttribute="bottom" constant="8" id="STe-eP-yBt"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Manga Lists" id="wHi-kD-C6Y"/>
+                    <connections>
+                        <outlet property="tableView" destination="EYb-dH-r3c" id="cBW-Zx-cih"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0J-oE-0fq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -122,7 +218,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.29803922772407532" green="0.29803922772407532" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MangaSearchResultCell" rowHeight="62" id="hN2-Fv-43f" customClass="SearchResultTableViewCell" customModule="MangaExplorer" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MangaSearchResultCell" rowHeight="62" id="hN2-Fv-43f" customClass="MangaTableViewCell" customModule="MangaExplorer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hN2-Fv-43f" id="bi6-oI-PGC">
@@ -250,7 +346,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MangaCell" id="4cE-Wg-905" customClass="TopRatedMangaCollectionViewCell" customModule="MangaExplorer" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MangaCell" id="4cE-Wg-905" customClass="MangaCollectionViewCell" customModule="MangaExplorer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -807,6 +903,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yaC-pP-Trv"/>
-        <segue reference="slS-5P-aSo"/>
+        <segue reference="PDU-5d-VPO"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,5 +1,5 @@
 //
-//  SearchResultTableViewCell.swift
+//  MangaTableViewCell.swift
 //  MangaExplorer
 //
 //  Created by Sanjib Ahmad on 9/14/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchResultTableViewCell: UITableViewCell {
+class MangaTableViewCell: UITableViewCell {
     @IBOutlet weak var mangaImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var alternativeTitlesLabel: UILabel!

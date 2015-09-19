@@ -194,14 +194,14 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! TopRatedMangaCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! MangaCollectionViewCell
         configureCell(cell, atIndexPath: indexPath)
         return cell
     }
     
     // MARK: - Configure cell
     
-    func configureCell(cell: TopRatedMangaCollectionViewCell, atIndexPath indexPath: NSIndexPath) {
+    func configureCell(cell: MangaCollectionViewCell, atIndexPath indexPath: NSIndexPath) {
         let manga = fetchedResultsController.objectAtIndexPath(indexPath) as! Manga
         
         cell.titleLabel.text = manga.title
