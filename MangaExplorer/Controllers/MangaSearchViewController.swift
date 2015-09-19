@@ -177,6 +177,7 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
                                 if fetchComplete {
                                     dispatch_async(dispatch_get_main_queue()) {
                                         self.safeReloadMangaRowAtIndexPath(indexPath, manga: manga)
+                                        NSNotificationCenter.defaultCenter().postNotificationName("refreshMangaImageNotification", object: nil)
                                     }
                                 }
                             }

@@ -12,6 +12,8 @@
         <attribute name="bayesianAverage" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="imageRemotePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isFavorite" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isWished" attributeType="Boolean" syncable="YES"/>
         <attribute name="plotSummary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="alternativeTitle" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="AlternativeTitle" inverseName="manga" inverseEntity="AlternativeTitle" syncable="YES"/>
@@ -24,9 +26,9 @@
         <relationship name="manga" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Manga" inverseName="staff" inverseEntity="Manga" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Manga" positionX="-54" positionY="-9" width="128" height="165"/>
         <element name="AlternativeTitle" positionX="-54" positionY="27" width="128" height="75"/>
         <element name="Genre" positionX="-45" positionY="36" width="128" height="75"/>
+        <element name="Manga" positionX="-54" positionY="-9" width="128" height="195"/>
         <element name="Staff" positionX="-27" positionY="45" width="128" height="90"/>
     </elements>
 </model>

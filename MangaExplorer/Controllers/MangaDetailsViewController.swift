@@ -54,6 +54,8 @@ class MangaDetailsViewController: UIViewController {
         
         bayesianAverageLabel.layer.cornerRadius = 3.0
         bayesianAverageLabel.clipsToBounds = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -69,6 +71,10 @@ class MangaDetailsViewController: UIViewController {
     }
     
     // MARK: - set content
+    
+    func refreshMangaImage() {
+        setMangaImage()
+    }
     
     private func setMangaImage() {
 //        if let imageData = manga.imageData {
@@ -86,7 +92,6 @@ class MangaDetailsViewController: UIViewController {
                     if fetchComplete {
                         dispatch_async(dispatch_get_main_queue()) {
                             self.mangaImageView.image = UIImage(data: self.manga.imageData!)
-                            self.mangaImageView.setNeedsDisplay()
                         }
                     }
                 }

@@ -15,6 +15,9 @@ class Manga: NSManagedObject {
     @NSManaged var bayesianAverage: Double
     @NSManaged var imageRemotePath: String?
     @NSManaged var plotSummary: String?
+
+    @NSManaged var isWished: Bool
+    @NSManaged var isFavorite: Bool
     
     @NSManaged var staff: [Staff]
     @NSManaged var alternativeTitle: [AlternativeTitle]
@@ -30,6 +33,9 @@ class Manga: NSManagedObject {
         
         self.id = id
         self.title = title
+
+        isWished = false
+        isFavorite = false
     }
     
     var fetchInProgress = false

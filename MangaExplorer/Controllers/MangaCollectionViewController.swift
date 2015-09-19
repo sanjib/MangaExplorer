@@ -249,6 +249,7 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
                             if fetchComplete {
                                 dispatch_async(dispatch_get_main_queue()) {
                                     self.collectionView.reloadItemsAtIndexPaths([indexPath])
+                                    NSNotificationCenter.defaultCenter().postNotificationName("refreshMangaImageNotification", object: nil)
                                 }
                             }
                         }
