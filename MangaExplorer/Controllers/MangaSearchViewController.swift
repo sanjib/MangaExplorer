@@ -39,6 +39,9 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
         
         tableView.tableHeaderView = searchController.searchBar
         self.definesPresentationContext = true
+        
+        tableView.estimatedRowHeight = 62.0
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func didReceiveMemoryWarning() {

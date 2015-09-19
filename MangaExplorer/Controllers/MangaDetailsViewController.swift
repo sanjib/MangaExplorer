@@ -55,6 +55,9 @@ class MangaDetailsViewController: UIViewController {
         bayesianAverageLabel.layer.cornerRadius = 3.0
         bayesianAverageLabel.clipsToBounds = true
         
+        setTitleForWishListButton()
+        setTitleForFavoritesButton()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
     }
     
@@ -70,19 +73,43 @@ class MangaDetailsViewController: UIViewController {
         setAlternativeTitle()
     }
     
-    // MARK: - set content
+    // MARK: - List buttons
+    
+    @IBAction func wishListAction(sender: AddToButton) {
+        manga.isWished = !manga.isWished
+        CoreDataStackManager.sharedInstance.saveContext()
+        setTitleForWishListButton()
+    }
+    
+    @IBAction func favoriteListAction(sender: AnyObject) {
+        manga.isFavorite = !manga.isFavorite
+        CoreDataStackManager.sharedInstance.saveContext()
+        setTitleForFavoritesButton()
+    }
+    
+    private func setTitleForWishListButton() {
+        if manga.isWished {
+            addToWishListButton.setTitle("Remove from Wish List", forState: UIControlState.Normal)
+        } else {
+            addToWishListButton.setTitle("Add to Wish List", forState: UIControlState.Normal)
+        }
+    }
+    
+    private func setTitleForFavoritesButton() {
+        if manga.isFavorite {
+            addToFavoritesButton.setTitle("Remove from Favorites", forState: UIControlState.Normal)
+        } else {
+            addToFavoritesButton.setTitle("Add to Favorites", forState: UIControlState.Normal)
+        }
+    }
+    
+    // MARK: - Content
     
     func refreshMangaImage() {
         setMangaImage()
     }
     
     private func setMangaImage() {
-//        if let imageData = manga.imageData {
-//            mangaImageView.image = UIImage(data: imageData)
-//        } else {
-//            mangaImageView.image = photoPlaceholderImage
-//        }
-        
         if let imageData = manga.imageData {
             mangaImageView.image = UIImage(data: imageData)!
         } else {

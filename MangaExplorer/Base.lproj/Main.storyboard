@@ -105,10 +105,13 @@
                                     <segment title="Wish List"/>
                                     <segment title="Favorites List"/>
                                 </segments>
+                                <connections>
+                                    <action selector="selectList:" destination="CcP-OO-kPN" eventType="valueChanged" id="0hH-tD-you"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="EYb-dH-r3c">
-                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="443"/>
+                                <color key="backgroundColor" red="0.29803922772407532" green="0.29803922772407532" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MangaListCell" rowHeight="62" id="oD1-SM-XwL" customClass="MangaTableViewCell" customModule="MangaExplorer" customModuleProvider="target">
                                         <rect key="frame" x="10" y="118" width="600" height="62"/>
@@ -157,6 +160,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="Mi7-CQ-fGD" secondAttribute="bottom" constant="0.5" id="cuk-KF-crc"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="7yt-MT-o6p" secondAttribute="trailing" constant="-8" id="lDH-ET-3dF"/>
                                                 <constraint firstItem="Mi7-CQ-fGD" firstAttribute="leading" secondItem="Hnw-Fg-fnc" secondAttribute="trailing" constant="8" id="qft-qU-H3s"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Hnw-Fg-fnc" secondAttribute="bottom" constant="-0.5" id="rhn-o3-CFD"/>
                                                 <constraint firstItem="Mi7-CQ-fGD" firstAttribute="leading" secondItem="Hnw-Fg-fnc" secondAttribute="trailing" constant="13" id="tB5-wD-11f"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Mi7-CQ-fGD" secondAttribute="trailing" constant="-8" id="xUt-I7-oVZ"/>
                                                 <constraint firstItem="Hnw-Fg-fnc" firstAttribute="leading" secondItem="0FP-UN-iKU" secondAttribute="leadingMargin" id="zSS-DW-xhh"/>
@@ -165,10 +169,10 @@
                                                 <mask key="constraints">
                                                     <exclude reference="2dz-sq-tdK"/>
                                                     <exclude reference="7E3-ez-cLQ"/>
-                                                    <exclude reference="cuk-KF-crc"/>
-                                                    <exclude reference="YBE-IV-oKm"/>
-                                                    <exclude reference="tB5-wD-11f"/>
                                                     <exclude reference="HQG-kH-Ihf"/>
+                                                    <exclude reference="YBE-IV-oKm"/>
+                                                    <exclude reference="cuk-KF-crc"/>
+                                                    <exclude reference="tB5-wD-11f"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -183,10 +187,10 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="EYb-dH-r3c" secondAttribute="trailing" constant="-16" id="CnE-xz-VA9"/>
-                            <constraint firstItem="x37-fO-zIN" firstAttribute="top" secondItem="EYb-dH-r3c" secondAttribute="bottom" constant="-49" id="DnH-fp-2np"/>
+                            <constraint firstItem="x37-fO-zIN" firstAttribute="top" secondItem="EYb-dH-r3c" secondAttribute="bottom" id="DnH-fp-2np"/>
                             <constraint firstItem="EYb-dH-r3c" firstAttribute="leading" secondItem="MK2-h8-mgD" secondAttribute="leadingMargin" constant="-16" id="Ful-2E-cz8"/>
                             <constraint firstItem="duW-af-cyH" firstAttribute="top" secondItem="mks-sa-j8O" secondAttribute="bottom" constant="8" id="LaM-s9-WhT"/>
                             <constraint firstAttribute="centerX" secondItem="duW-af-cyH" secondAttribute="centerX" constant="-0.5" id="Lm0-ta-FF0"/>
@@ -195,7 +199,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Manga Lists" id="wHi-kD-C6Y"/>
                     <connections>
+                        <outlet property="listSegmentedControl" destination="duW-af-cyH" id="PGn-fv-0op"/>
                         <outlet property="tableView" destination="EYb-dH-r3c" id="cBW-Zx-cih"/>
+                        <segue destination="TcX-Qf-PJT" kind="show" identifier="MangaDetailsSegue" id="8hb-h7-u5x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0J-oE-0fq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -265,6 +271,7 @@
                                                 <constraint firstItem="A6R-Ye-jc8" firstAttribute="top" secondItem="s2k-Ho-CYk" secondAttribute="bottom" constant="8" id="bbe-sg-IGr"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="s2k-Ho-CYk" secondAttribute="trailing" constant="-8" id="gqj-pk-AbD"/>
                                                 <constraint firstItem="dFq-R2-rQQ" firstAttribute="top" secondItem="bi6-oI-PGC" secondAttribute="topMargin" id="hxe-5h-qDY"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dFq-R2-rQQ" secondAttribute="bottom" constant="-0.5" id="mzx-o0-i6P"/>
                                                 <constraint firstItem="s2k-Ho-CYk" firstAttribute="leading" secondItem="dFq-R2-rQQ" secondAttribute="trailing" constant="8" id="pS5-BI-pFR"/>
                                                 <constraint firstItem="dFq-R2-rQQ" firstAttribute="leading" secondItem="bi6-oI-PGC" secondAttribute="leadingMargin" id="sXQ-pm-Pb0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="rs4-Bq-bxj" secondAttribute="trailing" constant="-8" id="sYb-ac-gLt"/>
@@ -474,7 +481,7 @@
                                         </variation>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjH-Ew-pov">
-                                        <rect key="frame" x="288" y="16" width="264" height="23.5"/>
+                                        <rect key="frame" x="288" y="16" width="268" height="23.5"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Title">
                                                 <attributes>
@@ -488,7 +495,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAj-xz-8Vj">
-                                        <rect key="frame" x="556" y="23" width="25" height="14"/>
+                                        <rect key="frame" x="560" y="23" width="25" height="14"/>
                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="KrU-DE-ab5"/>
@@ -545,24 +552,32 @@
                                         </variation>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Joq-Pm-65e" customClass="AddToButton" customModule="MangaExplorer" customModuleProvider="target">
-                                        <rect key="frame" x="474" y="162" width="110" height="27"/>
+                                        <rect key="frame" x="446" y="159" width="140" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="110" id="BpI-tF-7zF"/>
+                                            <constraint firstAttribute="width" constant="140" id="BpI-tF-7zF"/>
+                                            <constraint firstAttribute="height" constant="30" id="PmW-QE-EYs"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="Add to Wish List">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="wishListAction:" destination="TcX-Qf-PJT" eventType="touchUpInside" id="hLq-MX-dw3"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdy-cF-2YT" customClass="AddToButton" customModule="MangaExplorer" customModuleProvider="target">
-                                        <rect key="frame" x="474" y="197" width="110" height="27"/>
+                                        <rect key="frame" x="446" y="196" width="140" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="110" id="5CN-vg-E9F"/>
+                                            <constraint firstAttribute="width" constant="140" id="5CN-vg-E9F"/>
+                                            <constraint firstAttribute="height" constant="30" id="Vve-rW-trf"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="Add to Favorites">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="favoriteListAction:" destination="TcX-Qf-PJT" eventType="touchUpInside" id="pKV-U8-upp"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -579,26 +594,26 @@
                                     <constraint firstAttribute="trailing" secondItem="aAj-xz-8Vj" secondAttribute="trailing" constant="8" id="Ydc-Z2-MBy"/>
                                     <constraint firstItem="aAj-xz-8Vj" firstAttribute="leading" secondItem="PrM-6h-xz5" secondAttribute="trailing" constant="8" id="ZM6-3n-tVe"/>
                                     <constraint firstItem="cjH-Ew-pov" firstAttribute="leading" secondItem="PrM-6h-xz5" secondAttribute="trailing" constant="12" id="ZUK-fk-aCN"/>
-                                    <constraint firstItem="Cdy-cF-2YT" firstAttribute="top" secondItem="TYw-UM-dPT" secondAttribute="top" constant="197" id="atq-9k-YoM"/>
+                                    <constraint firstItem="Cdy-cF-2YT" firstAttribute="top" secondItem="TYw-UM-dPT" secondAttribute="top" constant="196" id="atq-9k-YoM"/>
                                     <constraint firstItem="cjH-Ew-pov" firstAttribute="top" secondItem="TYw-UM-dPT" secondAttribute="top" constant="16" id="crM-Rp-Aaq"/>
                                     <constraint firstItem="1QW-It-RDt" firstAttribute="top" secondItem="CzO-qH-ALx" secondAttribute="bottom" constant="16" id="dJg-id-WUP"/>
                                     <constraint firstItem="PrM-6h-xz5" firstAttribute="leading" secondItem="TYw-UM-dPT" secondAttribute="leading" constant="16" id="fQz-jw-Twy"/>
                                     <constraint firstItem="1QW-It-RDt" firstAttribute="leading" secondItem="CzO-qH-ALx" secondAttribute="leading" id="hOl-VH-eyg"/>
                                     <constraint firstAttribute="trailing" secondItem="CzO-qH-ALx" secondAttribute="trailing" constant="16" id="jw2-8R-uCV"/>
-                                    <constraint firstItem="Joq-Pm-65e" firstAttribute="top" secondItem="TYw-UM-dPT" secondAttribute="top" constant="162" id="kme-2g-VKx"/>
+                                    <constraint firstItem="Joq-Pm-65e" firstAttribute="top" secondItem="TYw-UM-dPT" secondAttribute="top" constant="159" id="kme-2g-VKx"/>
                                     <constraint firstItem="1QW-It-RDt" firstAttribute="trailing" secondItem="CzO-qH-ALx" secondAttribute="trailing" id="mP3-Yw-uJl"/>
                                     <constraint firstItem="1QW-It-RDt" firstAttribute="leading" secondItem="CzO-qH-ALx" secondAttribute="trailing" constant="8" id="oHO-Pb-UNI"/>
                                     <constraint firstItem="PrM-6h-xz5" firstAttribute="top" secondItem="TYw-UM-dPT" secondAttribute="top" constant="16" id="oKT-k0-gE4"/>
                                     <constraint firstItem="aAj-xz-8Vj" firstAttribute="top" secondItem="JR2-fM-vbg" secondAttribute="bottom" constant="8" id="rrP-b5-q7L"/>
-                                    <constraint firstAttribute="trailing" secondItem="cjH-Ew-pov" secondAttribute="trailing" constant="48" id="tK5-bA-WGN"/>
+                                    <constraint firstAttribute="trailing" secondItem="cjH-Ew-pov" secondAttribute="trailing" constant="44" id="tK5-bA-WGN"/>
                                     <constraint firstItem="CzO-qH-ALx" firstAttribute="top" secondItem="PrM-6h-xz5" secondAttribute="bottom" constant="16" id="utZ-k5-h87"/>
                                     <constraint firstItem="cjH-Ew-pov" firstAttribute="top" secondItem="aAj-xz-8Vj" secondAttribute="bottom" constant="-21" id="vFu-a2-juw"/>
                                     <constraint firstItem="CzO-qH-ALx" firstAttribute="top" secondItem="PrM-6h-xz5" secondAttribute="bottom" constant="8" id="vOh-Mo-mU1"/>
                                     <constraint firstAttribute="bottom" secondItem="1QW-It-RDt" secondAttribute="bottom" constant="24" id="vpv-kq-tA0"/>
-                                    <constraint firstAttribute="trailing" secondItem="Joq-Pm-65e" secondAttribute="trailing" constant="16" id="vrg-7Y-WIs"/>
+                                    <constraint firstAttribute="trailing" secondItem="Joq-Pm-65e" secondAttribute="trailing" constant="14" id="vrg-7Y-WIs"/>
                                     <constraint firstItem="CzO-qH-ALx" firstAttribute="leading" secondItem="TYw-UM-dPT" secondAttribute="leading" constant="8" id="xa3-QN-HoT"/>
                                     <constraint firstItem="1QW-It-RDt" firstAttribute="leading" secondItem="TYw-UM-dPT" secondAttribute="leading" constant="8" id="yIN-x5-bmE"/>
-                                    <constraint firstAttribute="trailing" secondItem="Cdy-cF-2YT" secondAttribute="trailing" constant="16" id="zNf-Ug-gUT"/>
+                                    <constraint firstAttribute="trailing" secondItem="Cdy-cF-2YT" secondAttribute="trailing" constant="14" id="zNf-Ug-gUT"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -890,19 +905,19 @@
     </scenes>
     <resources>
         <image name="dogWaggingTailOrig" width="201" height="308"/>
-        <image name="genres" width="33" height="33"/>
-        <image name="genresFilled" width="33" height="33"/>
-        <image name="myList" width="33" height="33"/>
-        <image name="myListFilled" width="33" height="33"/>
-        <image name="search" width="33" height="33"/>
-        <image name="searchFilled" width="33" height="33"/>
-        <image name="settings" width="33" height="33"/>
-        <image name="settingsFilled" width="33" height="33"/>
-        <image name="topRated" width="33" height="33"/>
-        <image name="topRatedFilled" width="33" height="33"/>
+        <image name="genres" width="25" height="25"/>
+        <image name="genresFilled" width="25" height="25"/>
+        <image name="myList" width="25" height="25"/>
+        <image name="myListFilled" width="25" height="25"/>
+        <image name="search" width="25" height="25"/>
+        <image name="searchFilled" width="25" height="25"/>
+        <image name="settings" width="25" height="25"/>
+        <image name="settingsFilled" width="25" height="25"/>
+        <image name="topRated" width="25" height="25"/>
+        <image name="topRatedFilled" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yaC-pP-Trv"/>
-        <segue reference="PDU-5d-VPO"/>
+        <segue reference="8hb-h7-u5x"/>
     </inferredMetricsTieBreakers>
 </document>
