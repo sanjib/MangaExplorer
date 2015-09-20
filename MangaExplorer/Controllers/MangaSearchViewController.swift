@@ -21,6 +21,8 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     private var fetchInProgressCount = 0
     private let photoPlaceholderImage = UIImage(named: "mangaPlaceholder")
     
+    var singleTapInSearchModeGestureRecognizer: UITapGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +31,9 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
         
         activityIndicator.hidesWhenStopped = true
         activityIndicator.stopAnimating()
+        
+        singleTapInSearchModeGestureRecognizer = UITapGestureRecognizer(target: self, action: "singleTapInSearchMode:")
+        singleTapInSearchModeGestureRecognizer.numberOfTapsRequired = 1
 
         // Search controller
         searchController = UISearchController(searchResultsController: nil)
@@ -49,7 +54,13 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Search
+    // MARK: UIGesture
+    
+    func singleTapInSearchMode(recognizer: UITapGestureRecognizer) {
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    // MARK: - UISearchController delegates
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         let searchString = searchController.searchBar.text
@@ -58,6 +69,14 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
             activityIndicator.startAnimating()
             fetchMangas(searchString)
         }
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        view.addGestureRecognizer(singleTapInSearchModeGestureRecognizer)
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        view.removeGestureRecognizer(singleTapInSearchModeGestureRecognizer)
     }
     
     // MARK: - Core data
