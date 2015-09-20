@@ -936,6 +936,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="qwT-H4-kP5" kind="show" id="k0T-Ba-102"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="IiC-gb-1wi" style="IBUITableViewCellStyleDefault" id="RBM-Gj-8nm">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1021,11 +1024,143 @@
             </objects>
             <point key="canvasLocation" x="2092" y="3004"/>
         </scene>
+        <!--About-->
+        <scene sceneID="7L0-kn-5JC">
+            <objects>
+                <viewController id="qwT-H4-kP5" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EfC-8a-EkD"/>
+                        <viewControllerLayoutGuide type="bottom" id="SCW-98-bLy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="90B-Gz-o7E">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mangaExplorer" translatesAutoresizingMaskIntoConstraints="NO" id="Cm7-lF-pd2">
+                                <rect key="frame" x="261.5" y="181.5" width="57" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="57" id="CHV-xw-17A"/>
+                                    <constraint firstAttribute="height" constant="57" id="Xd7-QR-ehQ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explorer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmL-Ke-yK4">
+                                <rect key="frame" x="262" y="252.5" width="57" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdt-Qp-ZYN">
+                                <rect key="frame" x="184" y="285" width="61.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sanjib Ahmad, ObjectCoder.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyy-4w-FXi">
+                                <rect key="frame" x="261.5" y="285" width="182.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTm-Ic-Aio">
+                                <rect key="frame" x="261.5" y="359" width="314.5" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="amT-zS-RsG"/>
+                                </constraints>
+                                <string key="text">Anime News Network
+http://www.animenewsnetwork.com
+AniList, https://anilist.co</string>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="amT-zS-RsG"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgF-5Q-q60">
+                                <rect key="frame" x="261.5" y="308" width="314.5" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="225" id="kPI-Tj-zgC"/>
+                                </constraints>
+                                <string key="text">Featuring character from the manga, Say Hello to Black Jack by Shuho Sato 
+http://shuhosato.mangareborn.jp</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="kPI-Tj-zgC"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App Icon Credits" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6C-f7-un3">
+                                <rect key="frame" x="152" y="308" width="94" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Source" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBV-IK-gKG">
+                                <rect key="frame" x="177" y="359" width="69" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manga" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBJ-1k-IIM">
+                                <rect key="frame" x="261" y="238.5" width="57.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Cm7-lF-pd2" firstAttribute="leading" secondItem="bTm-Ic-Aio" secondAttribute="leading" id="0dT-cz-oi4"/>
+                            <constraint firstItem="y6C-f7-un3" firstAttribute="top" secondItem="zgF-5Q-q60" secondAttribute="top" id="3VK-71-2WS"/>
+                            <constraint firstAttribute="centerX" secondItem="RmL-Ke-yK4" secondAttribute="centerX" constant="-0.5" id="4Xe-Tf-vKR"/>
+                            <constraint firstItem="zgF-5Q-q60" firstAttribute="top" secondItem="pyy-4w-FXi" secondAttribute="bottom" constant="8" id="9O7-xs-osk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zgF-5Q-q60" secondAttribute="trailing" constant="8" id="CQw-LN-E6b"/>
+                            <constraint firstItem="RmL-Ke-yK4" firstAttribute="top" secondItem="XBJ-1k-IIM" secondAttribute="bottom" constant="-6" id="DFS-5y-kQR"/>
+                            <constraint firstItem="pyy-4w-FXi" firstAttribute="top" secondItem="RmL-Ke-yK4" secondAttribute="bottom" constant="12" id="H6y-g8-OIz"/>
+                            <constraint firstItem="XBJ-1k-IIM" firstAttribute="top" secondItem="Cm7-lF-pd2" secondAttribute="bottom" id="Izt-eQ-haN"/>
+                            <constraint firstItem="TBV-IK-gKG" firstAttribute="trailing" secondItem="y6C-f7-un3" secondAttribute="trailing" id="Jap-Hg-Sm2"/>
+                            <constraint firstAttribute="centerX" secondItem="Cm7-lF-pd2" secondAttribute="centerX" constant="10" id="LgX-Vh-i5i"/>
+                            <constraint firstItem="bTm-Ic-Aio" firstAttribute="top" secondItem="zgF-5Q-q60" secondAttribute="bottom" constant="8" id="M5M-me-ao7"/>
+                            <constraint firstItem="RmL-Ke-yK4" firstAttribute="centerX" secondItem="Cm7-lF-pd2" secondAttribute="centerX" id="OHk-gp-pAv"/>
+                            <constraint firstAttribute="centerX" secondItem="XBJ-1k-IIM" secondAttribute="centerX" id="QJt-34-EGk"/>
+                            <constraint firstItem="Cm7-lF-pd2" firstAttribute="top" secondItem="EfC-8a-EkD" secondAttribute="bottom" multiplier="4:3" constant="48" id="Shp-Vg-d2y"/>
+                            <constraint firstItem="pyy-4w-FXi" firstAttribute="leading" secondItem="Cm7-lF-pd2" secondAttribute="leading" id="Ucw-1C-ig9"/>
+                            <constraint firstItem="TBV-IK-gKG" firstAttribute="top" secondItem="bTm-Ic-Aio" secondAttribute="top" id="WCN-fQ-qxl"/>
+                            <constraint firstAttribute="centerY" secondItem="Cm7-lF-pd2" secondAttribute="centerY" constant="90" id="X6H-Qy-NNt"/>
+                            <constraint firstItem="pyy-4w-FXi" firstAttribute="top" secondItem="bdt-Qp-ZYN" secondAttribute="top" id="ZVb-8z-N0a"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zgF-5Q-q60" secondAttribute="trailing" constant="32" id="ahw-wn-pKh"/>
+                            <constraint firstItem="Cm7-lF-pd2" firstAttribute="leading" secondItem="zgF-5Q-q60" secondAttribute="leading" id="ltU-tT-dy6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bTm-Ic-Aio" secondAttribute="trailing" constant="8" id="lze-xh-hDe"/>
+                            <constraint firstItem="pyy-4w-FXi" firstAttribute="leading" secondItem="bdt-Qp-ZYN" secondAttribute="trailing" constant="16" id="rVU-Wb-0Gk"/>
+                            <constraint firstItem="Cm7-lF-pd2" firstAttribute="centerX" secondItem="XBJ-1k-IIM" secondAttribute="centerX" id="v6X-2u-bka"/>
+                            <constraint firstItem="y6C-f7-un3" firstAttribute="trailing" secondItem="bdt-Qp-ZYN" secondAttribute="trailing" id="zOb-Yn-mJF"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Shp-Vg-d2y"/>
+                                <exclude reference="QJt-34-EGk"/>
+                                <exclude reference="4Xe-Tf-vKR"/>
+                                <exclude reference="ahw-wn-pKh"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="Piq-mR-Uie"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="InN-K9-1Kr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3024" y="2268"/>
+        </scene>
     </scenes>
     <resources>
         <image name="dogWaggingTailOrig" width="201" height="308"/>
         <image name="genres" width="25" height="25"/>
         <image name="genresFilled" width="25" height="25"/>
+        <image name="mangaExplorer" width="66" height="66"/>
         <image name="myList" width="25" height="25"/>
         <image name="myListFilled" width="25" height="25"/>
         <image name="search" width="25" height="25"/>
