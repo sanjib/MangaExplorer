@@ -915,7 +915,7 @@
         <!--Settings-->
         <scene sceneID="IYY-Yj-KS1">
             <objects>
-                <tableViewController id="bS4-JK-Qmo" sceneMemberID="viewController">
+                <tableViewController id="bS4-JK-Qmo" customClass="SettingsTableViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="qYZ-un-8q2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -965,7 +965,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gjA-nn-QqA" id="OmZ-Hb-Wdf">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Latest Manga Fetch Frequency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jqd-SH-mNs">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Fetch Frequency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jqd-SH-mNs">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -980,7 +980,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9eN-Ps-5SB" id="bgb-bi-ymD">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Top Rated Mangas" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cLE-2F-VsI">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Number of Mangas to Display" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cLE-2F-VsI">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -994,12 +994,12 @@
                             </tableViewSection>
                             <tableViewSection id="8Mb-RW-74V">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Ipz-34-07B" detailTextLabel="QvD-9R-X3k" style="IBUITableViewCellStyleValue1" id="BGl-10-SPt">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Ipz-34-07B" detailTextLabel="QvD-9R-X3k" style="IBUITableViewCellStyleValue1" id="BGl-10-SPt">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BGl-10-SPt" id="dHc-Kf-NNL">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Number of Mangas in Database" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ipz-34-07B">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Total Mangas in Database" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ipz-34-07B">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1024,6 +1024,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="Q1N-KM-FtC"/>
+                    <connections>
+                        <outlet property="tellAFriendTableViewCell" destination="RBM-Gj-8nm" id="hzv-Ac-k1T"/>
+                        <outlet property="valueForNumberOfMangasInDatabaseLabel" destination="QvD-9R-X3k" id="7fE-M4-5jd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ziQ-Ku-FlM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
