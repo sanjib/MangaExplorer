@@ -9,6 +9,7 @@
 import UIKit
 
 class MangaDetailsViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var mangaImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var alternativeTitleLabel: UILabel!
@@ -101,6 +102,47 @@ class MangaDetailsViewController: UIViewController {
         } else {
             addToFavoritesButton.setTitle("Add to Favorites", forState: UIControlState.Normal)
         }
+    }
+    
+    // MARK: - Share manga
+    
+    @IBAction func shareManga(sender: UIBarButtonItem) {
+        let mangaImage = generateMangaImageForSharing()
+        let controller = UIActivityViewController(activityItems: [mangaImage], applicationActivities: nil)
+        self.presentViewController(controller, animated: true, completion: nil)
+        controller.completionWithItemsHandler = {
+            activityType, completed, returnedItems, activityError in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
+    private func generateMangaImageForSharing() -> UIImage {
+        // Hide buttons to avoid inclusion in saved image
+        addToWishListButton.hidden = true
+        addToFavoritesButton.hidden = true
+        
+        UIGraphicsBeginImageContext(scrollView.contentSize)
+        
+        // Remember scrollView properties
+        let scrollViewContentOffset = scrollView.contentOffset
+        let scrollViewFrame = scrollView.frame
+        
+        scrollView.contentOffset = CGPointZero
+        scrollView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height)
+        scrollView.layer.renderInContext(UIGraphicsGetCurrentContext())        
+        let mangaImage = UIGraphicsGetImageFromCurrentImageContext()
+
+        // Restore scrollView properties
+        scrollView.contentOffset = scrollViewContentOffset
+        scrollView.frame = scrollViewFrame
+        
+        UIGraphicsEndImageContext()
+        
+        // Unhide buttons
+        addToWishListButton.hidden = false
+        addToFavoritesButton.hidden = false
+        
+        return mangaImage
     }
     
     // MARK: - Content

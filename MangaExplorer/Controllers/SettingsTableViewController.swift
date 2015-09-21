@@ -54,13 +54,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     // MARK: - Tell a friend
     
     private func tellAFriend(cell: UITableViewCell) {
-//        let activityItem = "some text"
-//        let activityViewController = UIActivityViewController(activityItems: [activityItem], applicationActivities: nil)
-//        presentViewController(activityViewController, animated: true, completion: nil)
-//        activityViewController.completionWithItemsHandler = { activityType, completed, returnedItems, activityError in
-//            self.dismissViewControllerAnimated(true, completion: nil)
-//        }
-        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
 
         let mailAction = UIAlertAction(title: "Mail", style: UIAlertActionStyle.Default) { action in

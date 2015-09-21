@@ -590,6 +590,7 @@
                                         </state>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="AVQ-2M-lpz" secondAttribute="trailing" constant="16" id="0Ae-7X-wub"/>
                                     <constraint firstItem="1QW-It-RDt" firstAttribute="leading" secondItem="TYw-UM-dPT" secondAttribute="leading" constant="16" id="3pf-28-er2"/>
@@ -676,7 +677,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Meb-ja-wQq">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="E9u-yB-t6h"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="E9u-yB-t6h">
+                            <connections>
+                                <action selector="shareManga:" destination="TcX-Qf-PJT" id="QDA-gZ-ChD"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addToFavoritesButton" destination="Cdy-cF-2YT" id="5BH-78-0X3"/>
@@ -685,6 +690,7 @@
                         <outlet property="bayesianAverageLabel" destination="aAj-xz-8Vj" id="Ghq-9j-isy"/>
                         <outlet property="mangaImageView" destination="PrM-6h-xz5" id="c0l-dJ-gu6"/>
                         <outlet property="plotSummaryLabel" destination="CzO-qH-ALx" id="wnO-1n-2dp"/>
+                        <outlet property="scrollView" destination="TYw-UM-dPT" id="Cp6-K9-cyl"/>
                         <outlet property="staffLabel" destination="JR2-fM-vbg" id="zRI-Ou-JqA"/>
                         <outlet property="titleLabel" destination="cjH-Ew-pov" id="Df8-8d-k91"/>
                     </connections>
