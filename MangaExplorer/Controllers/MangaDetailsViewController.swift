@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class MangaDetailsViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -16,11 +17,14 @@ class MangaDetailsViewController: UIViewController {
     @IBOutlet weak var staffLabel: UILabel!
     @IBOutlet weak var bayesianAverageLabel: UILabel!
     @IBOutlet weak var plotSummaryLabel: UILabel!
+    @IBOutlet weak var dataSourceButton: UIButton!
     
     @IBOutlet weak var addToWishListButton: UIButton!
     @IBOutlet weak var addToFavoritesButton: UIButton!
     
-    var manga: Manga!
+    var mangaId: NSNumber!
+    private var manga: Manga!
+//    var currentContext: NSManagedObjectContext!
     
     private let photoPlaceholderImage = UIImage(named: "mangaPlaceholder")
     
@@ -52,6 +56,14 @@ class MangaDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        manga = fetchManga()
+        println("manga id: \(manga.id)")
         
         bayesianAverageLabel.layer.cornerRadius = 3.0
         bayesianAverageLabel.clipsToBounds = true
@@ -59,19 +71,31 @@ class MangaDetailsViewController: UIViewController {
         setTitleForWishListButton()
         setTitleForFavoritesButton()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        println("manga id: \(manga.id)")
-        
         setMangaImage()
         setTitle()
         setStaff()
         setBayesianAverage()
         setPlotSummary()
         setAlternativeTitle()
+    }
+    
+    // MARK: - CoreData
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance.managedObjectContext!
+    }
+    
+    func fetchManga() -> Manga {
+        let fetchRequest = NSFetchRequest()
+        fetchRequest.entity = NSEntityDescription.entityForName("Manga", inManagedObjectContext: sharedContext)
+        fetchRequest.predicate = NSPredicate(format: "id=%@", mangaId)
+        
+        var error: NSError? = nil
+        var results = sharedContext.executeFetchRequest(fetchRequest, error: &error)
+        if let error = error {
+            return Manga()
+        }
+        return results?.first as! Manga
     }
     
     // MARK: - List buttons
@@ -120,6 +144,7 @@ class MangaDetailsViewController: UIViewController {
         // Hide buttons to avoid inclusion in saved image
         addToWishListButton.hidden = true
         addToFavoritesButton.hidden = true
+        dataSourceButton.hidden = true
         
         UIGraphicsBeginImageContext(scrollView.contentSize)
         
@@ -141,6 +166,7 @@ class MangaDetailsViewController: UIViewController {
         // Unhide buttons
         addToWishListButton.hidden = false
         addToFavoritesButton.hidden = false
+        dataSourceButton.hidden = false
         
         return mangaImage
     }

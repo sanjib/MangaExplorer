@@ -207,7 +207,7 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
         if segue.identifier == "MangaDetailsSegue" {
             if selectedManga != nil {
                 let vc = segue.destinationViewController as! MangaDetailsViewController
-                vc.manga = selectedManga!
+                vc.mangaId = selectedManga?.id
             }
         }
     }

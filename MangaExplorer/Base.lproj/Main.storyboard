@@ -451,7 +451,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7E-t4-uhE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3024" y="190"/>
+            <point key="canvasLocation" x="3024" y="178"/>
         </scene>
         <!--Manga Details View Controller-->
         <scene sceneID="rsw-7V-baa">
@@ -688,6 +688,7 @@
                         <outlet property="addToWishListButton" destination="Joq-Pm-65e" id="qZH-gw-d3O"/>
                         <outlet property="alternativeTitleLabel" destination="1QW-It-RDt" id="uSd-Rz-1dD"/>
                         <outlet property="bayesianAverageLabel" destination="aAj-xz-8Vj" id="Ghq-9j-isy"/>
+                        <outlet property="dataSourceButton" destination="AVQ-2M-lpz" id="2zj-oF-gwo"/>
                         <outlet property="mangaImageView" destination="PrM-6h-xz5" id="c0l-dJ-gu6"/>
                         <outlet property="plotSummaryLabel" destination="CzO-qH-ALx" id="wnO-1n-2dp"/>
                         <outlet property="scrollView" destination="TYw-UM-dPT" id="Cp6-K9-cyl"/>
@@ -697,7 +698,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5w-Hv-uDJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3817" y="216"/>
+            <point key="canvasLocation" x="3817" y="178"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="0sB-kc-eDD">
@@ -847,7 +848,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zxV-zF-qOa" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3817" y="-679"/>
+            <point key="canvasLocation" x="3817" y="-580"/>
         </scene>
         <!--My Lists-->
         <scene sceneID="Ad8-Zp-2mR">
@@ -980,6 +981,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <segue destination="dgo-hd-cHe" kind="show" id="r6p-Qy-IqR"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="cLE-2F-VsI" style="IBUITableViewCellStyleDefault" id="9eN-Ps-5SB">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -995,6 +999,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <segue destination="pFt-yg-qNG" kind="show" id="X1D-FM-RWM"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1008,7 +1015,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Total Mangas in Database" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ipz-34-07B">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QvD-9R-X3k">
@@ -1168,7 +1175,124 @@ http://shuhosato.mangareborn.jp</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="InN-K9-1Kr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3024" y="2268"/>
+            <point key="canvasLocation" x="3024" y="2295"/>
+        </scene>
+        <!--Fetch Frequency-->
+        <scene sceneID="ru8-h4-nPj">
+            <objects>
+                <tableViewController id="dgo-hd-cHe" customClass="SettingsFetchFrequencyTableViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IPh-0H-g0n">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.29803922772407532" green="0.29803922772407532" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections>
+                            <tableViewSection headerTitle="Fetch Latest Mangas" id="dhW-Ys-Ol9">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="gXQ-gv-klM" style="IBUITableViewCellStyleDefault" id="9OX-hY-Njl">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9OX-hY-Njl" id="aBU-lF-y3m">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Daily" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gXQ-gv-klM">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="CKQ-IF-Dwi" style="IBUITableViewCellStyleDefault" id="Mq1-71-5Ej">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mq1-71-5Ej" id="t0E-Xf-TRo">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Weekly" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CKQ-IF-Dwi">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="poo-P9-wyE" style="IBUITableViewCellStyleDefault" id="hzZ-Fz-tAa">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hzZ-Fz-tAa" id="vk1-j6-boz">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Monthly" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="poo-P9-wyE">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="dgo-hd-cHe" id="tZN-YE-NLk"/>
+                            <outlet property="delegate" destination="dgo-hd-cHe" id="SMx-ZN-lLg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Fetch Frequency" id="EhD-m5-59b"/>
+                    <connections>
+                        <outlet property="latestDailyTableViewCell" destination="9OX-hY-Njl" id="I8K-L0-CAo"/>
+                        <outlet property="latestMonthlyTableViewCell" destination="hzZ-Fz-tAa" id="jdT-81-Hpm"/>
+                        <outlet property="latestWeeklyTableViewCell" destination="Mq1-71-5Ej" id="MgS-zJ-BHz"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yFd-Hn-Wyi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3024" y="3004"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="mC9-lr-aOC">
+            <objects>
+                <tableViewController id="pFt-yg-qNG" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="xL6-N3-BUm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections>
+                            <tableViewSection id="WOc-dG-vss">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="kfz-KI-Pag">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kfz-KI-Pag" id="O7O-P8-0j0">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2nd-ik-obl">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2nd-ik-obl" id="dgN-vZ-idW">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6Gt-zJ-JUU">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Gt-zJ-JUU" id="Sk7-HH-YhV">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="pFt-yg-qNG" id="fqG-Pn-HkA"/>
+                            <outlet property="delegate" destination="pFt-yg-qNG" id="iSa-vU-TZG"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cUb-7d-P1e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3024" y="3749"/>
         </scene>
     </scenes>
     <resources>
@@ -1186,7 +1310,7 @@ http://shuhosato.mangareborn.jp</string>
         <image name="topRatedFilled" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yaC-pP-Trv"/>
+        <segue reference="BxB-ns-oVA"/>
         <segue reference="slS-5P-aSo"/>
     </inferredMetricsTieBreakers>
 </document>
