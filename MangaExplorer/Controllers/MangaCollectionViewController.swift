@@ -121,7 +121,7 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
             println(genre)
             fetchRequest.predicate = NSPredicate(format: "ANY genre.name == %@", genre)
         } else {
-            fetchRequest.fetchLimit = 5 * 3 * 50
+            fetchRequest.fetchLimit = 5 * 3 * 160
         }
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bayesianAverage", ascending: false)]
