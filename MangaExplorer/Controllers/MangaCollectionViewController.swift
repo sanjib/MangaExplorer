@@ -57,16 +57,27 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         // CoreData
         fetchedResultsController.delegate = self
         
-        fetchedResultsController.performFetch(nil)
-        println("fetched objects count: \(self.fetchedResultsController.fetchedObjects?.count)")
-        setMangaImagesInCacheForFirstFetchBatchSize()
+//        fetchedResultsController.performFetch(nil)
+//        println("fetched objects count: \(self.fetchedResultsController.fetchedObjects?.count)")
+//        setMangaImagesInCacheForFirstFetchBatchSize()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "performFetchForFetchedResultsController", name: "performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-
+        println("user defaults top rated mangas display max: \(UserDefaults.sharedInstance.topRatedMangasDisplayMax)")
+        
+        // Set display max for top rated mangas
+        if genre == nil {
+            fetchedResultsController.fetchRequest.fetchLimit = UserDefaults.sharedInstance.topRatedMangasDisplayMax
+        }
+        
+        fetchedResultsController.performFetch(nil)
+        println("fetched objects count: \(self.fetchedResultsController.fetchedObjects?.count)")
+        setMangaImagesInCacheForFirstFetchBatchSize()
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -121,7 +132,8 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
             println(genre)
             fetchRequest.predicate = NSPredicate(format: "ANY genre.name == %@", genre)
         } else {
-            fetchRequest.fetchLimit = 5 * 3 * 160
+//            fetchRequest.fetchLimit = 5 * 3 * 160
+            fetchRequest.fetchLimit = UserDefaults.sharedInstance.topRatedMangasDisplayMax
         }
         
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bayesianAverage", ascending: false)]
