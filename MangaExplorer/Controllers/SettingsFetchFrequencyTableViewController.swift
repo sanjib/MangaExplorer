@@ -12,24 +12,30 @@ class SettingsFetchFrequencyTableViewController: UITableViewController {
     @IBOutlet weak var latestDailyTableViewCell: UITableViewCell!
     @IBOutlet weak var latestWeeklyTableViewCell: UITableViewCell!
     @IBOutlet weak var latestMonthlyTableViewCell: UITableViewCell!
-    
-    struct LatestMangasFetchFrequency {
-        static let Daily = "daily"
-        static let Monthly = "monthly"
-        static let Yearly = "yearly"
-    }
-    
-    struct LatestMangasFetchFrequencyDefaults {
-        static let Key = "LatestMangasFetchFrequency"
-        static let Value = LatestMangasFetchFrequency.Daily
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        latestDailyTableViewCell.accessoryType = UITableViewCellAccessoryType.Checkmark
-        latestWeeklyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
-        latestMonthlyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
+        switch UserDefaults.sharedInstance.latestMangasFetchFrequency {
+        case UserDefaults.LatestMangasFetchFrequency.Daily:
+            latestDailyTableViewCell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            latestWeeklyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
+            latestMonthlyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
+        case UserDefaults.LatestMangasFetchFrequency.Weekly:
+            latestDailyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
+            latestWeeklyTableViewCell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            latestMonthlyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
+        case UserDefaults.LatestMangasFetchFrequency.Monthly:
+            latestDailyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
+            latestWeeklyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
+            latestMonthlyTableViewCell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        default:
+            break
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,18 +66,21 @@ class SettingsFetchFrequencyTableViewController: UITableViewController {
                     latestWeeklyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
                     latestMonthlyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
                 }
+                UserDefaults.sharedInstance.latestMangasFetchFrequency = UserDefaults.LatestMangasFetchFrequency.Daily
             case latestWeeklyTableViewCell:
                 if cell.accessoryType == UITableViewCellAccessoryType.None {
                     cell.accessoryType = UITableViewCellAccessoryType.Checkmark
                     latestDailyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
                     latestMonthlyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
                 }
+                UserDefaults.sharedInstance.latestMangasFetchFrequency = UserDefaults.LatestMangasFetchFrequency.Weekly
             case latestMonthlyTableViewCell:
                 if cell.accessoryType == UITableViewCellAccessoryType.None {
                     cell.accessoryType = UITableViewCellAccessoryType.Checkmark
                     latestDailyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
                     latestWeeklyTableViewCell.accessoryType = UITableViewCellAccessoryType.None
                 }
+                UserDefaults.sharedInstance.latestMangasFetchFrequency = UserDefaults.LatestMangasFetchFrequency.Monthly
             default:
                 break
             }
