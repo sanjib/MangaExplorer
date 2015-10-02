@@ -61,9 +61,17 @@ class MangaDetailsViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         manga = fetchManga()
         println("manga id: \(manga.id)")
+        
+        AniListApi.sharedInstance.getCharacterDetails(manga.title) { characterDetails, errorString in
+            if characterDetails?.count > 0 {
+                println(characterDetails!)
+            } else {
+                println("character info not available")
+            }
+        }
         
         bayesianAverageLabel.layer.cornerRadius = 3.0
         bayesianAverageLabel.clipsToBounds = true

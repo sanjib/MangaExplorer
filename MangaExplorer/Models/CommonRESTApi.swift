@@ -47,6 +47,7 @@ class CommonRESTApi {
                         request.addValue(value, forHTTPHeaderField: httpHeaderField)
                     }
                 }
+                
                 let task = session.dataTaskWithRequest(request) { data, response, error in
                     if error != nil {
                         completionHandler(result: nil, error: error)
@@ -59,6 +60,47 @@ class CommonRESTApi {
                         println("data length: \(data.length)")
                         completionHandler(result: data, error: nil)
                     }                    
+                }
+                task.resume()
+            } else {
+                completionHandler(result: nil, error: NSError(domain: ErrorMessage.domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.invalidURL]))
+            }
+        } else {
+            completionHandler(result: nil, error: NSError(domain: ErrorMessage.domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.emptyURL]))
+        }
+    }
+    
+    func httpPost(urlString: String, httpBodyParams: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
+        if IJReachability.isConnectedToNetwork() == false {
+            completionHandler(result: nil, error: NSError(domain: ErrorMessage.domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.noInternet]))
+            return
+        }
+        
+        if urlString != "" {
+            if let url = NSURL(string: urlString) {
+                let request = NSMutableURLRequest(URL: url)
+                if let additionalHTTPHeaderFields = additionalHTTPHeaderFields {
+                    for (httpHeaderField, value) in additionalHTTPHeaderFields {
+                        request.addValue(value, forHTTPHeaderField: httpHeaderField)
+                    }
+                }
+                request.HTTPMethod = "POST"
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.HTTPBody = NSJSONSerialization.dataWithJSONObject(httpBodyParams, options: nil, error: nil)
+                
+                let task = session.dataTaskWithRequest(request) { data, response, error in
+                    if error != nil {
+                        completionHandler(result: nil, error: error)
+                        return
+                    }
+                    println(response)
+                    if self.parseMethod == .json {
+                        self.parseJSONData(data, completionHandler: completionHandler)
+                    } else {
+                        println("data length: \(data.length)")
+                        completionHandler(result: data, error: nil)
+                    }
                 }
                 task.resume()
             } else {

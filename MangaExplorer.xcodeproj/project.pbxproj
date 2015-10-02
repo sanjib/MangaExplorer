@@ -13,6 +13,7 @@
 		2012D9BF1BB2378500F189E5 /* SettingsDisplayMaxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2012D9BE1BB2378500F189E5 /* SettingsDisplayMaxTableViewController.swift */; };
 		202579741B9FB0C900695410 /* MangaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202579731B9FB0C900695410 /* MangaCollectionViewCell.swift */; };
 		202579781B9FBD3E00695410 /* MangaDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202579771B9FBD3E00695410 /* MangaDetailsViewController.swift */; };
+		202666221BBE701A0087BC2F /* AniListApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202666211BBE701A0087BC2F /* AniListApi.swift */; };
 		2037B5671B9A2E3200F3094A /* IJReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B5661B9A2E3200F3094A /* IJReachability.swift */; };
 		2037B5691B9A2E6F00F3094A /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B5681B9A2E6F00F3094A /* CoreDataStackManager.swift */; };
 		2037B56B1B9A3B2000F3094A /* InitDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B56A1B9A3B2000F3094A /* InitDataViewController.swift */; };
@@ -59,6 +60,7 @@
 		2012D9BE1BB2378500F189E5 /* SettingsDisplayMaxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsDisplayMaxTableViewController.swift; path = Controllers/SettingsDisplayMaxTableViewController.swift; sourceTree = "<group>"; };
 		202579731B9FB0C900695410 /* MangaCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MangaCollectionViewCell.swift; path = Views/MangaCollectionViewCell.swift; sourceTree = "<group>"; };
 		202579771B9FBD3E00695410 /* MangaDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MangaDetailsViewController.swift; path = Controllers/MangaDetailsViewController.swift; sourceTree = "<group>"; };
+		202666211BBE701A0087BC2F /* AniListApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AniListApi.swift; path = Models/AniListApi.swift; sourceTree = "<group>"; };
 		2037B5661B9A2E3200F3094A /* IJReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IJReachability.swift; sourceTree = "<group>"; };
 		2037B5681B9A2E6F00F3094A /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		2037B56A1B9A3B2000F3094A /* InitDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InitDataViewController.swift; path = Controllers/InitDataViewController.swift; sourceTree = "<group>"; };
@@ -179,13 +181,14 @@
 				20ECD52E1B9F777C004DCEB3 /* Staff.swift */,
 				20ECD5301B9F7797004DCEB3 /* AlternativeTitle.swift */,
 				20ECD5321B9F77AB004DCEB3 /* Genre.swift */,
+				2012D9BC1BB2297800F189E5 /* UserDefaults.swift */,
+				208A93F91B9A297F0098F0FC /* CommonRESTApi.swift */,
 				208A93F51B9A297E0098F0FC /* AnimeNewsNetworkApi.swift */,
 				20FC87321BB4C7E4009D32A2 /* AnimeNewsNetworkBatchUpdater.swift */,
 				208A93F61B9A297F0098F0FC /* AnimeNewsNetworkXMLParserForMangaDetail.swift */,
 				208A93F71B9A297F0098F0FC /* AnimeNewsNetworkXMLParserForMangaListWithRating.swift */,
 				208A93F81B9A297F0098F0FC /* AnimeNewsNetworkXMLParserForMangaListWithIdAndTitle.swift */,
-				208A93F91B9A297F0098F0FC /* CommonRESTApi.swift */,
-				2012D9BC1BB2297800F189E5 /* UserDefaults.swift */,
+				202666211BBE701A0087BC2F /* AniListApi.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				20FC87331BB4C7E4009D32A2 /* AnimeNewsNetworkBatchUpdater.swift in Sources */,
 				2006CDE11BACDA0D002B4CDB /* MangaListViewController.swift in Sources */,
 				208A93FF1B9A297F0098F0FC /* CommonRESTApi.swift in Sources */,
+				202666221BBE701A0087BC2F /* AniListApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
