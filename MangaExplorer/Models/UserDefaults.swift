@@ -38,6 +38,45 @@ class UserDefaults {
         }
     }
     
+    var lastFetchedLatestManga: NSDate? {
+        get {
+            if let lastFetchedLatestManga = NSUserDefaults.standardUserDefaults().objectForKey("LastFetchedLatestManga") as? NSDate {
+                return lastFetchedLatestManga
+            } else {
+                return nil
+            }
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: "LastFetchedLatestManga")
+        }
+    }
+    
+    func shouldFetchLatestManga() -> Bool {
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        if lastFetchedLatestManga != nil {
+            let daysSinceLastUpdate = calendar.components(NSCalendarUnit.CalendarUnitDay, fromDate: lastFetchedLatestManga!, toDate: NSDate(), options: nil)            
+            switch latestMangasFetchFrequency {
+            case LatestMangasFetchFrequency.Daily:
+                if daysSinceLastUpdate.day >= 1 {
+                    return true
+                }
+            case LatestMangasFetchFrequency.Weekly:
+                if daysSinceLastUpdate.day >= 7 {
+                    return true
+                }
+            case LatestMangasFetchFrequency.Monthly:
+                if daysSinceLastUpdate.day >= 30 {
+                    return true
+                }
+            default:
+                break
+            }
+            return false
+        } else {
+            return true
+        }
+    }
+    
     // TopRatedMangasDisplayMax
     
     struct TopRatedMangasDisplayMax {

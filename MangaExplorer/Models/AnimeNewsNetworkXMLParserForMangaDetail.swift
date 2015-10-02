@@ -9,46 +9,53 @@
 import Foundation
 
 class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
-    // declare data as property (strong) to ensure data doesn't get corrupted while NSXMLParser is crunching the data
-    var data: NSData!
-    
     var mangaProperties = [[String:AnyObject]]()
     var mangaProperty = [String:AnyObject]()
     var elementName = ""
     var attributeDictType = ""
+    var gid = ""
+    var genres = [String]()
+    var alternativeTitles = [String]()
+    var alternativeTitle = ""
+    var staff = [[String:String]]()
+    var task = ""
+    var person = ""
+    var news = [[String:AnyObject]]()
+    //    var newsDateTime = NSDate()
+    var newsDateTime = ""
+    var newsHref = ""
+    var newsTitle = ""
     
-    static let sharedInstance = AnimeNewsNetworkXMLParserForMangaDetail()
+    //    static let sharedInstance = AnimeNewsNetworkXMLParserForMangaDetail()
     
     func parseWithData(data: NSData, completionHandler: (mangaProperties: [[String:AnyObject]]?, errorString: String?) -> Void) {
         // There is a problem with UTF8 encoding from Anime News Network,
         // so we turn data into string and back to data
-        let tempString = NSString(data: data, encoding: NSUTF8StringEncoding)
-        self.data = tempString?.dataUsingEncoding(NSUTF8StringEncoding)
+        let dataAsString = NSString(data: data, encoding: NSUTF8StringEncoding)!
+        let dataReEncoded = dataAsString.dataUsingEncoding(NSUTF8StringEncoding)!
         
-        let parser = NSXMLParser(data: self.data)
+        let parser = NSXMLParser(data: dataReEncoded)
         parser.delegate = self
         let success = parser.parse()
         if success == true {
-            println("parse successful, call completionHandler")
+            //            println("parse successful, call completionHandler")
             completionHandler(mangaProperties: mangaProperties, errorString: nil)
         } else {
             println("parse failed, call completionHandler")
             completionHandler(mangaProperties: nil, errorString: "Parse failed")
         }
     }
-        
+    
     // MARK: - NSXMLParser delegates
     
     func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [NSObject : AnyObject]) {
-//        println("didStartElement elementName: \(elementName)")
-//        println("attributeDict: \(attributeDict)")
         
         self.elementName = elementName
         
         switch elementName {
         case "manga":
             if let id = attributeDict["id"] as? String {
-                mangaProperty["id"] = NSNumberFormatter().numberFromString(id) 
+                mangaProperty["id"] = NSNumberFormatter().numberFromString(id)
             }
             if let title = attributeDict["name"] as? String {
                 if mangaProperty["title"] != nil {
@@ -70,10 +77,20 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
                     }
                 case "Plot Summary":
                     self.attributeDictType = "Plot Summary"
-//                    println("attributeDictType: \(attributeDictType)")
+                case "Genres":
+                    self.attributeDictType = "Genres"
+                case "Alternative title":
+                    self.attributeDictType = "Alternative title"
                 default:
                     break
                 }
+            }
+        case "news":
+            if let dateTime = attributeDict["datetime"] as? String {
+                newsDateTime = dateTime
+            }
+            if let href = attributeDict["href"] as? String {
+                newsHref = href
             }
         default:
             break
@@ -81,22 +98,47 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
     }
     
     func parser(parser: NSXMLParser, foundCharacters string: String?) {
-//        println("foundCharacters string: \(string)")
-
+        //        println("foundCharacters string: \(string)")
+        
         if let string = string {
             switch elementName {
             case "info":
                 switch attributeDictType {
                 case "Plot Summary":
-//                    println("foundCharacters string: \(string)")
                     if mangaProperty["plotSummary"] != nil {
                         mangaProperty["plotSummary"] = mangaProperty["plotSummary"] as! String + string
                     } else {
                         mangaProperty["plotSummary"] = string
                     }
+                case "Genres":
+                    genres.append(string)
+                case "Alternative title":
+                    if alternativeTitle.isEmpty {
+                        alternativeTitle = string
+                    } else {
+                        alternativeTitle = alternativeTitle + string
+                    }
                 default:
                     break
-                }                
+                }
+            case "task":
+                if task.isEmpty {
+                    task = string
+                } else {
+                    task = task + string
+                }
+            case "person":
+                if person.isEmpty {
+                    person = string
+                } else {
+                    person = person + string
+                }
+            case "news":
+                if newsTitle.isEmpty {
+                    newsTitle = string
+                } else {
+                    newsTitle = newsTitle + string
+                }
             default:
                 break
             }
@@ -104,15 +146,63 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
     }
     
     func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-//        println("didEndElement elementName: \(elementName)")
+        //        println("didEndElement elementName: \(elementName)")
+        
+        if elementName == "info" {
+            switch attributeDictType {
+            case "Alternative title":
+                alternativeTitle = alternativeTitle.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+                alternativeTitles.append(alternativeTitle)
+                alternativeTitle = ""
+            default:
+                break
+            }
+        }
+        
+        if elementName == "staff" {
+            staff.append([
+                "task": task,
+                "person": person
+                ])
+            task = ""
+            person = ""
+        }
+        
+        if elementName == "news" {
+            newsTitle = newsTitle.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+            news.append([
+                "dateTime": newsDateTime,
+                "href": newsHref,
+                "title": newsTitle
+                ])
+            //            newsDateTime = NSDate()
+            newsDateTime = ""
+            newsHref = ""
+            newsTitle = ""
+        }
         
         if elementName == "manga" {
+            if let plotSummary = mangaProperty["plotSummary"] as? String {
+                mangaProperty["plotSummary"] = plotSummary.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+            }
+            
+            mangaProperty["genres"] = genres
+            mangaProperty["alternativeTitles"] = alternativeTitles
+            mangaProperty["staff"] = staff
+            mangaProperty["news"] = news
+            
             mangaProperties.append(mangaProperty)
+            
             mangaProperty = [String:AnyObject]()
+            genres = [String]()
+            alternativeTitles = [String]()
+            staff = [[String:String]]()
+            news = [[String:AnyObject]]()
         }
         
         self.elementName = ""
         attributeDictType = ""
+        gid = ""
     }
     
     // Error detection

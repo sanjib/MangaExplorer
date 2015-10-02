@@ -87,6 +87,10 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         if fetchedResultsController.fetchedObjects?.count == 0 {
             println("init data segue")
             performSegueWithIdentifier("InitDataSegue", sender: self)
+        } else {
+            if UserDefaults.sharedInstance.shouldFetchLatestManga() {
+                AnimeNewsNetworkBatchUpdater.sharedInstance.updateWithLatestMangas()
+            }
         }
     }
 
@@ -312,7 +316,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "MangaDetailsSegue" {
             let vc = segue.destinationViewController as! MangaDetailsViewController

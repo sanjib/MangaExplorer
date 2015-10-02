@@ -9,22 +9,19 @@
 import Foundation
 
 class AnimeNewsNetworkXMLParserForMangaListWithIdAndTitle: NSObject, NSXMLParserDelegate {
-    // declare data as property (strong) to ensure data doesn't get corrupted while NSXMLParser is crunching the data
-    var data: NSData!
-    
     var mangaProperties = [[String:AnyObject]]()
     var mangaProperty = [String:AnyObject]()
     var elementName = ""
     
-    static let sharedInstance = AnimeNewsNetworkXMLParserForMangaListWithIdAndTitle()
+//    static let sharedInstance = AnimeNewsNetworkXMLParserForMangaListWithIdAndTitle()
     
     func parseWithData(data: NSData, completionHandler: (mangaProperties: [[String:AnyObject]]?, errorString: String?) -> Void) {
         // There is a problem with UTF8 encoding from Anime News Network,
         // so we turn data into string and back to data
-        let tempString = NSString(data: data, encoding: NSUTF8StringEncoding)
-        self.data = tempString?.dataUsingEncoding(NSUTF8StringEncoding)
+        let dataAsString = NSString(data: data, encoding: NSUTF8StringEncoding)!
+        let dataReEncoded = dataAsString.dataUsingEncoding(NSUTF8StringEncoding)!
         
-        let parser = NSXMLParser(data: self.data)
+        let parser = NSXMLParser(data: dataReEncoded)
         parser.delegate = self
         let success = parser.parse()
         if success == true {
