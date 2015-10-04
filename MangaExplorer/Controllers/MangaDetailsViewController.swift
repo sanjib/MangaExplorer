@@ -17,7 +17,11 @@ class MangaDetailsViewController: UIViewController {
     @IBOutlet weak var staffLabel: UILabel!
     @IBOutlet weak var bayesianAverageLabel: UILabel!
     @IBOutlet weak var plotSummaryLabel: UILabel!
-    @IBOutlet weak var dataSourceButton: UIButton!
+    @IBOutlet weak var charactersLabel: UILabel!
+    
+    @IBOutlet weak var dataSourceLabel: UILabel!
+    @IBOutlet weak var animeNewsNetworkButton: UIButton!
+    @IBOutlet weak var aniListLabel: UILabel!
     
     @IBOutlet weak var addToWishListButton: UIButton!
     @IBOutlet weak var addToFavoritesButton: UIButton!
@@ -53,6 +57,19 @@ class MangaDetailsViewController: UIViewController {
         ]
         return attributes
     }
+    
+    private var attributesForBody: [String:AnyObject] {
+        let fontAttribute = UIFont(name: "Helvetica Neue", size: 14.0)!
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 1.0
+        
+        let attributes = [
+            NSFontAttributeName: fontAttribute,
+            NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+            NSParagraphStyleAttributeName: paragraphStyle
+        ]
+        return attributes
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,17 +78,33 @@ class MangaDetailsViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.charactersLabel.hidden = true
         
         manga = fetchManga()
         println("manga id: \(manga.id)")
         
-        AniListApi.sharedInstance.getCharacterDetails(manga.title) { characterDetails, errorString in
-            if characterDetails?.count > 0 {
-                println(characterDetails!)
-            } else {
-                println("character info not available")
-            }
-        }
+//        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+//        AniListApi.sharedInstance.getCharacterDetails(manga.title) { characterDetails, errorString in
+//            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+//            println("characterDetails: \(characterDetails)")
+//            if characterDetails?.count > 0 {
+//                println(characterDetails!)
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    self.charactersLabel.hidden = false
+//                    
+//                    var charactersAttributedString = NSMutableAttributedString(string: "Characters")
+//                    charactersAttributedString.addAttributes(self.attributesForHeading, range: NSRange(location: 0, length: charactersAttributedString.length))
+//                    let charactersHeaderEndLocation = charactersAttributedString.length
+//                    
+//                    for characterDetail in characterDetails! {
+//                        charactersAttributedString.appendAttributedString(NSMutableAttributedString(string: "\n" + characterDetail))
+//                    }
+//                    charactersAttributedString.addAttributes(self.attributesForBody, range: NSRange(location: charactersHeaderEndLocation, length: charactersAttributedString.length - charactersHeaderEndLocation))
+//                    
+//                    self.charactersLabel.attributedText = charactersAttributedString
+//                }
+//            }
+//        }
         
         bayesianAverageLabel.layer.cornerRadius = 3.0
         bayesianAverageLabel.clipsToBounds = true
@@ -150,9 +183,10 @@ class MangaDetailsViewController: UIViewController {
     
     private func generateMangaImageForSharing() -> UIImage {
         // Hide buttons to avoid inclusion in saved image
-        addToWishListButton.hidden = true
-        addToFavoritesButton.hidden = true
-        dataSourceButton.hidden = true
+//        addToWishListButton.hidden = true
+//        addToFavoritesButton.hidden = true
+//        animeNewsNetworkButton.hidden = true
+        toggleUIDisplayElementsForGeneratingMangaImage()
         
         UIGraphicsBeginImageContext(scrollView.contentSize)
         
@@ -172,11 +206,20 @@ class MangaDetailsViewController: UIViewController {
         UIGraphicsEndImageContext()
         
         // Unhide buttons
-        addToWishListButton.hidden = false
-        addToFavoritesButton.hidden = false
-        dataSourceButton.hidden = false
+//        addToWishListButton.hidden = false
+//        addToFavoritesButton.hidden = false
+//        animeNewsNetworkButton.hidden = false
+        toggleUIDisplayElementsForGeneratingMangaImage()
         
         return mangaImage
+    }
+    
+    private func toggleUIDisplayElementsForGeneratingMangaImage() {
+        addToWishListButton.hidden = !addToWishListButton.hidden
+        addToFavoritesButton.hidden = !addToFavoritesButton.hidden
+        dataSourceLabel.hidden = !dataSourceLabel.hidden
+        animeNewsNetworkButton.hidden = !animeNewsNetworkButton.hidden
+        aniListLabel.hidden = !aniListLabel.hidden
     }
     
     // MARK: - Content
@@ -254,11 +297,15 @@ class MangaDetailsViewController: UIViewController {
         if let plotSummary = manga.plotSummary {
             var plotSummaryAttributedString = NSMutableAttributedString(string: "Plot Summary")
             plotSummaryAttributedString.addAttributes(attributesForHeading, range: NSRange(location: 0, length: plotSummaryAttributedString.length))
+            let plotSummaryHeaderEndLocation = plotSummaryAttributedString.length
+            
             plotSummaryAttributedString.appendAttributedString(NSMutableAttributedString(string: "\n" + plotSummary))
+            plotSummaryAttributedString.addAttributes(attributesForBody, range: NSRange(location: plotSummaryHeaderEndLocation, length: plotSummaryAttributedString.length - plotSummaryHeaderEndLocation))
+            
             plotSummaryLabel.attributedText = plotSummaryAttributedString
             
         } else {
-            plotSummaryLabel.attributedText = NSAttributedString(string: "")
+            plotSummaryLabel.hidden = true
         }
     }
     
@@ -272,12 +319,15 @@ class MangaDetailsViewController: UIViewController {
             }
         }
         if !allAlternativeTitles.isEmpty {
-            var allAlternativeTitlesAttributedString = NSMutableAttributedString(string: "Alternative Titles")
-            allAlternativeTitlesAttributedString.addAttributes(attributesForHeading, range: NSRange(location: 0, length: allAlternativeTitlesAttributedString.length))
-            allAlternativeTitlesAttributedString.appendAttributedString(NSMutableAttributedString(string: "\n" + allAlternativeTitles))
-            alternativeTitleLabel.attributedText = allAlternativeTitlesAttributedString
+            var alternativeTitlesAttributedString = NSMutableAttributedString(string: "Alternative Titles")
+            alternativeTitlesAttributedString.addAttributes(attributesForHeading, range: NSRange(location: 0, length: alternativeTitlesAttributedString.length))
+            let alternativeTitlesHeaderEndLocation = alternativeTitlesAttributedString.length
+            
+            alternativeTitlesAttributedString.appendAttributedString(NSMutableAttributedString(string: "\n" + allAlternativeTitles))
+            alternativeTitlesAttributedString.addAttributes(attributesForBody, range: NSRange(location: alternativeTitlesHeaderEndLocation, length: alternativeTitlesAttributedString.length - alternativeTitlesHeaderEndLocation))
+            alternativeTitleLabel.attributedText = alternativeTitlesAttributedString
         } else {
-            alternativeTitleLabel.attributedText = NSAttributedString(string: "")
+            alternativeTitleLabel.hidden = true
         }
     }
     

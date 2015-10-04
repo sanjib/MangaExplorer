@@ -30,8 +30,8 @@ class AniListApi: CommonRESTApi {
     private struct Methods {
         static let authAccessToken = "auth/access_token"
         static let mangaSearch = "manga/search/{query}"
-        static let mangaCharacters = "manga/{id}/characters"
-        static let characterDetails = "character/{id}"
+        static let allCharactersSmallModel = "manga/{id}/characters"
+        static let aCharacterFullModel = "character/{id}"
     }
     
     private func grantClientCredentials(completionHandler: ()->Void) {
@@ -77,36 +77,56 @@ class AniListApi: CommonRESTApi {
         let url = Constants.baseURL + urlKeySubstitute(Methods.mangaSearch, kvp: ["query": title]) + urlParamsFromDictionary(params)
         httpGet(url) { result, error in
             if error != nil {
-                
+                completionHandler(mangas: nil, errorString: error?.localizedDescription)
             } else {
                 completionHandler(mangas: result! as? [[String:AnyObject]], errorString: nil)
             }
         }
     }
     
-    private func mangaCharacters(aniListMangaId: Int, completionHandler: (characterIDs: [Int]?, errorString: String?)->Void) {
+    private func allCharactersSmallModel(aniListMangaId: Int, completionHandler: (allCharactersSmallModel: [[String:AnyObject]]?, errorString: String?)->Void) {
         let params = [
             "access_token": accessToken
         ]
-        let url = Constants.baseURL + urlKeySubstitute(Methods.mangaCharacters, kvp: ["id": "\(aniListMangaId)"]) + urlParamsFromDictionary(params)
+        let url = Constants.baseURL + urlKeySubstitute(Methods.allCharactersSmallModel, kvp: ["id": "\(aniListMangaId)"]) + urlParamsFromDictionary(params)
         httpGet(url) { result, error in
             if error != nil {
-                
+                completionHandler(allCharactersSmallModel: nil, errorString: error?.localizedDescription)
             } else {
-                var characterIDs = [Int]()
-                if let characters = result!["characters"] as? [[String:AnyObject]] {
-                    for character in characters {
-                        if let characterID = character["id"] as? Int {
-                            characterIDs.append(characterID)
-                        }
-                    }
-                    completionHandler(characterIDs: characterIDs, errorString: nil)
+                if let allCharactersSmallModel = result!["characters"] as? [[String:AnyObject]] {
+                    completionHandler(allCharactersSmallModel: allCharactersSmallModel, errorString: nil)
                 }
             }
         }
     }
     
-    private func characterDetails(mangaTitle: String, completionHandler: (characterDetails: [[String:AnyObject]]?, errorString: String?)->Void) {
+//    private func mangaCharactersWithNames(aniListMangaId: Int, completionHandler: (characters: [String]?, errorString: String?)->Void) {
+//        let params = [
+//            "access_token": accessToken
+//        ]
+//        let url = Constants.baseURL + urlKeySubstitute(Methods.mangaCharacters, kvp: ["id": "\(aniListMangaId)"]) + urlParamsFromDictionary(params)
+//        httpGet(url) { result, error in
+//            if error != nil {
+//                completionHandler(characters: nil, errorString: error?.localizedDescription)
+//            } else {
+//                var characterNames = [String]()
+//                if let characters = result!["characters"] as? [[String:AnyObject]] {
+//                    for character in characters {
+//                        if let firstName = character["name_first"] as? String {
+//                            var name = firstName
+//                            if let lastName = character["name_last"] as? String {
+//                                name += " " + lastName
+//                            }
+//                            characterNames.append(name)
+//                        }
+//                    }
+//                    completionHandler(characters: characterNames, errorString: nil)
+//                }
+//            }
+//        }
+//    }
+    
+    private func getAllCharactersFullModelWithValidAccessToken(mangaTitle: String, completionHandler: (allCharactersFullModel: [[String:AnyObject]]?, errorString: String?)->Void) {
         let params = [
             "access_token": accessToken
         ]
@@ -116,39 +136,88 @@ class AniListApi: CommonRESTApi {
                 
                 if let manga = mangas!.first {
                     if let mangaId = manga["id"] as? Int {
-                        self.mangaCharacters(mangaId) { characterIDs, errorString in
-                            if characterIDs?.count > 0 {
-                                var characterIDsToFetch = characterIDs!.count
-                                var characterDetails = [[String:AnyObject]]()
-                                for characterID in characterIDs! {
-                                    let url = Constants.baseURL + self.urlKeySubstitute(Methods.characterDetails, kvp: ["id": "\(characterID)"]) + self.urlParamsFromDictionary(params)
-                                    self.httpGet(url) { result, error in
-                                        characterIDsToFetch--
-                                        if error != nil {
-                                            
-                                        } else {
-                                            characterDetails.append(result as! [String:AnyObject])
-                                        }
-                                        if characterIDsToFetch == 0 {
-                                            completionHandler(characterDetails: characterDetails, errorString: nil)
+                        self.allCharactersSmallModel(mangaId) { allCharactersSmallModel, errorString in
+                            if allCharactersSmallModel?.count > 0 {
+                                var characterIDsToFetch = allCharactersSmallModel!.count
+                                var allCharactersFullModel = [[String:AnyObject]]()
+                                
+                                for aCharacterSmallModel in allCharactersSmallModel! {
+                                    if let characterID = aCharacterSmallModel["id"] as? Int {
+                                        let url = Constants.baseURL + self.urlKeySubstitute(Methods.aCharacterFullModel, kvp: ["id": "\(characterID)"]) + self.urlParamsFromDictionary(params)
+                                        self.httpGet(url) { result, error in
+                                            characterIDsToFetch--
+                                            if error != nil {
+                                                
+                                            } else {
+                                                allCharactersFullModel.append(result as! [String:AnyObject])
+                                            }
+                                            if characterIDsToFetch == 0 {
+                                                completionHandler(allCharactersFullModel: allCharactersFullModel, errorString: nil)
+                                            }
                                         }
                                     }
                                 }
+                            } else {
+                                completionHandler(allCharactersFullModel: nil, errorString: "Could not get manga characters")
                             }
-                            
                         }
+                    } else {
+                        completionHandler(allCharactersFullModel: nil, errorString: "Could not get manga characters")
                     }
+                } else {
+                    completionHandler(allCharactersFullModel: nil, errorString: "Could not get manga characters")
                 }
+            } else {
+                completionHandler(allCharactersFullModel: nil, errorString: "Could not get manga characters")
             }
         }
     }
     
-    func getCharacterDetails(mangaTitle: String, completionHandler: (characterDetails: [[String:AnyObject]]?, errorString: String?)->Void) {
+    private func getAllCharactersSmallModelWithValidAccessToken(mangaTitle: String, completionHandler: (allCharactersSmallModel: [[String:AnyObject]]?, errorString: String?)->Void) {
+        let params = [
+            "access_token": accessToken
+        ]
+        mangaSearch(mangaTitle) { mangas, errorString in
+            if mangas != nil {
+                // get the first match
+                
+                if let manga = mangas!.first {
+                    if let mangaId = manga["id"] as? Int {
+                        self.allCharactersSmallModel(mangaId) { allCharactersSmallModel, errorString in
+                            if allCharactersSmallModel?.count > 0 {
+                                completionHandler(allCharactersSmallModel: allCharactersSmallModel, errorString: nil)
+                            } else {
+                                completionHandler(allCharactersSmallModel: nil, errorString: "Could not get manga characters")
+                            }
+                        }
+                    } else {
+                        completionHandler(allCharactersSmallModel: nil, errorString: "Could not get manga characters")
+                    }
+                } else {
+                    completionHandler(allCharactersSmallModel: nil, errorString: "Could not get manga characters")
+                }
+            } else {
+                completionHandler(allCharactersSmallModel: nil, errorString: "Could not get manga characters")
+            }
+        }
+    }
+    
+    func getAllCharactersFullModel(mangaTitle: String, completionHandler: (allCharactersFullModel: [[String:AnyObject]]?, errorString: String?)->Void) {
         if isAccessTokenValid() {
-            characterDetails(mangaTitle, completionHandler: completionHandler)
+            getAllCharactersFullModelWithValidAccessToken(mangaTitle, completionHandler: completionHandler)
         } else {
             grantClientCredentials() {
-                self.characterDetails(mangaTitle, completionHandler: completionHandler)
+                self.getAllCharactersFullModelWithValidAccessToken(mangaTitle, completionHandler: completionHandler)
+            }
+        }
+    }
+    
+    func getAllCharactersSmallModel(mangaTitle: String, completionHandler: (allCharactersSmallModel: [[String:AnyObject]]?, errorString: String?)->Void) {
+        if isAccessTokenValid() {
+            getAllCharactersSmallModelWithValidAccessToken(mangaTitle, completionHandler: completionHandler)
+        } else {
+            grantClientCredentials() {
+                self.getAllCharactersSmallModelWithValidAccessToken(mangaTitle, completionHandler: completionHandler)
             }
         }
     }

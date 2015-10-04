@@ -226,7 +226,7 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "MangaDetailsSegue" {
             if selectedManga != nil {
-                let vc = segue.destinationViewController as! MangaDetailsViewController
+                let vc = segue.destinationViewController as! MangaDetailsTableViewController
                 vc.mangaId = selectedManga?.id
             }
         }

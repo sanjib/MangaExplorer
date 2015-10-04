@@ -318,7 +318,8 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "MangaDetailsSegue" {
-            let vc = segue.destinationViewController as! MangaDetailsViewController
+//            let vc = segue.destinationViewController as! MangaDetailsViewController
+            let vc = segue.destinationViewController as! MangaDetailsTableViewController
             let manga = fetchedResultsController.objectAtIndexPath(selectedIndexes.first!) as! Manga
             vc.mangaId = manga.id
         }
