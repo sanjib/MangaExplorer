@@ -1,42 +1,30 @@
 //
-//  Manga.swift
-//  MangaReaderAlpha
+//  Character.swift
+//  MangaExplorer
 //
-//  Created by Sanjib Ahmad on 8/26/15.
+//  Created by Sanjib Ahmad on 10/5/15.
 //  Copyright (c) 2015 Object Coder. All rights reserved.
 //
 
 import Foundation
 import CoreData
 
-class Manga: NSManagedObject {
-    @NSManaged var id: NSNumber
-    @NSManaged var title: String
-    @NSManaged var bayesianAverage: Double
+class Character: NSManagedObject {
+    @NSManaged var firstName: String
+    @NSManaged var lastName: String
     @NSManaged var imageRemotePath: String?
-    @NSManaged var plotSummary: String?
-
-    @NSManaged var isWished: Bool
-    @NSManaged var isFavorite: Bool
-    
-    @NSManaged var staff: [Staff]
-    @NSManaged var alternativeTitle: [AlternativeTitle]
-    @NSManaged var genre: [Genre]
-    @NSManaged var character: [Character]
+    @NSManaged var manga: Manga?
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    init(id: Int, title: String, context: NSManagedObjectContext) {
-        let entity = NSEntityDescription.entityForName("Manga", inManagedObjectContext: context)!
+    init(firstName: String, lastName: String, context: NSManagedObjectContext) {
+        let entity = NSEntityDescription.entityForName("Character", inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
-        self.id = id
-        self.title = title
-
-        isWished = false
-        isFavorite = false
+        self.firstName = firstName
+        self.lastName = lastName
     }
     
     var fetchInProgress = false
@@ -54,7 +42,7 @@ class Manga: NSManagedObject {
         if let imageRemotePath = imageRemotePath {
             let url = NSURL(string: imageRemotePath)
             if let imageName = url?.pathComponents?.last as? String {
-                return imageName
+                return "aniListCharacter" + imageName
             }
         }
         return nil
@@ -96,7 +84,7 @@ class Manga: NSManagedObject {
                                 completionHandler(fetchComplete: false)
                             }
                             self.fetchInProgress = false
-                        }.resume()
+                            }.resume()
                     }
                 }
             }

@@ -4,6 +4,12 @@
         <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="manga" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Manga" inverseName="alternativeTitle" inverseEntity="Manga" syncable="YES"/>
     </entity>
+    <entity name="Character" representedClassName="MangaExplorer.Character" syncable="YES">
+        <attribute name="firstName" attributeType="String" syncable="YES"/>
+        <attribute name="imageRemotePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" attributeType="String" syncable="YES"/>
+        <relationship name="manga" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Manga" inverseName="character" inverseEntity="Manga" syncable="YES"/>
+    </entity>
     <entity name="Genre" representedClassName="MangaExplorer.Genre" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="manga" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Manga" inverseName="genre" inverseEntity="Manga" syncable="YES"/>
@@ -17,6 +23,7 @@
         <attribute name="plotSummary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="alternativeTitle" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="AlternativeTitle" inverseName="manga" inverseEntity="AlternativeTitle" syncable="YES"/>
+        <relationship name="character" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Character" inverseName="manga" inverseEntity="Character" syncable="YES"/>
         <relationship name="genre" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Genre" inverseName="manga" inverseEntity="Genre" syncable="YES"/>
         <relationship name="staff" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Staff" inverseName="manga" inverseEntity="Staff" syncable="YES"/>
     </entity>
@@ -28,7 +35,8 @@
     <elements>
         <element name="AlternativeTitle" positionX="-54" positionY="27" width="128" height="75"/>
         <element name="Genre" positionX="-45" positionY="36" width="128" height="75"/>
-        <element name="Manga" positionX="-54" positionY="-9" width="128" height="195"/>
+        <element name="Manga" positionX="-54" positionY="-9" width="128" height="210"/>
         <element name="Staff" positionX="-27" positionY="45" width="128" height="90"/>
+        <element name="Character" positionX="-36" positionY="72" width="128" height="105"/>
     </elements>
 </model>
