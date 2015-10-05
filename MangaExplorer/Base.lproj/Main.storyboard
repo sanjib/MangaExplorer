@@ -478,7 +478,7 @@
                                                     <rect key="frame" x="-8" y="0.0" width="616" height="286"/>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Bfd-t8-qlu">
-                                                    <rect key="frame" x="8" y="12" width="287.5" height="246"/>
+                                                    <rect key="frame" x="8" y="12" width="287.5" height="244"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Bfd-t8-qlu" secondAttribute="height" multiplier="211:209" id="AeC-Ul-RnC"/>
                                                     </constraints>
@@ -506,29 +506,33 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data Source:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39g-Fw-EKn">
-                                                    <rect key="frame" x="8" y="262" width="67" height="13.5"/>
+                                                    <rect key="frame" x="8" y="264.5" width="67" height="13.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="67" id="muD-qp-GOA"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcH-hS-lFe">
-                                                    <rect key="frame" x="83" y="256" width="111" height="26"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcH-hS-lFe" customClass="DataSourceButton" customModule="MangaExplorer" customModuleProvider="target">
+                                                    <rect key="frame" x="79" y="258.5" width="111" height="26"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <state key="normal" title="Anime News Network">
-                                                        <color key="titleColor" red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="linkToAnimeNewsNetwork:" destination="4wd-rl-Uz8" eventType="touchUpInside" id="sEy-Yv-Ti6"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qA0-7Y-Ubk">
-                                                    <rect key="frame" x="202" y="256" width="39" height="26"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qA0-7Y-Ubk" customClass="DataSourceButton" customModule="MangaExplorer" customModuleProvider="target">
+                                                    <rect key="frame" x="194" y="258.5" width="39" height="26"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <state key="normal" title="Ani List">
-                                                        <color key="titleColor" red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="linkToAniList:" destination="4wd-rl-Uz8" eventType="touchUpInside" id="wHr-9H-Wyv"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdx-lT-C3d">
                                                     <rect key="frame" x="303" y="44.5" width="289" height="17.5"/>
@@ -544,7 +548,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGL-Vg-ejR" customClass="AddToButton" customModule="MangaExplorer" customModuleProvider="target">
-                                                    <rect key="frame" x="452" y="186" width="140" height="30"/>
+                                                    <rect key="frame" x="452" y="184" width="140" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="O6T-tQ-9L2"/>
                                                         <constraint firstAttribute="width" constant="140" id="Pbv-qF-RAq"/>
@@ -558,7 +562,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uUt-NX-uCA" customClass="AddToButton" customModule="MangaExplorer" customModuleProvider="target">
-                                                    <rect key="frame" x="452" y="224" width="140" height="30"/>
+                                                    <rect key="frame" x="452" y="222" width="140" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="140" id="Xjy-pT-L2j"/>
                                                         <constraint firstAttribute="height" constant="30" id="llM-k9-6Uk"/>
@@ -574,14 +578,15 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="39g-Fw-EKn" firstAttribute="leading" secondItem="FkI-MV-R3P" secondAttribute="leadingMargin" id="0tk-NZ-6YB"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="39g-Fw-EKn" secondAttribute="bottom" constant="16" id="180-ih-kQb"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="39g-Fw-EKn" secondAttribute="bottom" constant="14" id="180-ih-kQb"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="A9D-3u-kvJ" secondAttribute="trailing" constant="33" id="4rn-kP-81n"/>
                                                 <constraint firstItem="Bie-xu-5Ai" firstAttribute="leading" secondItem="FkI-MV-R3P" secondAttribute="leadingMargin" constant="-16" id="5gV-Xe-Bkz"/>
                                                 <constraint firstItem="GGL-Vg-ejR" firstAttribute="trailing" secondItem="FkI-MV-R3P" secondAttribute="trailingMargin" id="6fx-oA-mjT"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="qA0-7Y-Ubk" secondAttribute="bottom" constant="10" id="DPN-SQ-EZf"/>
                                                 <constraint firstItem="fdx-lT-C3d" firstAttribute="trailing" secondItem="FkI-MV-R3P" secondAttribute="trailingMargin" id="MRc-wF-Sad"/>
+                                                <constraint firstItem="qA0-7Y-Ubk" firstAttribute="centerY" secondItem="39g-Fw-EKn" secondAttribute="centerY" constant="0.25" id="N3c-xG-DXa"/>
                                                 <constraint firstItem="uUt-NX-uCA" firstAttribute="top" secondItem="GGL-Vg-ejR" secondAttribute="bottom" constant="8" id="OEF-XD-x7x"/>
-                                                <constraint firstItem="qA0-7Y-Ubk" firstAttribute="leading" secondItem="fcH-hS-lFe" secondAttribute="trailing" constant="8" id="OLS-Xk-H0e"/>
+                                                <constraint firstItem="qA0-7Y-Ubk" firstAttribute="leading" secondItem="fcH-hS-lFe" secondAttribute="trailing" constant="4" id="OLS-Xk-H0e"/>
                                                 <constraint firstItem="Kj7-4r-PA7" firstAttribute="top" secondItem="FkI-MV-R3P" secondAttribute="topMargin" constant="4" id="PTD-0y-FxH"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Bie-xu-5Ai" secondAttribute="trailing" constant="-16" id="Wbv-gu-GcC"/>
                                                 <constraint firstItem="Bfd-t8-qlu" firstAttribute="leading" secondItem="FkI-MV-R3P" secondAttribute="leadingMargin" id="WcA-FK-hGx"/>
@@ -591,15 +596,22 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="Bfd-t8-qlu" secondAttribute="trailing" multiplier="2" constant="1" id="dGh-nO-kw4"/>
                                                 <constraint firstItem="uUt-NX-uCA" firstAttribute="trailing" secondItem="FkI-MV-R3P" secondAttribute="trailingMargin" id="dLc-dM-9yM"/>
                                                 <constraint firstItem="fdx-lT-C3d" firstAttribute="leading" secondItem="Bfd-t8-qlu" secondAttribute="trailing" constant="7.5" id="eDx-eN-ysm"/>
+                                                <constraint firstItem="39g-Fw-EKn" firstAttribute="centerY" secondItem="fcH-hS-lFe" secondAttribute="centerY" constant="-0.25" id="f2q-VE-HzK"/>
                                                 <constraint firstItem="Bfd-t8-qlu" firstAttribute="top" secondItem="FkI-MV-R3P" secondAttribute="topMargin" constant="4" id="g5b-M5-Oxa"/>
                                                 <constraint firstItem="fdx-lT-C3d" firstAttribute="top" secondItem="A9D-3u-kvJ" secondAttribute="bottom" constant="6" id="lJ4-GV-IbK"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fcH-hS-lFe" secondAttribute="bottom" constant="10" id="tNS-26-H4y"/>
                                                 <constraint firstItem="Bie-xu-5Ai" firstAttribute="top" secondItem="FkI-MV-R3P" secondAttribute="topMargin" constant="-8" id="tcz-kl-SWu"/>
-                                                <constraint firstItem="fcH-hS-lFe" firstAttribute="leading" secondItem="39g-Fw-EKn" secondAttribute="trailing" constant="8" id="txC-IS-JrJ"/>
+                                                <constraint firstItem="fcH-hS-lFe" firstAttribute="leading" secondItem="39g-Fw-EKn" secondAttribute="trailing" constant="4" id="txC-IS-JrJ"/>
                                                 <constraint firstItem="A9D-3u-kvJ" firstAttribute="top" secondItem="FkI-MV-R3P" secondAttribute="topMargin" constant="4" id="vYs-Tu-rvM"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Bie-xu-5Ai" secondAttribute="bottom" constant="6" id="yay-z5-5dr"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Bfd-t8-qlu" secondAttribute="bottom" constant="34" id="zFG-ag-m0G"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Bfd-t8-qlu" secondAttribute="bottom" constant="36" id="zFG-ag-m0G"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="tNS-26-H4y"/>
+                                                    <exclude reference="DPN-SQ-EZf"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>

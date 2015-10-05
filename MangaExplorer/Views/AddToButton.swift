@@ -19,13 +19,5 @@ class AddToButton: UIButton {
         layer.borderWidth = 1.0
         layer.cornerRadius = 5.0
     }
-    
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }

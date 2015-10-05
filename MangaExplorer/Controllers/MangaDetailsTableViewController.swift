@@ -167,6 +167,20 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         setTitleForFavoritesButton()
     }
     
+    @IBAction func linkToAnimeNewsNetwork(sender: UIButton) {
+        let urlString =  "http://www.animenewsnetwork.com/encyclopedia/manga.php?id=\(manga.id)"
+        if let url = NSURL(string: urlString) {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    @IBAction func linkToAniList(sender: UIButton) {
+        let urlString =  "https://anilist.co/browse/manga"
+        if let url = NSURL(string: urlString) {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
     private func setTitleForWishListButton() {
         if manga.isWished {
             addToWishListButton.setTitle("Remove from Wish List", forState: UIControlState.Normal)
@@ -367,7 +381,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 260 // height of manga image
+            return 300 // height of manga image row
         case 3:
             let sizeCollectionViewLayoutContentSize = charactersCollectionView.collectionViewLayout.collectionViewContentSize()
             return sizeCollectionViewLayoutContentSize.height + 24 // add padding for top and bottom margins
