@@ -68,7 +68,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        println("user defaults top rated mangas display max: \(UserDefaults.sharedInstance.topRatedMangasDisplayMax)")
         
         // Set display max for top rated mangas
         if genre == nil {
@@ -76,10 +75,7 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         }
         
         fetchedResultsController.performFetch(nil)
-        println("fetched objects count: \(self.fetchedResultsController.fetchedObjects?.count)")
         setMangaImagesInCacheForFirstFetchBatchSize()
-        
-        
     }
     
     override func viewDidAppear(animated: Bool) {

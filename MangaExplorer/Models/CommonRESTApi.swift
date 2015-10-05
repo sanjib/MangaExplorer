@@ -53,11 +53,9 @@ class CommonRESTApi {
                         completionHandler(result: nil, error: error)
                         return
                     }
-                    println(response)
                     if self.parseMethod == .json {
                         self.parseJSONData(data, completionHandler: completionHandler)
                     } else {
-                        println("data length: \(data.length)")
                         completionHandler(result: data, error: nil)
                     }                    
                 }
@@ -94,11 +92,9 @@ class CommonRESTApi {
                         completionHandler(result: nil, error: error)
                         return
                     }
-                    println(response)
                     if self.parseMethod == .json {
                         self.parseJSONData(data, completionHandler: completionHandler)
                     } else {
-                        println("data length: \(data.length)")
                         completionHandler(result: data, error: nil)
                     }
                 }

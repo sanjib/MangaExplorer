@@ -117,11 +117,8 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
                 } else {
                     self.searchResults = results as! [Manga]
                 }
-                println("search results count: \(self.searchResults.count)")
                 
                 self.fetchInProgressCount--
-                
-                println("fetch in progress count: \(self.fetchInProgressCount)")
                 
                 if self.fetchInProgressCount == 0 {
                     self.activityIndicator.stopAnimating()
@@ -158,9 +155,7 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     
     func configureCell(cell: MangaTableViewCell, atIndexPath indexPath: NSIndexPath) {
         
-        if let manga = searchResults.count > indexPath.row ? searchResults[indexPath.row] : nil {
-            println("configureCell found manga at: \(indexPath.row)")
-            
+        if let manga = searchResults.count > indexPath.row ? searchResults[indexPath.row] : nil {            
             cell.titleLabel.text = manga.title
             
             var allAlternativeTitles = ""

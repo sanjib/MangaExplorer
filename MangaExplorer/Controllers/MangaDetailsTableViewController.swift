@@ -58,7 +58,6 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         mangaRankingLabel.clipsToBounds = true
         
         tableView.estimatedRowHeight = 100
-//        tableView.rowHeight = UITableViewAutomaticDimension
         
         let blurredEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
         let blurredEffectView = UIVisualEffectView(effect: blurredEffect)
@@ -69,19 +68,11 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
 //        charactersNotAvailableLabel.hidden = true                
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         
         manga = fetchManga()
-        setMangaCharacterImagesInCache()
-        println("manga id: \(manga.id)")
-        
-        setTitleForWishListButton()
-        setTitleForFavoritesButton()
-        
+
         // Content
+        setMangaCharacterImagesInCache()
         setMangaImage()
         setMangaTitle()
         setMangaStaff()
@@ -89,17 +80,26 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         setPlotSummary()
         setAlternativeTitle()
         setMangaCharacters()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(false)
+        
+        // Set button titles in viewWillAppear because mangas may 
+        // be added/removed from wish/favorite list in other views
+        setTitleForWishListButton()
+        setTitleForFavoritesButton()
         
         tableReloadForViewController()
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        super.viewDidAppear(false)
         tableReloadForViewController()
     }
     
     override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
+        super.viewWillDisappear(false)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
     
@@ -384,8 +384,8 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         case 0:
             return 300 // height of manga image row
         case 3:
-            let sizeCollectionViewLayoutContentSize = charactersCollectionView.collectionViewLayout.collectionViewContentSize()
-            return sizeCollectionViewLayoutContentSize.height + 24 // add padding for top and bottom margins
+            let height = charactersCollectionView.collectionViewLayout.collectionViewContentSize().height
+            return height + 24 // add padding for top and bottom margins
         default:
             return UITableViewAutomaticDimension
         }
@@ -401,10 +401,8 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     // MARK: - Collection view delegates and data source
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        let character = manga.character[indexPath.row]
-        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CharacterCell", forIndexPath: indexPath) as! CharacterCollectionViewCell
+        let character = manga.character[indexPath.row]
         
         cell.characterNameLabel.text = "\(character.firstName) \(character.lastName)"
         
@@ -477,79 +475,12 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         layout.itemSize = CGSize(width: cellWidth, height: 60)
         charactersCollectionView.collectionViewLayout = layout
     }
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
         charactersCollectionView.collectionViewLayout.invalidateLayout()
         charactersCollectionView.performBatchUpdates(nil, completion: nil)
     }
-    
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        // #warning Potentially incomplete method implementation.
-//        // Return the number of sections.
-//        return 0
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete method implementation.
-//        // Return the number of rows in the section.
-//        return 0
-//    }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

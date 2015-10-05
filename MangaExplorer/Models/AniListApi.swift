@@ -41,16 +41,11 @@ class AniListApi: CommonRESTApi {
         ]
         let urlString = Constants.baseURL + Methods.authAccessToken
         httpPost(urlString, httpBodyParams: bodyParams) { result, error in
-            println(result)
             if error == nil {
                 if let accessToken = result["access_token"] as? String {
                     self.accessToken = accessToken
                     if let expires = result["expires"] as? Int {
                         self.accessTokenExpires = expires
-                        
-                        println("access token set: \(self.accessToken)")
-                        println("access token set: \(self.accessTokenExpires)")
-                        
                         completionHandler()
                     }
                 }
@@ -77,8 +72,6 @@ class AniListApi: CommonRESTApi {
         if let title = title.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) {
             let url = Constants.baseURL + urlKeySubstitute(Methods.mangaSearch, kvp: ["query": title]) + urlParamsFromDictionary(params)
             httpGet(url) { result, error in
-                println("mangaSearch result: \(result)")
-                println("mangaSearch error: \(error)")
                 if error != nil {
                     completionHandler(mangas: nil, errorString: error?.localizedDescription)
                 } else {
@@ -159,8 +152,6 @@ class AniListApi: CommonRESTApi {
             "access_token": accessToken
         ]
         mangaSearch(mangaTitle) { mangas, errorString in
-//            println("mangas from search query: \(mangas)")
-            
             if mangas != nil {
                 // get the first match
                 
