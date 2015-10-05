@@ -17,6 +17,8 @@ class CharacterCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         activityIndicator.hidesWhenStopped = true
         
+//        characterNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         characterImageView.contentMode = UIViewContentMode.ScaleAspectFill
         characterImageView.clipsToBounds = true        
     }

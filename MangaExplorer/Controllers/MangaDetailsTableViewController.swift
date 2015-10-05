@@ -58,7 +58,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         mangaRankingLabel.clipsToBounds = true
         
         tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.rowHeight = UITableViewAutomaticDimension
         
         let blurredEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
         let blurredEffectView = UIVisualEffectView(effect: blurredEffect)
@@ -66,7 +66,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         blurredEffectView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
         mangaBackgroundImageView.addSubview(blurredEffectView)
 
-//        charactersNotAvailableLabel.hidden = true
+//        charactersNotAvailableLabel.hidden = true                
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
     }
@@ -89,11 +89,12 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         setPlotSummary()
         setAlternativeTitle()
         setMangaCharacters()
+        
+        tableReloadForViewController()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        println("viewDidAppear")
         tableReloadForViewController()
     }
     
@@ -414,7 +415,6 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
                 cell.activityIndicator.stopAnimating()
             } else {
                 if let imageData = character.imageData {
-                    println(imageName)
                     if let image = UIImage(data: imageData) {
                         cache.setObject(image, forKey: imageName)
                         cell.characterImageView.image = image
@@ -474,7 +474,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
             cellWidth = availableWidthForCells / cellsPerRowInPortraitMode
         }
         
-        layout.itemSize = CGSize(width: cellWidth, height: 50)
+        layout.itemSize = CGSize(width: cellWidth, height: 60)
         charactersCollectionView.collectionViewLayout = layout
     }
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
