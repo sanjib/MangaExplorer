@@ -84,8 +84,11 @@ class AnimeNewsNetworkBatchUpdater: NSObject {
                                 }
                             }
                         }
-                        CoreDataStackManager.sharedInstance.saveContext()
+//                        CoreDataStackManager.sharedInstance.saveContext()
                         UserDefaults.sharedInstance.lastFetchedLatestManga = NSDate()
+                        dispatch_async(dispatch_get_main_queue()) {
+                            CoreDataStackManager.sharedInstance.saveContext()  
+                        }
                     }
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 }

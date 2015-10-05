@@ -19,12 +19,12 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     @IBOutlet weak var addToFavoritesButton: AddToButton!
     @IBOutlet weak var plotSummaryLabel: UILabel!
     @IBOutlet weak var alternativeTitleLabel: UILabel!
-    
     @IBOutlet weak var charactersCollectionView: UICollectionView!
     
     var mangaId: NSNumber!
     private var manga: Manga!
-    private var mangaCharacters: [[String:AnyObject]]?
+    private var cache = NSCache()
+    let backgroundQueue = dispatch_queue_create("MangaExplorerDetails", DISPATCH_QUEUE_SERIAL)
     
     private let photoPlaceholderImage = UIImage(named: "mangaPlaceholder")
     
@@ -44,9 +44,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     // Cell layout properties
     let cellsPerRowInPortraitMode: CGFloat = 2
     let cellsPerRowInLandscpaeMode: CGFloat = 3
-    let minimumSpacingPerCell: CGFloat = 8
-    
-//    var orientations:UIInterfaceOrientation = UIApplication.sharedApplication().statusBarOrientation
+    let minimumSpacingPerCell: CGFloat = 12
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,8 +58,6 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
 //        charactersNotAvailableLabel.hidden = true
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationChanged:", name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -77,6 +73,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         mangaBackgroundImageView.addSubview(blurredEffectView)
 
         manga = fetchManga()
+        setMangaCharacterImagesInCache()
         println("manga id: \(manga.id)")
         
         setTitleForWishListButton()
@@ -89,8 +86,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         setMangaRanking()
         setPlotSummary()
         setAlternativeTitle()
-//        setMangaCharacters()
-        
+        setMangaCharacters()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -109,36 +105,31 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Notifications
-    
-    func orientationChanged(notification: NSNotification) {
-        println("orientation changed")
-        tableReloadForViewController()
-        
-//        let orientation = UIApplication.sharedApplication().statusBarOrientation
-//        if (orientation == UIInterfaceOrientation.Portrait || orientation == UIInterfaceOrientation.PortraitUpsideDown) {
-//            if(orientation != orientations) {
-//                println("Portrait")
-//                //Do Rotation stuff here
-//
-//                orientations = orientation
-//            }
-//        } else if (orientation == UIInterfaceOrientation.LandscapeLeft || orientation == UIInterfaceOrientation.LandscapeRight) {
-//            if(orientation != orientations) {
-//                println("Landscape")
-//                //Do Rotation stuff here
-//
-//                orientations = orientation
-//            }
-//        }
-    }
-    
-    // MARK: - reset table layout
+    // MARK: - Reset table layout
     
     private func tableReloadForViewController() {
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
         tableView.reloadData()
+    }
+    
+    // MARK: - NSCache
+    
+    private func setMangaCharacterImagesInCache() {
+        dispatch_async(backgroundQueue) {
+            if self.manga.character.count > 0 {
+                for character in self.manga.character {
+                    if let imageData = character.imageData {
+                        if let image = UIImage(data: imageData) {
+                            self.cache.setObject(image, forKey: character.imageName!)
+                        }
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.charactersCollectionView.reloadData()
+                }
+            }
+        }
     }
     
     // MARK: - CoreData
@@ -332,11 +323,32 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     }
     
     private func setMangaCharacters() {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        AniListApi.sharedInstance.getAllCharactersSmallModel(manga.title) { allCharactersSmallModel, errorString in
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-            if allCharactersSmallModel != nil {
-                self.mangaCharacters = allCharactersSmallModel
+        if manga.character.count == 0 {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            AniListApi.sharedInstance.getAllCharactersSmallModel(manga.title) { allCharactersSmallModel, errorString in
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                if allCharactersSmallModel != nil {
+                    for aCharacter in allCharactersSmallModel! {
+                        var firstName = ""
+                        if let aFirstName = aCharacter["name_first"] as? String {
+                            firstName = aFirstName
+                        }
+                        var lastName = ""
+                        if let aLastName = aCharacter["name_last"] as? String {
+                            lastName = aLastName
+                        }
+                        let character = Character(firstName: firstName, lastName: lastName, context: self.sharedContext)
+                        if let imageRemotePath = aCharacter["image_url_med"] as? String {
+                            character.imageRemotePath = imageRemotePath
+                        }
+                        character.manga = self.manga                        
+                    }
+                    dispatch_async(dispatch_get_main_queue()) {
+                        CoreDataStackManager.sharedInstance.saveContext()
+                        self.charactersCollectionView.reloadData()
+                        self.tableView.reloadData()
+                    }
+                }
             }
         }
     }
@@ -370,9 +382,45 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
+        let character = manga.character[indexPath.row]
+        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CharacterCell", forIndexPath: indexPath) as! CharacterCollectionViewCell
-        cell.characterImageView.image = photoPlaceholderImage
-//        cell.characterNameLabel.text = "abc def ghi jkl mno pqr stu vwx yz"
+        
+        cell.characterNameLabel.text = "\(character.firstName) \(character.lastName)"
+        
+        // if imageName: check in cache, else check if already downloaded, else fetch
+        if let imageName = character.imageName {
+            if let image = cache.objectForKey(imageName) as? UIImage {
+                cell.characterImageView.image = image
+                cell.activityIndicator.stopAnimating()
+            } else {
+                if let imageData = character.imageData {
+                    println(imageName)
+                    if let image = UIImage(data: imageData) {
+                        cache.setObject(image, forKey: imageName)
+                        cell.characterImageView.image = image
+                    } else {
+                        cell.characterImageView.image = photoPlaceholderImage
+                    }
+                    cell.activityIndicator.stopAnimating()
+                } else {
+                    cell.characterImageView.image = photoPlaceholderImage
+                    cell.activityIndicator.startAnimating()
+                    if !character.fetchInProgress {
+                        character.fetchImageData { fetchComplete in
+                            if fetchComplete {
+                                dispatch_async(dispatch_get_main_queue()) {
+                                    self.charactersCollectionView.reloadItemsAtIndexPaths([indexPath])
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            cell.characterImageView.image = photoPlaceholderImage
+            cell.activityIndicator.stopAnimating()
+        }
         
         return cell
     }
@@ -382,7 +430,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 29
+        return manga.character.count
     }
     
     // MARK: - Layout

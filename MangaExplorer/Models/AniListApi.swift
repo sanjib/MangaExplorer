@@ -74,14 +74,21 @@ class AniListApi: CommonRESTApi {
         let params = [
             "access_token": accessToken
         ]
-        let url = Constants.baseURL + urlKeySubstitute(Methods.mangaSearch, kvp: ["query": title]) + urlParamsFromDictionary(params)
-        httpGet(url) { result, error in
-            if error != nil {
-                completionHandler(mangas: nil, errorString: error?.localizedDescription)
-            } else {
-                completionHandler(mangas: result! as? [[String:AnyObject]], errorString: nil)
+        if let title = title.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) {
+            let url = Constants.baseURL + urlKeySubstitute(Methods.mangaSearch, kvp: ["query": title]) + urlParamsFromDictionary(params)
+            httpGet(url) { result, error in
+                println("mangaSearch result: \(result)")
+                println("mangaSearch error: \(error)")
+                if error != nil {
+                    completionHandler(mangas: nil, errorString: error?.localizedDescription)
+                } else {
+                    completionHandler(mangas: result! as? [[String:AnyObject]], errorString: nil)
+                }
             }
+        } else {
+            completionHandler(mangas: nil, errorString: "Could not encode query string")
         }
+
     }
     
     private func allCharactersSmallModel(aniListMangaId: Int, completionHandler: (allCharactersSmallModel: [[String:AnyObject]]?, errorString: String?)->Void) {
@@ -178,6 +185,8 @@ class AniListApi: CommonRESTApi {
             "access_token": accessToken
         ]
         mangaSearch(mangaTitle) { mangas, errorString in
+//            println("mangas from search query: \(mangas)")
+            
             if mangas != nil {
                 // get the first match
                 
