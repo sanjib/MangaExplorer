@@ -40,6 +40,7 @@ class Manga: NSManagedObject {
     }
     
     var fetchInProgress = false
+    var charactersFetchInProgress = false
     
     var didFetchImageData: Bool {
         if let localURL = localURL {

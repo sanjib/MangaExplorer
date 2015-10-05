@@ -44,9 +44,7 @@ class InitDataViewController: UIViewController {
                 
                 let methodEnd = NSDate()
                 let executionTime = methodEnd.timeIntervalSinceDate(methodStart)
-                println("\(executionTime)")                
                 NSNotificationCenter.defaultCenter().postNotificationName("performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
-                
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
         }

@@ -106,6 +106,7 @@ class SettingsDisplayMaxTableViewController: UITableViewController {
                 break
             }
         }
+        NSNotificationCenter.defaultCenter().postNotificationName("performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 

@@ -465,7 +465,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="smu-Jv-h9D">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="GhG-0P-Cv0">
                                 <cells>
@@ -726,13 +726,33 @@
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fetch progress status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v19-KA-ayQ">
+                                                    <rect key="frame" x="8" y="31" width="140" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="DSF-5w-V3W" firstAttribute="top" secondItem="UNW-Q0-Wpt" secondAttribute="topMargin" constant="2" id="0wv-EB-GoJ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="v19-KA-ayQ" secondAttribute="bottom" constant="4" id="74e-1a-uwI"/>
+                                                <constraint firstItem="v19-KA-ayQ" firstAttribute="leading" secondItem="UNW-Q0-Wpt" secondAttribute="leadingMargin" id="K3g-vF-VtS"/>
+                                                <constraint firstAttribute="centerY" secondItem="v19-KA-ayQ" secondAttribute="centerY" id="MfL-rz-0SB"/>
+                                                <constraint firstItem="v19-KA-ayQ" firstAttribute="top" secondItem="UNW-Q0-Wpt" secondAttribute="topMargin" constant="4" id="c6C-Pi-b3y"/>
+                                                <constraint firstAttribute="centerY" secondItem="v19-KA-ayQ" secondAttribute="centerY" id="fs0-F9-qMw"/>
                                                 <constraint firstItem="DSF-5w-V3W" firstAttribute="trailing" secondItem="UNW-Q0-Wpt" secondAttribute="trailingMargin" id="gHs-ST-9iy"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="v19-KA-ayQ" secondAttribute="bottom" constant="8" id="iJD-7m-j3L"/>
                                                 <constraint firstItem="DSF-5w-V3W" firstAttribute="leading" secondItem="UNW-Q0-Wpt" secondAttribute="leadingMargin" id="l6O-mK-rTY"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="DSF-5w-V3W" secondAttribute="bottom" constant="2" id="xqz-87-RRj"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="74e-1a-uwI"/>
+                                                    <exclude reference="c6C-Pi-b3y"/>
+                                                    <exclude reference="fs0-F9-qMw"/>
+                                                    <exclude reference="iJD-7m-j3L"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -757,6 +777,7 @@
                         <outlet property="addToWishListButton" destination="GGL-Vg-ejR" id="JYn-Ay-3OI"/>
                         <outlet property="alternativeTitleLabel" destination="LKc-GR-51L" id="6Mq-yi-oGC"/>
                         <outlet property="charactersCollectionView" destination="DSF-5w-V3W" id="ePL-3t-M0h"/>
+                        <outlet property="charactersFetchInProgress" destination="v19-KA-ayQ" id="cXz-hG-HHq"/>
                         <outlet property="mangaBackgroundImageView" destination="Bie-xu-5Ai" id="VLW-mH-I4O"/>
                         <outlet property="mangaImageView" destination="Bfd-t8-qlu" id="RAo-ZD-99L"/>
                         <outlet property="mangaRankingLabel" destination="Kj7-4r-PA7" id="WTE-ef-ATO"/>

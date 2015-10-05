@@ -59,11 +59,11 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         // CoreData
         fetchedResultsController.delegate = self
         
-//        fetchedResultsController.performFetch(nil)
-//        println("fetched objects count: \(self.fetchedResultsController.fetchedObjects?.count)")
-//        setMangaImagesInCacheForFirstFetchBatchSize()
+        fetchedResultsController.performFetch(nil)
+        setMangaImagesInCacheForFirstFetchBatchSize()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "performFetchForFetchedResultsController", name: "performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -73,9 +73,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         if genre == nil {
             fetchedResultsController.fetchRequest.fetchLimit = UserDefaults.sharedInstance.topRatedMangasDisplayMax
         }
-        
-        fetchedResultsController.performFetch(nil)
-        setMangaImagesInCacheForFirstFetchBatchSize()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -83,7 +80,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         
         // Init data if manga table is empty
         if fetchedResultsController.fetchedObjects?.count == 0 {
-            println("init data segue")
             performSegueWithIdentifier("InitDataSegue", sender: self)
         } else {
             if UserDefaults.sharedInstance.shouldFetchLatestManga() {
@@ -134,7 +130,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
             println(genre)
             fetchRequest.predicate = NSPredicate(format: "ANY genre.name == %@", genre)
         } else {
-//            fetchRequest.fetchLimit = 5 * 3 * 160
             fetchRequest.fetchLimit = UserDefaults.sharedInstance.topRatedMangasDisplayMax
         }
         
@@ -150,9 +145,10 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
     }()
     
     
-    // For post notification from InitViewController
+    // For post notification from InitViewController or SettingsDisplayMaxTableViewController
     func performFetchForFetchedResultsController() {
         fetchedResultsController.performFetch(nil)
+        setMangaImagesInCacheForFirstFetchBatchSize()
         collectionView.reloadData()
     }
     

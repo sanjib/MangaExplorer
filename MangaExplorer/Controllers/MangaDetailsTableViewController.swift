@@ -20,6 +20,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     @IBOutlet weak var plotSummaryLabel: UILabel!
     @IBOutlet weak var alternativeTitleLabel: UILabel!
     @IBOutlet weak var charactersCollectionView: UICollectionView!
+    @IBOutlet weak var charactersFetchInProgress: UILabel!
     
     var mangaId: NSNumber!
     private var manga: Manga!
@@ -83,24 +84,34 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(false)
+        super.viewWillAppear(animated)
         
         // Set button titles in viewWillAppear because mangas may 
         // be added/removed from wish/favorite list in other views
         setTitleForWishListButton()
         setTitleForFavoritesButton()
-        
-        tableReloadForViewController()
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(false)
-        tableReloadForViewController()
+        super.viewDidAppear(animated)
+        tableReloadForContentUpdate()
     }
     
     override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(false)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+        super.viewWillDisappear(animated)
+        if manga.charactersFetchInProgress == true {
+            // Stop all NSURLSession tasks
+            NSURLSession.sharedSession().getTasksWithCompletionHandler() { dataTasks, uploadTasks, downloadTasks in
+                if let dataTasks = dataTasks as? [NSURLSessionDataTask] {
+                    for dataTask in dataTasks {
+                        dataTask.cancel()
+                    }
+                }
+            }
+            NSURLSession.sharedSession().invalidateAndCancel()
+            manga.charactersFetchInProgress = false
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -110,10 +121,12 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     
     // MARK: - Reset table layout
     
-    private func tableReloadForViewController() {
+    private func tableReloadForContentUpdate() {
+        let savedOffset = tableView.contentOffset
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
         tableView.reloadData()
+        tableView.setContentOffset(savedOffset, animated: false)
     }
     
     // MARK: - NSCache
@@ -343,10 +356,12 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     }
     
     private func setMangaCharacters() {
-        if manga.character.count == 0 {
+        if manga.character.count == 0 && manga.charactersFetchInProgress == false {
+            manga.charactersFetchInProgress = true
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            charactersFetchInProgress.hidden = false
+            charactersFetchInProgress.text = "Fetch in progress..."
             AniListApi.sharedInstance.getAllCharactersSmallModel(manga.title) { allCharactersSmallModel, errorString in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 if allCharactersSmallModel != nil {
                     for aCharacter in allCharactersSmallModel! {
                         var firstName = ""
@@ -361,15 +376,27 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
                         if let imageRemotePath = aCharacter["image_url_med"] as? String {
                             character.imageRemotePath = imageRemotePath
                         }
-                        character.manga = self.manga                        
+                        character.manga = self.manga
                     }
+                
                     dispatch_async(dispatch_get_main_queue()) {
                         CoreDataStackManager.sharedInstance.saveContext()
+                        self.charactersFetchInProgress.text = ""
+                        self.charactersFetchInProgress.hidden = true
                         self.charactersCollectionView.reloadData()
-                        self.tableView.reloadData()
+                        self.tableReloadForContentUpdate()
+                    }
+                } else {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.charactersFetchInProgress.text = "Not available"
                     }
                 }
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                self.manga.charactersFetchInProgress = false
             }
+        } else {
+            charactersFetchInProgress.text = "Not available"
+            charactersFetchInProgress.hidden = false
         }
     }
     

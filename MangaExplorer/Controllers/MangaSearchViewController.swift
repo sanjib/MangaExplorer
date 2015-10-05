@@ -41,6 +41,7 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.searchBar.sizeToFit()
+        searchController.searchBar.placeholder = "Search by title or author"
         
         tableView.tableHeaderView = searchController.searchBar
         self.definesPresentationContext = true
