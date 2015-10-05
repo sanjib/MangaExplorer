@@ -16,7 +16,6 @@ class AniListApi: CommonRESTApi {
     
     var accessToken = ""
     var accessTokenExpires: Int?
-    var accessTokenExpiresIn: Int?
     
     private override init() {
         super.init()
@@ -42,18 +41,17 @@ class AniListApi: CommonRESTApi {
         ]
         let urlString = Constants.baseURL + Methods.authAccessToken
         httpPost(urlString, httpBodyParams: bodyParams) { result, error in
+            println(result)
             if error == nil {
                 if let accessToken = result["access_token"] as? String {
                     self.accessToken = accessToken
                     if let expires = result["expires"] as? Int {
                         self.accessTokenExpires = expires
-                        if let expiresIn = result["expires_in"] as? Int {
-                            self.accessTokenExpiresIn = expiresIn
-                            
-                            println("access token set: \(self.accessToken)")
-                            
-                            completionHandler()
-                        }
+                        
+                        println("access token set: \(self.accessToken)")
+                        println("access token set: \(self.accessTokenExpires)")
+                        
+                        completionHandler()
                     }
                 }
             }
@@ -64,9 +62,11 @@ class AniListApi: CommonRESTApi {
         if accessToken.isEmpty {
             return false
         } else {
-            // TODO: check if token has expired
-            
-            return true
+            if Int(NSDate().timeIntervalSince1970) >= accessTokenExpires {
+                return false
+            } else {
+                return true
+            }
         }
     }
     
@@ -106,32 +106,6 @@ class AniListApi: CommonRESTApi {
             }
         }
     }
-    
-//    private func mangaCharactersWithNames(aniListMangaId: Int, completionHandler: (characters: [String]?, errorString: String?)->Void) {
-//        let params = [
-//            "access_token": accessToken
-//        ]
-//        let url = Constants.baseURL + urlKeySubstitute(Methods.mangaCharacters, kvp: ["id": "\(aniListMangaId)"]) + urlParamsFromDictionary(params)
-//        httpGet(url) { result, error in
-//            if error != nil {
-//                completionHandler(characters: nil, errorString: error?.localizedDescription)
-//            } else {
-//                var characterNames = [String]()
-//                if let characters = result!["characters"] as? [[String:AnyObject]] {
-//                    for character in characters {
-//                        if let firstName = character["name_first"] as? String {
-//                            var name = firstName
-//                            if let lastName = character["name_last"] as? String {
-//                                name += " " + lastName
-//                            }
-//                            characterNames.append(name)
-//                        }
-//                    }
-//                    completionHandler(characters: characterNames, errorString: nil)
-//                }
-//            }
-//        }
-//    }
     
     private func getAllCharactersFullModelWithValidAccessToken(mangaTitle: String, completionHandler: (allCharactersFullModel: [[String:AnyObject]]?, errorString: String?)->Void) {
         let params = [

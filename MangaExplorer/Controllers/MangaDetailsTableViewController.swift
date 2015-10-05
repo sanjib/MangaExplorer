@@ -52,8 +52,17 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         charactersCollectionView.delegate = self
         charactersCollectionView.dataSource = self
         
+        mangaRankingLabel.layer.cornerRadius = 3.0
+        mangaRankingLabel.clipsToBounds = true
+        
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        let blurredEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurredEffectView = UIVisualEffectView(effect: blurredEffect)
+        blurredEffectView.frame = mangaBackgroundImageView.bounds
+        blurredEffectView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        mangaBackgroundImageView.addSubview(blurredEffectView)
 
 //        charactersNotAvailableLabel.hidden = true
         
@@ -63,15 +72,6 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        mangaRankingLabel.layer.cornerRadius = 3.0
-        mangaRankingLabel.clipsToBounds = true
-        
-        let blurredEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-        let blurredEffectView = UIVisualEffectView(effect: blurredEffect)
-        blurredEffectView.frame = mangaBackgroundImageView.bounds
-        blurredEffectView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
-        mangaBackgroundImageView.addSubview(blurredEffectView)
-
         manga = fetchManga()
         setMangaCharacterImagesInCache()
         println("manga id: \(manga.id)")
