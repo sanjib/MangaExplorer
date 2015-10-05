@@ -22,13 +22,7 @@ class AnimeNewsNetworkBatchUpdater: NSObject {
         allMangaIDs = fetchAllMangaIDs()
     }
     
-    func updateTopRatedMangas() {
-        
-    }
-    
     func updateWithLatestMangas() {
-        println("updateWithLatestMangas \(allMangaIDs.count)")
-        
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         getLatestMangas(0, latestMangaIDs: [Int]()) { mangaIDs in
             if mangaIDs != nil {

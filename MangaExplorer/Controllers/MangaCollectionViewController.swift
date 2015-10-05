@@ -87,11 +87,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
             }
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        println("didReceiveMemoryWarning: TopRatedViewController")
-    }
     
     // MARK: - NSCache
     
@@ -127,7 +122,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         let fetchRequest = NSFetchRequest(entityName: "Manga")
         
         if let genre = self.genre {
-            println(genre)
             fetchRequest.predicate = NSPredicate(format: "ANY genre.name == %@", genre)
         } else {
             fetchRequest.fetchLimit = UserDefaults.sharedInstance.topRatedMangasDisplayMax
@@ -175,14 +169,13 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         }
         
         // In storyboard, the manga image height:width ratio is specified as 1.3:1, 
-        // 26 points is fixed space allocated to title and author labels
+        // 44 points is fixed space allocated to title and author labels
         layout.itemSize = CGSize(width: cellWidth, height: (cellWidth*1.3) + 44)
         collectionView.collectionViewLayout = layout
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-//        collectionView.collectionViewLayout.invalidateLayout()
         collectionView.performBatchUpdates(nil, completion: nil)
     }
     
@@ -313,7 +306,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "MangaDetailsSegue" {
-//            let vc = segue.destinationViewController as! MangaDetailsViewController
             let vc = segue.destinationViewController as! MangaDetailsTableViewController
             let manga = fetchedResultsController.objectAtIndexPath(selectedIndexes.first!) as! Manga
             vc.mangaId = manga.id

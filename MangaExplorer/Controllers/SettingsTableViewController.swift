@@ -25,11 +25,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         let mangaCount = numberFormatter.stringFromNumber(NSNumber(integer: fetchNumberOfMangasInDatabase()))!
         valueForNumberOfMangasInDatabaseLabel.text = "\(mangaCount)"
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // MARK: - Core data
     
@@ -78,7 +73,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         alertController.addAction(cancelAction)
         
         if let popover = alertController.popoverPresentationController {
-            println("popover")
             popover.sourceView = cell.textLabel
             popover.sourceRect = cell.textLabel!.bounds
             popover.permittedArrowDirections = UIPopoverArrowDirection.Any
@@ -136,15 +130,5 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

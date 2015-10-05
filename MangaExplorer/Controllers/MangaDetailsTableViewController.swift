@@ -65,8 +65,6 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         blurredEffectView.frame = mangaBackgroundImageView.bounds
         blurredEffectView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
         mangaBackgroundImageView.addSubview(blurredEffectView)
-
-//        charactersNotAvailableLabel.hidden = true                
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
         
@@ -113,12 +111,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+        
     // MARK: - Reset table layout
     
     private func tableReloadForContentUpdate() {

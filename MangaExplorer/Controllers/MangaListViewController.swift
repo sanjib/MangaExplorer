@@ -47,10 +47,6 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
         
         fetchedResultsController.performFetch(nil)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     // MARK: - Segmented control
     
@@ -67,9 +63,7 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
         fetchedResultsController.performFetch(nil)
-        println("fetched objects count: \(fetchedResultsController.fetchedObjects?.count)")
         tableView.reloadData()
-        
     }
     
     // MARK: - Core data
@@ -80,8 +74,6 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Manga")
-        
-        println("current list type: \(self.currentListType)")
         
         switch self.currentListType {
         case ListSegmentedControlOption.WishList:
@@ -127,7 +119,6 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
     // MARK: - NSFetchedResultsControllerDelegate
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        println("controllerWillChangeContent")
         tableView.beginUpdates()
     }
     
@@ -202,7 +193,6 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "MangaDetailsSegue" {
             if selectedManga != nil {

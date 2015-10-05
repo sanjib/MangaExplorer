@@ -21,12 +21,9 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
     var task = ""
     var person = ""
     var news = [[String:AnyObject]]()
-    //    var newsDateTime = NSDate()
     var newsDateTime = ""
     var newsHref = ""
     var newsTitle = ""
-    
-    //    static let sharedInstance = AnimeNewsNetworkXMLParserForMangaDetail()
     
     func parseWithData(data: NSData, completionHandler: (mangaProperties: [[String:AnyObject]]?, errorString: String?) -> Void) {
         // There is a problem with UTF8 encoding from Anime News Network,
@@ -38,10 +35,8 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
         parser.delegate = self
         let success = parser.parse()
         if success == true {
-            //            println("parse successful, call completionHandler")
             completionHandler(mangaProperties: mangaProperties, errorString: nil)
         } else {
-            println("parse failed, call completionHandler")
             completionHandler(mangaProperties: nil, errorString: "Parse failed")
         }
     }
@@ -98,8 +93,6 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
     }
     
     func parser(parser: NSXMLParser, foundCharacters string: String?) {
-        //        println("foundCharacters string: \(string)")
-        
         if let string = string {
             switch elementName {
             case "info":
@@ -146,7 +139,6 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
     }
     
     func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        //        println("didEndElement elementName: \(elementName)")
         
         if elementName == "info" {
             switch attributeDictType {
@@ -175,7 +167,6 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
                 "href": newsHref,
                 "title": newsTitle
                 ])
-            //            newsDateTime = NSDate()
             newsDateTime = ""
             newsHref = ""
             newsTitle = ""
@@ -208,11 +199,11 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
     // Error detection
     
     func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
-        println("parseErrorOccurred: \(parseError)")
+        NSLog("parseErrorOccurred: \(parseError)")
     }
     
     func parser(parser: NSXMLParser, validationErrorOccurred validationError: NSError) {
-        println("validationErrorOccurred: \(validationError)")
+        NSLog("validationErrorOccurred: \(validationError)")
     }
     
 }

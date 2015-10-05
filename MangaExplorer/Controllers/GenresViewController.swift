@@ -45,11 +45,6 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // CoreData
         allGenres = fetchAllGenres()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        println("didReceiveMemoryWarning: GenresViewController")
-    }
     
     // MARK: - CoreData
     

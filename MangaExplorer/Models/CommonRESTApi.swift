@@ -23,7 +23,7 @@ class CommonRESTApi {
     var parseMethod = ParseMethod.json
     
     private struct ErrorMessage {
-        static let domain = "MangaReaderAlpha"
+        static let domain = "MangaExplorer"
         static let noInternet = "You appear to be offline, please connect to the Internet to use MangaReaderAlpha."
         static let invalidURL = "Invalid URL"
         static let emptyURL = "Empty URL"

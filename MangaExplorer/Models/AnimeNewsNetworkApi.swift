@@ -26,23 +26,6 @@ class AnimeNewsNetworkApi: CommonRESTApi {
         static let detail = "api.xml"
     }
     
-//    func getAllMangasXMLData(completionHandler: (xmlData: NSData?, errorString: String?) -> Void) {
-//        let methodParams: [String:AnyObject] = [
-//            "id": 155,
-//            "type": "manga",
-//            "nlist": "all"
-//        ]
-//        let url = Constants.baseURL + Methods.report + urlParamsFromDictionary(methodParams)
-//        println(url)
-//        httpGet(url) { xmlData, error in
-//            if error != nil {
-//                completionHandler(xmlData: nil, errorString: error?.localizedDescription)
-//            } else {
-//                completionHandler(xmlData: xmlData as? NSData, errorString: nil)
-//            }
-//        }
-//    }
-    
     func getAllMangas(completionHandler: (mangaProperties: [[String:AnyObject]]?, errorString: String?) -> Void) {
         let methodParams: [String:AnyObject] = [
             "id": 155,
@@ -50,7 +33,6 @@ class AnimeNewsNetworkApi: CommonRESTApi {
             "nlist": "all"
         ]
         let url = Constants.baseURL + Methods.report + urlParamsFromDictionary(methodParams)
-        println(url)
         httpGet(url) { xmlData, error in
             if error != nil {
                 completionHandler(mangaProperties: nil, errorString: error?.localizedDescription)
@@ -69,49 +51,12 @@ class AnimeNewsNetworkApi: CommonRESTApi {
             "nskip": "\(skip)",
         ]
         let url = Constants.baseURL + Methods.report + urlParamsFromDictionary(methodParams)
-        println(url)
         httpGet(url) { xmlData, error in
             if error != nil {
                 completionHandler(mangaProperties: nil, errorString: error?.localizedDescription)
             } else {
                 let annParserForMangaListWithIdAndTitle = AnimeNewsNetworkXMLParserForMangaListWithIdAndTitle()
                 annParserForMangaListWithIdAndTitle.parseWithData(xmlData as! NSData, completionHandler: completionHandler)
-            }
-        }
-    }
-    
-//    func getTopRatedMangasXMLData(completionHandler: (xmlData: NSData?, errorString: String?) -> Void) {
-//        let methodParams: [String:AnyObject] = [
-//            "id": 173,
-//            "nlist": "all"
-//        ]
-//        let url = Constants.baseURL + Methods.report + urlParamsFromDictionary(methodParams)
-//        println(url)
-//        let nsurl = NSURL(string: url)
-//        
-//        httpGet(url) { xmlData, error in
-//            if error != nil {
-//                completionHandler(xmlData: nil, errorString: error?.localizedDescription)
-//            } else {
-//                completionHandler(xmlData: xmlData as? NSData, errorString: nil)
-//            }
-//        }
-//    }
-    
-    func getTopRatedMangas(completionHandler: (mangaProperties: [[String:AnyObject]]?, errorString: String?) -> Void) {
-        let methodParams: [String:AnyObject] = [
-            "id": 173,
-            "nlist": "all"
-        ]
-        let url = Constants.baseURL + Methods.report + urlParamsFromDictionary(methodParams)
-        println(url)
-        let nsurl = NSURL(string: url)
-        
-        httpGet(url) { xmlData, error in
-            if error != nil {
-                completionHandler(mangaProperties: nil, errorString: error?.localizedDescription)
-            } else {
-                AnimeNewsNetworkXMLParserForMangaListWithRating.sharedInstance.parseWithData(xmlData as! NSData, completionHandler: completionHandler)
             }
         }
     }
@@ -140,7 +85,6 @@ class AnimeNewsNetworkApi: CommonRESTApi {
             "manga": mangaIdsInString
         ]
         let url = Constants.baseURL + Methods.detail + urlParamsFromDictionary(methodParams)
-        println(url)
         httpGet(url) { xmlData, error in
             if error != nil {
                 completionHandler(mangaProperties: nil, errorString: error?.localizedDescription)

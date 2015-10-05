@@ -18,14 +18,13 @@ class CoreDataStackManager: NSObject {
         
     lazy var applicationDocumentDirectory: NSURL = {
         let url = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first as! NSURL
-        println(url.path!)
         return url
-        }()
+    }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         let modelURL = NSBundle.mainBundle().URLForResource(CORE_DATA_MODEL_NAME, withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
-        }()
+    }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
@@ -43,7 +42,7 @@ class CoreDataStackManager: NSObject {
             abort()
         }
         return coordinator
-        }()
+    }()
     
     lazy var managedObjectContext: NSManagedObjectContext? = {
         let persistentStoreCoordinator = self.persistentStoreCoordinator
@@ -53,7 +52,7 @@ class CoreDataStackManager: NSObject {
         let managedObjectContext = NSManagedObjectContext()
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
         return managedObjectContext
-        }()
+    }()
     
     func saveContext() {
         if let context = self.managedObjectContext {

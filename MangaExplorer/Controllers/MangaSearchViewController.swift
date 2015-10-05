@@ -49,11 +49,6 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.estimatedRowHeight = 62.0
         tableView.rowHeight = UITableViewAutomaticDimension
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // MARK: UIGesture
     
@@ -218,7 +213,6 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "MangaDetailsSegue" {
             if selectedManga != nil {

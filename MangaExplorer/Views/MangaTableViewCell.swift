@@ -17,17 +17,10 @@ class MangaTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
+
         let backgroundView = UIView(frame: frame)
         backgroundView.backgroundColor = UIColor.blackColor()
         selectedBackgroundView = backgroundView
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
