@@ -49,6 +49,8 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
         charactersCollectionView.delegate = self
         charactersCollectionView.dataSource = self
         
@@ -151,7 +153,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         return results?.first as! Manga
     }
     
-    // MARK: - List buttons
+    // MARK: - Buttons
     
     @IBAction func wishListAction(sender: AddToButton) {
         manga.isWished = !manga.isWished
@@ -242,9 +244,12 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
                 manga.fetchImageData { fetchComplete in
                     if fetchComplete {
                         dispatch_async(dispatch_get_main_queue()) {
-                            let mangaImage = UIImage(data: self.manga.imageData!)
-                            self.mangaImageView.image = mangaImage
-                            self.mangaBackgroundImageView.image = mangaImage
+                            if let imageData = self.manga.imageData {
+                                if let mangaImage = UIImage(data: imageData) {
+                                    self.mangaImageView.image = mangaImage
+                                    self.mangaBackgroundImageView.image = mangaImage
+                                }
+                            }
                         }
                     }
                 }

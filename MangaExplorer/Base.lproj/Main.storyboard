@@ -99,8 +99,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="duW-af-cyH">
-                                <rect key="frame" x="205" y="72" width="191" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="duW-af-cyH" customClass="MangaListSegmentedControl" customModule="MangaExplorer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="600" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="N8f-uV-s6r"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Wish List"/>
                                     <segment title="Favorites List"/>
@@ -110,7 +113,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="EYb-dH-r3c">
-                                <rect key="frame" x="0.0" y="108" width="600" height="443"/>
+                                <rect key="frame" x="0.0" y="104" width="600" height="447"/>
                                 <color key="backgroundColor" red="0.29803922772407532" green="0.29803922772407532" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MangaListCell" rowHeight="62" id="oD1-SM-XwL" customClass="MangaTableViewCell" customModule="MangaExplorer" customModuleProvider="target">
@@ -192,9 +195,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="EYb-dH-r3c" secondAttribute="trailing" constant="-16" id="CnE-xz-VA9"/>
                             <constraint firstItem="x37-fO-zIN" firstAttribute="top" secondItem="EYb-dH-r3c" secondAttribute="bottom" id="DnH-fp-2np"/>
                             <constraint firstItem="EYb-dH-r3c" firstAttribute="leading" secondItem="MK2-h8-mgD" secondAttribute="leadingMargin" constant="-16" id="Ful-2E-cz8"/>
-                            <constraint firstItem="duW-af-cyH" firstAttribute="top" secondItem="mks-sa-j8O" secondAttribute="bottom" constant="8" id="LaM-s9-WhT"/>
-                            <constraint firstAttribute="centerX" secondItem="duW-af-cyH" secondAttribute="centerX" constant="-0.5" id="Lm0-ta-FF0"/>
-                            <constraint firstItem="EYb-dH-r3c" firstAttribute="top" secondItem="duW-af-cyH" secondAttribute="bottom" constant="8" id="STe-eP-yBt"/>
+                            <constraint firstItem="duW-af-cyH" firstAttribute="top" secondItem="mks-sa-j8O" secondAttribute="bottom" id="LaM-s9-WhT"/>
+                            <constraint firstAttribute="centerX" secondItem="duW-af-cyH" secondAttribute="centerX" id="Lm0-ta-FF0"/>
+                            <constraint firstItem="EYb-dH-r3c" firstAttribute="top" secondItem="duW-af-cyH" secondAttribute="bottom" id="STe-eP-yBt"/>
+                            <constraint firstItem="duW-af-cyH" firstAttribute="leading" secondItem="MK2-h8-mgD" secondAttribute="leadingMargin" constant="-16" id="ahj-aa-Ln2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="duW-af-cyH" secondAttribute="trailing" constant="-16" id="fRj-0G-fWN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Manga Lists" id="wHi-kD-C6Y"/>
@@ -731,6 +736,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="hJ1-o9-aBg">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="5Wm-C7-b0T">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="shareManga:" destination="4wd-rl-Uz8" id="fBA-KF-KhT"/>
                             </connections>
@@ -782,6 +788,9 @@
                     <tabBarItem key="tabBarItem" title="Top Rated" image="topRated" id="k09-lV-Yhn">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="topRatedFilled"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
@@ -805,6 +814,9 @@
                     <tabBarItem key="tabBarItem" title="Genres" image="genres" id="Rs6-Se-c3o">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="genresFilled"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
@@ -910,6 +922,9 @@
                     <tabBarItem key="tabBarItem" title="My Lists" image="myList" id="JSn-VH-dPC">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="myListFilled"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
@@ -933,6 +948,9 @@
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="pnG-tH-Wgv">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="searchFilled"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
@@ -956,6 +974,9 @@
                     <tabBarItem key="tabBarItem" title="Settings" image="settings" id="eH6-Y1-zE4">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="settingsFilled"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                     <toolbarItems/>
@@ -1102,7 +1123,7 @@
         <!--About-->
         <scene sceneID="7L0-kn-5JC">
             <objects>
-                <viewController id="qwT-H4-kP5" sceneMemberID="viewController">
+                <viewController id="qwT-H4-kP5" customClass="SettingsAboutViewController" customModule="MangaExplorer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EfC-8a-EkD"/>
                         <viewControllerLayoutGuide type="bottom" id="SCW-98-bLy"/>
@@ -1255,6 +1276,7 @@ http://shuhosato.mangareborn.jp</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="CKQ-IF-Dwi" style="IBUITableViewCellStyleDefault" id="Mq1-71-5Ej">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1270,6 +1292,7 @@ http://shuhosato.mangareborn.jp</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="poo-P9-wyE" style="IBUITableViewCellStyleDefault" id="hzZ-Fz-tAa">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1285,6 +1308,7 @@ http://shuhosato.mangareborn.jp</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1330,6 +1354,7 @@ http://shuhosato.mangareborn.jp</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="7tW-BM-Ubh" style="IBUITableViewCellStyleDefault" id="ubr-1J-z21">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1345,6 +1370,7 @@ http://shuhosato.mangareborn.jp</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="0LE-A4-AUN" style="IBUITableViewCellStyleDefault" id="ASL-1A-MLq">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1360,6 +1386,7 @@ http://shuhosato.mangareborn.jp</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="pm3-9O-0Fv" style="IBUITableViewCellStyleDefault" id="nZs-n9-hgt">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1375,6 +1402,7 @@ http://shuhosato.mangareborn.jp</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1411,7 +1439,7 @@ http://shuhosato.mangareborn.jp</string>
         <image name="topRatedFilled" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kuh-6m-CUE"/>
         <segue reference="BxB-ns-oVA"/>
+        <segue reference="4O4-13-c7P"/>
     </inferredMetricsTieBreakers>
 </document>

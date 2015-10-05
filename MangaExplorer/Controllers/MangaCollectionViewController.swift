@@ -45,6 +45,8 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         
