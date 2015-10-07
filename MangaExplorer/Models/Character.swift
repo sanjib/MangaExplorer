@@ -49,7 +49,7 @@ class Character: NSManagedObject {
     }
     
     var localURL: NSURL? {
-        let url = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first as! NSURL
+        let url = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.CachesDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first as! NSURL
         if let imageName = imageName {
             return url.URLByAppendingPathComponent(imageName)
         }
