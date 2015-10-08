@@ -24,8 +24,6 @@ class CoreDataStackManager: NSObject {
         
     lazy var applicationDocumentDirectory: NSURL = {
         let url = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first as! NSURL
-        println(url.path!)
-        println(ErrorMessage.Domain)
         return url
     }()
     
