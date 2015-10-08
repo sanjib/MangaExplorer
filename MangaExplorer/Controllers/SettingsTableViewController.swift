@@ -14,6 +14,19 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     @IBOutlet weak var valueForNumberOfMangasInDatabaseLabel: UILabel!
     @IBOutlet weak var tellAFriendTableViewCell: UITableViewCell!
     
+    struct TellAFriendMessage {
+        static let Body = "Discover new mangas of your choice with the Manga Explorer app. For more details, visit: http://objectcoder.com/manga-explorer"
+        static let ErrorTitle = "Cannot Send Message"
+        static let ErrorMessage = "Please check your configuration and try again."
+    }
+    
+    struct TellAFriendMail {
+        static let Subject = "Manga Explorer app"
+        static let Body = "Discover new mangas of your choice with the Manga Explorer app. For more details, visit: <a href=\"http://objectcoder.com/manga-explorer\">http://objectcoder.com/manga-explorer</a>"
+        static let ErrorTitle = "Cannot Send Mail"
+        static let ErrorMessage = "Please check your mail configuration and try again."
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -83,25 +96,25 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     private func tellAFriendMail() {
         let mailComposeViewController = MFMailComposeViewController()
         mailComposeViewController.mailComposeDelegate = self
-        mailComposeViewController.setSubject("Manga Explorer app")
-        mailComposeViewController.setMessageBody("Discover new mangas of your choice with the Manga Explorer app. For more details, visit: <a href=\"http://objectcoder.com/manga-explorer\">http://objectcoder.com/manga-explorer</a>", isHTML: true)
+        mailComposeViewController.setSubject(TellAFriendMail.Subject)
+        mailComposeViewController.setMessageBody(TellAFriendMail.Body, isHTML: true)
         presentViewController(mailComposeViewController, animated: true, completion: nil)
     }
     
     private func tellAFriendErrorAlertCannotSendMail() {
-        let sendMailErrorAlert = UIAlertView(title: "Cannot Send Mail", message: "Please check your mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        let sendMailErrorAlert = UIAlertView(title: TellAFriendMail.ErrorTitle, message: TellAFriendMail.ErrorMessage, delegate: self, cancelButtonTitle: "OK")
         sendMailErrorAlert.show()
     }
     
     private func tellAFriendMessage() {
         let messageComposeViewController = MFMessageComposeViewController()
         messageComposeViewController.messageComposeDelegate = self
-        messageComposeViewController.body = "Discover new mangas of your choice with the Manga Explorer app. For more details, visit: http://objectcoder.com/manga-explorer"
+        messageComposeViewController.body = TellAFriendMessage.Body
         presentViewController(messageComposeViewController, animated: true, completion: nil)
     }
     
     private func tellAFriendErrorAlertCannotSendMessage() {
-        let sendMessageErrorAlert = UIAlertView(title: "Cannot Send Message", message: "Please check your configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        let sendMessageErrorAlert = UIAlertView(title: TellAFriendMessage.ErrorTitle, message: TellAFriendMessage.ErrorMessage, delegate: self, cancelButtonTitle: "OK")
         sendMessageErrorAlert.show()
     }
     
