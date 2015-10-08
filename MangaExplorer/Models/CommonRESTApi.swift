@@ -23,10 +23,10 @@ class CommonRESTApi {
     var parseMethod = ParseMethod.json
     
     private struct ErrorMessage {
-        static let domain = "MangaExplorer"
-        static let noInternet = "You appear to be offline, please connect to the Internet to use MangaReaderAlpha."
-        static let invalidURL = "Invalid URL"
-        static let emptyURL = "Empty URL"
+        static let Domain = NSBundle.mainBundle().bundleIdentifier!
+        static let NoInternet = "You appear to be offline, please connect to the Internet to use MangaReaderAlpha."
+        static let InvalidURL = "Invalid URL"
+        static let EmptyURL = "Empty URL"
     }
     
     enum ParseMethod {
@@ -35,7 +35,7 @@ class CommonRESTApi {
     
     func httpGet(urlString: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
         if IJReachability.isConnectedToNetwork() == false {
-            completionHandler(result: nil, error: NSError(domain: ErrorMessage.domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.noInternet]))
+            completionHandler(result: nil, error: NSError(domain: ErrorMessage.Domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.NoInternet]))
             return
         }
         
@@ -61,16 +61,16 @@ class CommonRESTApi {
                 }
                 task.resume()
             } else {
-                completionHandler(result: nil, error: NSError(domain: ErrorMessage.domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.invalidURL]))
+                completionHandler(result: nil, error: NSError(domain: ErrorMessage.Domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.InvalidURL]))
             }
         } else {
-            completionHandler(result: nil, error: NSError(domain: ErrorMessage.domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.emptyURL]))
+            completionHandler(result: nil, error: NSError(domain: ErrorMessage.Domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.EmptyURL]))
         }
     }
     
     func httpPost(urlString: String, httpBodyParams: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
         if IJReachability.isConnectedToNetwork() == false {
-            completionHandler(result: nil, error: NSError(domain: ErrorMessage.domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.noInternet]))
+            completionHandler(result: nil, error: NSError(domain: ErrorMessage.Domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.NoInternet]))
             return
         }
         
@@ -100,10 +100,10 @@ class CommonRESTApi {
                 }
                 task.resume()
             } else {
-                completionHandler(result: nil, error: NSError(domain: ErrorMessage.domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.invalidURL]))
+                completionHandler(result: nil, error: NSError(domain: ErrorMessage.Domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.InvalidURL]))
             }
         } else {
-            completionHandler(result: nil, error: NSError(domain: ErrorMessage.domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.emptyURL]))
+            completionHandler(result: nil, error: NSError(domain: ErrorMessage.Domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.EmptyURL]))
         }
     }
     

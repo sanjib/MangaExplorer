@@ -14,11 +14,18 @@ let CORE_DATA_MODEL_NAME = "MangaExplorer"
 
 class CoreDataStackManager: NSObject {
     
+    private struct ErrorMessage {
+        static let Domain = NSBundle.mainBundle().bundleIdentifier!
+        static let PersistentCoordinatorInitFailed = "Failed to init perisistent coordinator"
+        static let PersistentCoordinatorInitFailedReason = "There was an error adding a persistent store type"
+    }
+    
     static let sharedInstance = CoreDataStackManager()
         
     lazy var applicationDocumentDirectory: NSURL = {
         let url = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first as! NSURL
         println(url.path!)
+        println(ErrorMessage.Domain)
         return url
     }()
     
@@ -35,10 +42,10 @@ class CoreDataStackManager: NSObject {
         if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
             coordinator = nil
             let dict = NSMutableDictionary()
-            dict[NSLocalizedDescriptionKey] = "Failed to init perisistent coordinator"
-            dict[NSLocalizedFailureReasonErrorKey] = "There was an error adding a persistent store type"
+            dict[NSLocalizedDescriptionKey] = ErrorMessage.PersistentCoordinatorInitFailed
+            dict[NSLocalizedFailureReasonErrorKey] = ErrorMessage.PersistentCoordinatorInitFailedReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "MangaExplorer", code: 9999, userInfo: dict as [NSObject:AnyObject])
+            error = NSError(domain: ErrorMessage.Domain, code: 9999, userInfo: dict as [NSObject:AnyObject])
             NSLog("CoreDataStackManager persistentStoreCoordinator error \(error), \(error?.userInfo)")
             abort()
         }
@@ -63,6 +70,5 @@ class CoreDataStackManager: NSObject {
                 abort()
             }
         }
-    }
-
+    }    
 }
