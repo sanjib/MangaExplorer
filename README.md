@@ -22,6 +22,8 @@ beautiful snapshots of manga details with your friends.
 
 [Manga Explorer Home and Privacy Policy page](http://objectcoder.com/manga-explorer/)
 
+[Video Demo](https://youtu.be/pyV2cFAX6HQ)
+
 ##User Notes
 
 1. Upon first install, the app will load the database with pre-fetched records of manga 
