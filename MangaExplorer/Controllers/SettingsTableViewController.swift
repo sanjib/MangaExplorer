@@ -50,13 +50,21 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         let fetchRequest = NSFetchRequest()
         fetchRequest.entity = NSEntityDescription.entityForName("Manga", inManagedObjectContext: sharedContext)
         fetchRequest.includesSubentities = false
-        
-        var error: NSError?
-        var count = sharedContext.countForFetchRequest(fetchRequest, error: &error)
-        if let error = error {
+
+        let error: AutoreleasingUnsafeMutablePointer<NSError?> = nil
+        let count = sharedContext.countForFetchRequest(fetchRequest, error: error)
+        if error != nil {
             return 0
         }
         return count
+        
+        
+//        var error: NSError?
+//        let count = sharedContext.countForFetchRequest(fetchRequest, error: &error)
+//        if let error = error {
+//            return 0
+//        }
+//        return count
     }
     
     // MARK: - Tell a friend
@@ -120,11 +128,11 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     
     // MARK: - Message UI delegates
     
-    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     

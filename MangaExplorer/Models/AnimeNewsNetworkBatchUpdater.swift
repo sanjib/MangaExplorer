@@ -35,7 +35,6 @@ class AnimeNewsNetworkBatchUpdater: NSObject {
                                 let imageRemotePath = mangaProperty["imageRemotePath"] as? String
                                 let bayesianAverage = mangaProperty["bayesianAverage"] as? Double
                                 let plotSummary = mangaProperty["plotSummary"] as? String
-                                let news = mangaProperty["news"] as? [[String:AnyObject]]
                                 let staff = mangaProperty["staff"] as? [[String:String]]
                                 let alternativeTitles = mangaProperty["alternativeTitles"] as? [String]
                                 let genres = mangaProperty["genres"] as? [String]
@@ -166,13 +165,13 @@ class AnimeNewsNetworkBatchUpdater: NSObject {
         
     }
     
-    private func getLatestMangas(var skip: Int, var latestMangaIDs: [Int], completionHandler: (mangaIDs: [Int]?)->Void) {
+    private func getLatestMangas(skip: Int, var latestMangaIDs: [Int], completionHandler: (mangaIDs: [Int]?)->Void) {
         AnimeNewsNetworkApi.sharedInstance.getLatestMangas(skip) { mangaProperties, errorString in
             if mangaProperties != nil {
                 var mangaIDFound = false
                 for mangaProperty in mangaProperties! {
                     if let id = mangaProperty["id"] as? Int {
-                        if contains(self.allMangaIDs, id) {
+                        if self.allMangaIDs.contains(id) {
                             completionHandler(mangaIDs: latestMangaIDs)
                             mangaIDFound = true
                             break
@@ -203,18 +202,16 @@ func fetchAllMangaIDs() -> [Int] {
     fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
     fetchRequest.propertiesToFetch = ["id"]
 
-    var error: NSError? = nil
-    var results =  sharedContext.executeFetchRequest(fetchRequest, error: &error)
-    
-    if let error = error {
+    do {
+        let results = try sharedContext.executeFetchRequest(fetchRequest)
+        var allMangaIDs = [Int]()
+        for result in results as! [NSDictionary] {
+            if let id = result["id"] as? Int {
+                allMangaIDs.append(id)
+            }
+        }
+        return allMangaIDs
+    } catch {
         return [Int]()
     }
-    
-    var allMangaIDs = [Int]()
-    for result in results as! [NSDictionary] {
-        if let id = result["id"] as? Int {
-            allMangaIDs.append(id)
-        }
-    }
-    return allMangaIDs
 }

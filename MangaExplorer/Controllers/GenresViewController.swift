@@ -59,29 +59,27 @@ class GenresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
         fetchRequest.propertiesToFetch = ["name"]
         
-        var error: NSError? = nil
-        var results = sharedContext.executeFetchRequest(fetchRequest, error: &error)
-        if let error = error {
-            return [[String:Int]]()
-        }
-
-        var genres = [String:Int]()
-        for genre in results as! [NSDictionary] {
-            if let genreName = genre["name"] as? String {
-                if genres[genreName] != nil {
-                   genres[genreName] = genres[genreName]! + 1
-                } else {
-                    genres[genreName] = 1
+        do {
+            let results = try sharedContext.executeFetchRequest(fetchRequest)
+            var genres = [String:Int]()
+            for genre in results as! [NSDictionary] {
+                if let genreName = genre["name"] as? String {
+                    if genres[genreName] != nil {
+                        genres[genreName] = genres[genreName]! + 1
+                    } else {
+                        genres[genreName] = 1
+                    }
                 }
             }
+            let sortedGenreNames = genres.keys.sort(<)            
+            var allGenres = [[String:Int]]()
+            for genreName in sortedGenreNames {
+                allGenres.append([genreName: genres[genreName]!])
+            }
+            return allGenres
+        } catch {
+            return [[String:Int]]()
         }
-        let sortedGenreNames = sorted(genres.keys, <)
-        
-        var allGenres = [[String:Int]]()
-        for genreName in sortedGenreNames {
-            allGenres.append([genreName: genres[genreName]!])
-        }
-        return allGenres
     }
     
     // MARK: - TableView delegates & data source

@@ -52,7 +52,7 @@ class SettingsDisplayMaxTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let view = view as? UITableViewHeaderFooterView {
-            view.textLabel.textColor = UIColor.whiteColor()
+            view.textLabel!.textColor = UIColor.whiteColor()
         }
     }
     

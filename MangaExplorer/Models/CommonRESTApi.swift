@@ -34,7 +34,7 @@ class CommonRESTApi {
     }
     
     func httpGet(urlString: String, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
-        if IJReachability.isConnectedToNetwork() == false {
+        if Reachability.isConnectedToNetwork() == false {
             completionHandler(result: nil, error: NSError(domain: ErrorMessage.Domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.NoInternet]))
             return
         }
@@ -54,7 +54,7 @@ class CommonRESTApi {
                         return
                     }
                     if self.parseMethod == .json {
-                        self.parseJSONData(data, completionHandler: completionHandler)
+                        self.parseJSONData(data!, completionHandler: completionHandler)
                     } else {
                         completionHandler(result: data, error: nil)
                     }                    
@@ -69,7 +69,7 @@ class CommonRESTApi {
     }
     
     func httpPost(urlString: String, httpBodyParams: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
-        if IJReachability.isConnectedToNetwork() == false {
+        if Reachability.isConnectedToNetwork() == false {
             completionHandler(result: nil, error: NSError(domain: ErrorMessage.Domain, code: 1, userInfo: [NSLocalizedDescriptionKey : ErrorMessage.NoInternet]))
             return
         }
@@ -85,7 +85,7 @@ class CommonRESTApi {
                 request.HTTPMethod = "POST"
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.HTTPBody = NSJSONSerialization.dataWithJSONObject(httpBodyParams, options: nil, error: nil)
+                request.HTTPBody = try? NSJSONSerialization.dataWithJSONObject(httpBodyParams, options: [])
                 
                 let task = session.dataTaskWithRequest(request) { data, response, error in
                     if error != nil {
@@ -93,7 +93,7 @@ class CommonRESTApi {
                         return
                     }
                     if self.parseMethod == .json {
-                        self.parseJSONData(data, completionHandler: completionHandler)
+                        self.parseJSONData(data!, completionHandler: completionHandler)
                     } else {
                         completionHandler(result: data, error: nil)
                     }
@@ -137,14 +137,20 @@ class CommonRESTApi {
             /* Append it */
             urlVars += [key + "=" + "\(escapedValue!)"]
         }
-        return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+        return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
     }
     
     // MARK: - Helpers for JSON parsing
     
     private func parseJSONData(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
         var parsingError: NSError? = nil
-        let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+        let parsedResult: AnyObject?
+        do {
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+        } catch let error as NSError {
+            parsingError = error
+            parsedResult = nil
+        }
         if let error = parsingError {
             completionHandler(result: nil, error: error)
         } else {

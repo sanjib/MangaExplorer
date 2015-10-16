@@ -43,16 +43,16 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
     
     // MARK: - NSXMLParser delegates
     
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [NSObject : AnyObject]) {
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         
         self.elementName = elementName
         
         switch elementName {
         case "manga":
-            if let id = attributeDict["id"] as? String {
+            if let id = attributeDict["id"] {
                 mangaProperty["id"] = NSNumberFormatter().numberFromString(id)
             }
-            if let title = attributeDict["name"] as? String {
+            if let title = attributeDict["name"] {
                 if mangaProperty["title"] != nil {
                     mangaProperty["title"] = mangaProperty["title"] as! String + title
                 } else {
@@ -60,14 +60,14 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
                 }
             }
         case "ratings":
-            if let bayesianAverage = attributeDict["bayesian_score"] as? String {
+            if let bayesianAverage = attributeDict["bayesian_score"] {
                 mangaProperty["bayesianAverage"] = NSNumberFormatter().numberFromString(bayesianAverage)
             }
         case "info":
-            if let attributeDictType = attributeDict["type"] as? String {
+            if let attributeDictType = attributeDict["type"] {
                 switch attributeDictType {
                 case "Picture":
-                    if let src = attributeDict["src"] as? String {
+                    if let src = attributeDict["src"] {
                         mangaProperty["imageRemotePath"] = src
                     }
                 case "Plot Summary":
@@ -81,10 +81,10 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
                 }
             }
         case "news":
-            if let dateTime = attributeDict["datetime"] as? String {
+            if let dateTime = attributeDict["datetime"] {
                 newsDateTime = dateTime
             }
-            if let href = attributeDict["href"] as? String {
+            if let href = attributeDict["href"] {
                 newsHref = href
             }
         default:
@@ -92,49 +92,47 @@ class AnimeNewsNetworkXMLParserForMangaDetail: NSObject, NSXMLParserDelegate {
         }
     }
     
-    func parser(parser: NSXMLParser, foundCharacters string: String?) {
-        if let string = string {
-            switch elementName {
-            case "info":
-                switch attributeDictType {
-                case "Plot Summary":
-                    if mangaProperty["plotSummary"] != nil {
-                        mangaProperty["plotSummary"] = mangaProperty["plotSummary"] as! String + string
-                    } else {
-                        mangaProperty["plotSummary"] = string
-                    }
-                case "Genres":
-                    genres.append(string)
-                case "Alternative title":
-                    if alternativeTitle.isEmpty {
-                        alternativeTitle = string
-                    } else {
-                        alternativeTitle = alternativeTitle + string
-                    }
-                default:
-                    break
-                }
-            case "task":
-                if task.isEmpty {
-                    task = string
+    func parser(parser: NSXMLParser, foundCharacters string: String) {
+        switch elementName {
+        case "info":
+            switch attributeDictType {
+            case "Plot Summary":
+                if mangaProperty["plotSummary"] != nil {
+                    mangaProperty["plotSummary"] = mangaProperty["plotSummary"] as! String + string
                 } else {
-                    task = task + string
+                    mangaProperty["plotSummary"] = string
                 }
-            case "person":
-                if person.isEmpty {
-                    person = string
+            case "Genres":
+                genres.append(string)
+            case "Alternative title":
+                if alternativeTitle.isEmpty {
+                    alternativeTitle = string
                 } else {
-                    person = person + string
-                }
-            case "news":
-                if newsTitle.isEmpty {
-                    newsTitle = string
-                } else {
-                    newsTitle = newsTitle + string
+                    alternativeTitle = alternativeTitle + string
                 }
             default:
                 break
             }
+        case "task":
+            if task.isEmpty {
+                task = string
+            } else {
+                task = task + string
+            }
+        case "person":
+            if person.isEmpty {
+                person = string
+            } else {
+                person = person + string
+            }
+        case "news":
+            if newsTitle.isEmpty {
+                newsTitle = string
+            } else {
+                newsTitle = newsTitle + string
+            }
+        default:
+            break
         }
     }
     

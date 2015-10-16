@@ -63,7 +63,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         let blurredEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
         let blurredEffectView = UIVisualEffectView(effect: blurredEffect)
         blurredEffectView.frame = mangaBackgroundImageView.bounds
-        blurredEffectView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        blurredEffectView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         mangaBackgroundImageView.addSubview(blurredEffectView)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
@@ -100,10 +100,8 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         if manga.charactersFetchInProgress == true {
             // Stop all NSURLSession tasks
             NSURLSession.sharedSession().getTasksWithCompletionHandler() { dataTasks, uploadTasks, downloadTasks in
-                if let dataTasks = dataTasks as? [NSURLSessionDataTask] {
-                    for dataTask in dataTasks {
-                        dataTask.cancel()
-                    }
+                for dataTask in dataTasks {
+                    dataTask.cancel()
                 }
             }
             NSURLSession.sharedSession().invalidateAndCancel()
@@ -152,12 +150,12 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         fetchRequest.entity = NSEntityDescription.entityForName("Manga", inManagedObjectContext: sharedContext)
         fetchRequest.predicate = NSPredicate(format: "id=%@", mangaId)
         
-        var error: NSError? = nil
-        var results = sharedContext.executeFetchRequest(fetchRequest, error: &error)
-        if let error = error {
+        do {
+            let results = try sharedContext.executeFetchRequest(fetchRequest)
+            return results.first as! Manga
+        } catch {
             return Manga()
-        }
-        return results?.first as! Manga
+        }        
     }
     
     // MARK: - Buttons
@@ -228,7 +226,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         
         tableView.contentOffset = CGPointZero
         tableView.frame = CGRectMake(0, 0, tableView.contentSize.width, tableView.contentSize.height)
-        tableView.layer.renderInContext(UIGraphicsGetCurrentContext())
+        tableView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let mangaImage = UIGraphicsGetImageFromCurrentImageContext()
         
         // Restore scrollView properties
@@ -284,7 +282,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
 
     private func setMangaStaff() {
         var allStaffDidAddFirstLine = false
-        var allStaffAttributedString = NSMutableAttributedString(string: "")
+        let allStaffAttributedString = NSMutableAttributedString(string: "")
         var personsConcatenatedByTask = [String:String]()
         
         for staff in manga.staff {
@@ -296,7 +294,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         }
         
         for (task, person) in personsConcatenatedByTask {
-            var staffAttributedString = NSMutableAttributedString(string: "")
+            let staffAttributedString = NSMutableAttributedString(string: "")
             if !allStaffDidAddFirstLine {
                 allStaffDidAddFirstLine = true
                 staffAttributedString.appendAttributedString(NSMutableAttributedString(string: task))
@@ -349,47 +347,55 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     }
     
     private func setMangaCharacters() {
-        if manga.character.count == 0 && manga.charactersFetchInProgress == false {
-            manga.charactersFetchInProgress = true
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            charactersFetchInProgress.hidden = false
-            charactersFetchInProgress.text = "Fetch in progress..."
-            AniListApi.sharedInstance.getAllCharactersSmallModel(manga.title) { allCharactersSmallModel, errorString in
-                if allCharactersSmallModel != nil {
-                    for aCharacter in allCharactersSmallModel! {
-                        var firstName = ""
-                        if let aFirstName = aCharacter["name_first"] as? String {
-                            firstName = aFirstName
+        switch manga.character.count {
+        case 0:
+            if manga.charactersFetchInProgress == false {
+                manga.charactersFetchInProgress = true
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+                charactersFetchInProgress.hidden = false
+                charactersFetchInProgress.text = "Fetch in progress..."
+                AniListApi.sharedInstance.getAllCharactersSmallModel(manga.title) { allCharactersSmallModel, errorString in
+                    if allCharactersSmallModel != nil {
+                        for aCharacter in allCharactersSmallModel! {
+                            var firstName = ""
+                            if let aFirstName = aCharacter["name_first"] as? String {
+                                firstName = aFirstName
+                            }
+                            var lastName = ""
+                            if let aLastName = aCharacter["name_last"] as? String {
+                                lastName = aLastName
+                            }
+                            let character = Character(firstName: firstName, lastName: lastName, context: self.sharedContext)
+                            if let imageRemotePath = aCharacter["image_url_med"] as? String {
+                                character.imageRemotePath = imageRemotePath
+                            }
+                            character.manga = self.manga
                         }
-                        var lastName = ""
-                        if let aLastName = aCharacter["name_last"] as? String {
-                            lastName = aLastName
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            CoreDataStackManager.sharedInstance.saveContext()
+                            self.charactersFetchInProgress.text = ""
+                            self.charactersFetchInProgress.hidden = true
+                            self.charactersCollectionView.reloadData()
+                            self.tableReloadForContentUpdate()
                         }
-                        let character = Character(firstName: firstName, lastName: lastName, context: self.sharedContext)
-                        if let imageRemotePath = aCharacter["image_url_med"] as? String {
-                            character.imageRemotePath = imageRemotePath
+                    } else {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.charactersFetchInProgress.text = "Not available"
                         }
-                        character.manga = self.manga
                     }
-                
-                    dispatch_async(dispatch_get_main_queue()) {
-                        CoreDataStackManager.sharedInstance.saveContext()
-                        self.charactersFetchInProgress.text = ""
-                        self.charactersFetchInProgress.hidden = true
-                        self.charactersCollectionView.reloadData()
-                        self.tableReloadForContentUpdate()
-                    }
-                } else {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.charactersFetchInProgress.text = "Not available"
-                    }
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    self.manga.charactersFetchInProgress = false
                 }
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                self.manga.charactersFetchInProgress = false
+            } else {
+                charactersFetchInProgress.hidden = false
+                charactersFetchInProgress.text = "Fetch in progress..."
             }
-        } else {
-            charactersFetchInProgress.text = "Not available"
-            charactersFetchInProgress.hidden = false
+        case _ where manga.character.count > 0:
+            charactersFetchInProgress.hidden = true
+            charactersFetchInProgress.text = ""
+        default:
+            break
         }
     }
     
@@ -413,7 +419,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let view = view as? UITableViewHeaderFooterView {
-            view.textLabel.textColor = UIColor.whiteColor()
+            view.textLabel!.textColor = UIColor.whiteColor()
             view.contentView.backgroundColor = UIColor.blackColor()
         }
     }

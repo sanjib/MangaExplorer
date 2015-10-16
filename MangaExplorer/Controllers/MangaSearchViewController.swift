@@ -59,7 +59,7 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     // MARK: - UISearchController delegates
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        let searchString = searchController.searchBar.text
+        let searchString = searchController.searchBar.text!
         
         if !searchString.isEmpty || searchResults.count > 0 {
             activityIndicator.startAnimating()
@@ -104,16 +104,14 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
         
         fetchInProgressCount++
         privateContext.performBlock() {
-            var error: NSError? = nil
-            var results =  self.privateContext.executeFetchRequest(fetchRequest, error: &error)
+            do {
+                let results = try self.privateContext.executeFetchRequest(fetchRequest)
+                self.searchResults = results as! [Manga]
+            } catch {
+                self.searchResults = [Manga]()
+            }
             
             NSOperationQueue.mainQueue().addOperationWithBlock() {
-                if let error = error {
-                    self.searchResults = [Manga]()
-                } else {
-                    self.searchResults = results as! [Manga]
-                }
-                
                 self.fetchInProgressCount--
                 
                 if self.fetchInProgressCount == 0 {
@@ -141,8 +139,8 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let manga = searchResults.count > indexPath.row ? searchResults[indexPath.row] : nil {
-            selectedManga = manga
+        if searchResults.count > indexPath.row {
+            selectedManga = searchResults[indexPath.row]
             performSegueWithIdentifier("MangaDetailsSegue", sender: self)
         }
     }
@@ -151,7 +149,8 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     
     func configureCell(cell: MangaTableViewCell, atIndexPath indexPath: NSIndexPath) {
         
-        if let manga = searchResults.count > indexPath.row ? searchResults[indexPath.row] : nil {            
+        if searchResults.count > indexPath.row {
+            let manga = searchResults[indexPath.row]
             cell.titleLabel.text = manga.title
             
             var allAlternativeTitles = ""
@@ -204,7 +203,8 @@ class MangaSearchViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     private func safeReloadMangaRowAtIndexPath(indexPath: NSIndexPath, manga: Manga) {
-        if let mangaInSearchResults = searchResults.count > indexPath.row ? searchResults[indexPath.row] : nil {
+        if searchResults.count > indexPath.row {
+            let mangaInSearchResults = searchResults[indexPath.row]
             if mangaInSearchResults.id == manga.id {
                 self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
             }

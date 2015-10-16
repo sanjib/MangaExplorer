@@ -54,7 +54,7 @@ class Manga: NSManagedObject {
     var imageName: String? {
         if let imageRemotePath = imageRemotePath {
             let url = NSURL(string: imageRemotePath)
-            if let imageName = url?.pathComponents?.last as? String {
+            if let imageName = url?.pathComponents?.last {
                 return imageName
             }
         }
@@ -62,7 +62,7 @@ class Manga: NSManagedObject {
     }
     
     var localURL: NSURL? {
-        let url = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.CachesDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first as! NSURL
+        let url = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.CachesDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first!
         if let imageName = imageName {
             return url.URLByAppendingPathComponent(imageName)
         }

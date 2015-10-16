@@ -148,9 +148,6 @@ class AniListApi: CommonRESTApi {
     }
     
     private func getAllCharactersSmallModelWithValidAccessToken(mangaTitle: String, completionHandler: (allCharactersSmallModel: [[String:AnyObject]]?, errorString: String?)->Void) {
-        let params = [
-            "access_token": accessToken
-        ]
         mangaSearch(mangaTitle) { mangas, errorString in
             if mangas != nil {
                 // get the first match

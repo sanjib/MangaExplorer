@@ -31,24 +31,22 @@ class AnimeNewsNetworkXMLParserForMangaListWithIdAndTitle: NSObject, NSXMLParser
     
     // MARK: - NSXMLParser delegates
     
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [NSObject : AnyObject]) {
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         self.elementName = elementName
     }
     
-    func parser(parser: NSXMLParser, foundCharacters string: String?) {
-        if let string = string {
-            switch elementName {
-            case "id":
-                mangaProperty["id"] = NSNumberFormatter().numberFromString(string)
-            case "name":
-                if mangaProperty["title"] != nil {
-                    mangaProperty["title"] = mangaProperty["title"] as! String + string
-                } else {
-                    mangaProperty["title"] = string
-                }
-            default:
-                return
+    func parser(parser: NSXMLParser, foundCharacters string: String) {
+        switch elementName {
+        case "id":
+            mangaProperty["id"] = NSNumberFormatter().numberFromString(string)
+        case "name":
+            if mangaProperty["title"] != nil {
+                mangaProperty["title"] = mangaProperty["title"] as! String + string
+            } else {
+                mangaProperty["title"] = string
             }
+        default:
+            return
         }
     }
     

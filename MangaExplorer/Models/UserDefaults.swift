@@ -54,7 +54,7 @@ class UserDefaults {
     func shouldFetchLatestManga() -> Bool {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         if lastFetchedLatestManga != nil {
-            let daysSinceLastUpdate = calendar.components(NSCalendarUnit.CalendarUnitDay, fromDate: lastFetchedLatestManga!, toDate: NSDate(), options: nil)            
+            let daysSinceLastUpdate = calendar.components(NSCalendarUnit.Day, fromDate: lastFetchedLatestManga!, toDate: NSDate(), options: [])            
             switch latestMangasFetchFrequency {
             case LatestMangasFetchFrequency.Daily:
                 if daysSinceLastUpdate.day >= 1 {

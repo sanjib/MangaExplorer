@@ -45,7 +45,10 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchedResultsController.performFetch(nil)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch _ {
+        }
     }
     
     // MARK: - Segmented control
@@ -62,7 +65,10 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
             break
         }
         
-        fetchedResultsController.performFetch(nil)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch _ {
+        }
         tableView.reloadData()
     }
     
@@ -101,7 +107,7 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = self.fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
+        let sectionInfo = self.fetchedResultsController.sections![section] 
         return sectionInfo.numberOfObjects
     }
     
@@ -122,16 +128,18 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.beginUpdates()
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-        case .Insert:
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-        case .Delete:
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-        default:
-            return
-        }
-    }
+    // FIX LATER
+    
+//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+//        switch type {
+//        case .Insert:
+//            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+//        case .Delete:
+//            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+//        default:
+//            return
+//        }
+//    }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.endUpdates()

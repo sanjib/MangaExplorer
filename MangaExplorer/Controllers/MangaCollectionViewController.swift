@@ -59,7 +59,11 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         // CoreData
         fetchedResultsController.delegate = self
         
-        fetchedResultsController.performFetch(nil)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            NSLog("Perform fetch failed: \(error)")
+        }
         setMangaImagesInCacheForFirstFetchBatchSize()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "performFetchForFetchedResultsController", name: "performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
@@ -83,7 +87,8 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
             performSegueWithIdentifier("InitDataSegue", sender: self)
         } else {
             if UserDefaults.sharedInstance.shouldFetchLatestManga() {
-                AnimeNewsNetworkBatchUpdater.sharedInstance.updateWithLatestMangas()
+                // FIX ME
+//                AnimeNewsNetworkBatchUpdater.sharedInstance.updateWithLatestMangas()
             }
         }
     }
@@ -141,7 +146,10 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     // For post notification from InitViewController or SettingsDisplayMaxTableViewController
     func performFetchForFetchedResultsController() {
-        fetchedResultsController.performFetch(nil)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch _ {
+        }
         setMangaImagesInCacheForFirstFetchBatchSize()
         collectionView.reloadData()
     }
@@ -158,15 +166,21 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         
         var cellWidth: CGFloat!
         
+        // Landscape
         if UIApplication.sharedApplication().statusBarOrientation.isLandscape == true {
             let totalSpacingBetweenCells = (minimumSpacingPerCell * cellsPerRowInLandscpaeMode) - minimumSpacingPerCell
             let availableWidthForCells = collectionView.frame.size.width - totalSpacingBetweenCells
             cellWidth = availableWidthForCells / cellsPerRowInLandscpaeMode
+            
+        // Portrait
         } else {
             let totalSpacingBetweenCells = (minimumSpacingPerCell * cellsPerRowInPortraitMode) - minimumSpacingPerCell
             let availableWidthForCells = collectionView.frame.size.width - totalSpacingBetweenCells
             cellWidth = availableWidthForCells / cellsPerRowInPortraitMode
         }
+        
+        // Get 2 digit floored decimal point precision
+        cellWidth = floor(cellWidth*100)/100
         
         // In storyboard, the manga image height:width ratio is specified as 1.3:1, 
         // 44 points is fixed space allocated to title and author labels
@@ -193,7 +207,7 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let sectionInfo = self.fetchedResultsController.sections![section] as! NSFetchedResultsSectionInfo
+        let sectionInfo = self.fetchedResultsController.sections![section] 
         return sectionInfo.numberOfObjects
     }
     
@@ -264,7 +278,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
             cell.mangaImageView.image = photoPlaceholderImage
             cell.activityIndicator.stopAnimating()
         }
-
     }
     
     // MARK: - NSFetchedResultsController delegates
@@ -287,6 +300,19 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
             return
         }
     }
+    
+//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+//        switch type {
+//        case .Insert:
+//            insertedIndexPaths.append(newIndexPath!)
+//        case .Delete:
+//            deletedIndexPaths.append(indexPath!)
+//        case .Update:
+//            updatedIndexPaths.append(indexPath!)
+//        default:
+//            return
+//        }
+//    }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         collectionView.performBatchUpdates({

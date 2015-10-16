@@ -80,7 +80,7 @@ class AnimeNewsNetworkApi: CommonRESTApi {
     }
     
     private func getMangaDetails(mangaIdsInArray: [String], completionHandler: (mangaProperties: [[String:AnyObject]]?, errorString: String?) -> Void) {
-        let mangaIdsInString = "/".join(mangaIdsInArray)
+        let mangaIdsInString = mangaIdsInArray.joinWithSeparator("/")
         let methodParams: [String:AnyObject] = [
             "manga": mangaIdsInString
         ]

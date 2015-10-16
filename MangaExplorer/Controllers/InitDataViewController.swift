@@ -31,8 +31,6 @@ class InitDataViewController: UIViewController {
         imageView.animationRepeatCount = 0
         imageView.startAnimating()
         
-        let methodStart = NSDate()
-        
         let progress = NSProgress(totalUnitCount: Int64(1))
         progress.addObserver(self, forKeyPath: "fractionCompleted", options: NSKeyValueObservingOptions.Initial, context: nil)
         progress.becomeCurrentWithPendingUnitCount(Int64(1))
@@ -42,8 +40,6 @@ class InitDataViewController: UIViewController {
                 progress.removeObserver(self, forKeyPath: "fractionCompleted")
                 progress.resignCurrent()
                 
-                let methodEnd = NSDate()
-                let executionTime = methodEnd.timeIntervalSinceDate(methodStart)
                 NSNotificationCenter.defaultCenter().postNotificationName("performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
@@ -62,9 +58,9 @@ class InitDataViewController: UIViewController {
             privateContext.persistentStoreCoordinator = CoreDataStackManager.sharedInstance.managedObjectContext!.persistentStoreCoordinator
             
             let jsonFileURL = NSBundle.mainBundle().URLForResource("Manga-Data", withExtension: "json")!
-            if let jsonData = NSData(contentsOfURL: jsonFileURL, options: NSDataReadingOptions.DataReadingMappedAlways | NSDataReadingOptions.DataReadingUncached, error: nil) {
+            if let jsonData = try? NSData(contentsOfURL: jsonFileURL, options: [NSDataReadingOptions.DataReadingMappedAlways, NSDataReadingOptions.DataReadingUncached]) {
                 
-                let jsonResults = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! [[String:AnyObject]]
+                let jsonResults = (try! NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments)) as! [[String:AnyObject]]
                 progress.completedUnitCount++
                 
                 let batchSize = jsonResults.count/20
@@ -121,7 +117,10 @@ class InitDataViewController: UIViewController {
                     counterForBatchSave++
                     if counterForBatchSave >= 1000 {
                         counterForBatchSave = 0
-                        privateContext.save(nil)
+                        do {
+                            try privateContext.save()
+                        } catch _ {
+                        }
                     }
                     
                     counterForProgress++
@@ -134,7 +133,10 @@ class InitDataViewController: UIViewController {
                 if progress.completedUnitCount < progress.totalUnitCount {
                     progress.completedUnitCount++
                 }
-                privateContext.save(nil)
+                do {
+                    try privateContext.save()
+                } catch _ {
+                }
                 completionHandler()
             }
         }
@@ -142,8 +144,8 @@ class InitDataViewController: UIViewController {
     
     // MARK: - NSProgress
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        switch keyPath {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        switch keyPath! {
         case "fractionCompleted":
             NSOperationQueue.mainQueue().addOperationWithBlock {
                 let progress = object as! NSProgress
