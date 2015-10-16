@@ -135,7 +135,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bayesianAverage", ascending: false)]
         fetchRequest.fetchBatchSize = self.fetchBatchSize
         
-        
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
             managedObjectContext: self.sharedContext,
             sectionNameKeyPath: nil,
@@ -147,8 +146,9 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
     // For post notification from InitViewController or SettingsDisplayMaxTableViewController
     func performFetchForFetchedResultsController() {
         do {
+            fetchedResultsController.fetchRequest.fetchLimit = UserDefaults.sharedInstance.topRatedMangasDisplayMax
             try fetchedResultsController.performFetch()
-        } catch _ {
+        } catch {
         }
         setMangaImagesInCacheForFirstFetchBatchSize()
         collectionView.reloadData()

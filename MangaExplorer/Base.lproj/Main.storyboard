@@ -739,7 +739,7 @@
                                                     </cells>
                                                 </collectionView>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fetch progress status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v19-KA-ayQ">
-                                                    <rect key="frame" x="8" y="31" width="141" height="17"/>
+                                                    <rect key="frame" x="16" y="31" width="141" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -747,24 +747,12 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="DSF-5w-V3W" firstAttribute="top" secondItem="UNW-Q0-Wpt" secondAttribute="topMargin" constant="2" id="0wv-EB-GoJ"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="v19-KA-ayQ" secondAttribute="bottom" constant="4" id="74e-1a-uwI"/>
-                                                <constraint firstItem="v19-KA-ayQ" firstAttribute="leading" secondItem="UNW-Q0-Wpt" secondAttribute="leadingMargin" id="K3g-vF-VtS"/>
+                                                <constraint firstItem="v19-KA-ayQ" firstAttribute="leading" secondItem="UNW-Q0-Wpt" secondAttribute="leadingMargin" constant="8" id="K3g-vF-VtS"/>
                                                 <constraint firstAttribute="centerY" secondItem="v19-KA-ayQ" secondAttribute="centerY" id="MfL-rz-0SB"/>
-                                                <constraint firstItem="v19-KA-ayQ" firstAttribute="top" secondItem="UNW-Q0-Wpt" secondAttribute="topMargin" constant="4" id="c6C-Pi-b3y"/>
-                                                <constraint firstAttribute="centerY" secondItem="v19-KA-ayQ" secondAttribute="centerY" id="fs0-F9-qMw"/>
                                                 <constraint firstItem="DSF-5w-V3W" firstAttribute="trailing" secondItem="UNW-Q0-Wpt" secondAttribute="trailingMargin" constant="-8" id="gHs-ST-9iy"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="v19-KA-ayQ" secondAttribute="bottom" constant="8" id="iJD-7m-j3L"/>
                                                 <constraint firstItem="DSF-5w-V3W" firstAttribute="leading" secondItem="UNW-Q0-Wpt" secondAttribute="leadingMargin" constant="8" id="l6O-mK-rTY"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="DSF-5w-V3W" secondAttribute="bottom" constant="2" id="xqz-87-RRj"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="74e-1a-uwI"/>
-                                                    <exclude reference="c6C-Pi-b3y"/>
-                                                    <exclude reference="fs0-F9-qMw"/>
-                                                    <exclude reference="iJD-7m-j3L"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
