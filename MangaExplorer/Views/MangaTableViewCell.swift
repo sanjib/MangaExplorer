@@ -13,7 +13,6 @@ class MangaTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var alternativeTitlesLabel: UILabel!
     @IBOutlet weak var creatorsLabel: UILabel!
-
     
     override func awakeFromNib() {
         super.awakeFromNib()

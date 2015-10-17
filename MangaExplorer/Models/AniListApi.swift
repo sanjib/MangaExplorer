@@ -22,8 +22,7 @@ class AniListApi: CommonRESTApi {
     }
     
     private struct Constants {
-        static let baseURL = "https://anilist.co/api/"
-        
+        static let baseURL = "https://anilist.co/api/"        
     }
     
     private struct Methods {

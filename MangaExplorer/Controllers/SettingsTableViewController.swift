@@ -57,14 +57,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
             return 0
         }
         return count
-        
-        
-//        var error: NSError?
-//        let count = sharedContext.countForFetchRequest(fetchRequest, error: &error)
-//        if let error = error {
-//            return 0
-//        }
-//        return count
     }
     
     // MARK: - Tell a friend

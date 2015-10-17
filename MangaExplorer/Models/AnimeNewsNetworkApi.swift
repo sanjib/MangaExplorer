@@ -17,8 +17,7 @@ class AnimeNewsNetworkApi: CommonRESTApi {
     }
     
     private struct Constants {
-        static let baseURL = "http://cdn.animenewsnetwork.com/encyclopedia/"
-        
+        static let baseURL = "http://cdn.animenewsnetwork.com/encyclopedia/"        
     }
     
     private struct Methods {

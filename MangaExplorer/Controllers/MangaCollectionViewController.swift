@@ -126,6 +126,9 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
     }
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
+        let privateContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+        privateContext.parentContext = self.sharedContext
+        
         let fetchRequest = NSFetchRequest(entityName: "Manga")
         
         if let genre = self.genre {
@@ -138,7 +141,7 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         fetchRequest.fetchBatchSize = self.fetchBatchSize
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-            managedObjectContext: self.sharedContext,
+            managedObjectContext: privateContext,
             sectionNameKeyPath: nil,
             cacheName: nil)
         return fetchedResultsController
@@ -235,8 +238,7 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
                     continue
                 }
                 author = author + ", " + staff.person
-            }
-            
+            }            
         }
         cell.authorLabel.text = author
         
@@ -268,7 +270,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
                         manga.fetchImageData { fetchComplete in
                             if fetchComplete {
                                 dispatch_async(dispatch_get_main_queue()) {
-//                                    self.collectionView.reloadItemsAtIndexPaths([indexPath])
                                     self.safeReloadAtIndexPath(indexPath)
                                     NSNotificationCenter.defaultCenter().postNotificationName("refreshMangaImageNotification", object: nil)
                                 }
@@ -311,20 +312,7 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
             return
         }
     }
-    
-//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-//        switch type {
-//        case .Insert:
-//            insertedIndexPaths.append(newIndexPath!)
-//        case .Delete:
-//            deletedIndexPaths.append(indexPath!)
-//        case .Update:
-//            updatedIndexPaths.append(indexPath!)
-//        default:
-//            return
-//        }
-//    }
-    
+
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         collectionView.performBatchUpdates({
             for indexPath in self.insertedIndexPaths {
