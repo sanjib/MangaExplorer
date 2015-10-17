@@ -28,59 +28,67 @@ class AnimeNewsNetworkBatchUpdater: NSObject {
             if mangaIDs != nil {
                 self.getMangaDetails(mangaIDs!) { mangaProperties, errorString in
                     if mangaProperties != nil {
-                        for mangaProperty in mangaProperties! {
-                            autoreleasepool {
-                                let id = mangaProperty["id"] as? Int
-                                let mangaTitle = mangaProperty["title"] as? String
-                                let imageRemotePath = mangaProperty["imageRemotePath"] as? String
-                                let bayesianAverage = mangaProperty["bayesianAverage"] as? Double
-                                let plotSummary = mangaProperty["plotSummary"] as? String
-                                let staff = mangaProperty["staff"] as? [[String:String]]
-                                let alternativeTitles = mangaProperty["alternativeTitles"] as? [String]
-                                let genres = mangaProperty["genres"] as? [String]
-                                
-                                if id != nil && mangaTitle != nil {
-                                    let manga = Manga(id: id!, title: mangaTitle!, context: sharedContext)
-                                    if imageRemotePath != nil {
-                                        manga.imageRemotePath = imageRemotePath!
-                                    }
-                                    if bayesianAverage != nil {
-                                        manga.bayesianAverage = bayesianAverage!
-                                    }
-                                    if plotSummary != nil {
-                                        manga.plotSummary = plotSummary!
-                                    }
-                                    if staff != nil {
-                                        for staffMember in staff! {
-                                            let task = staffMember["task"]
-                                            let person = staffMember["person"]
-                                            if task != nil && person != nil {
-                                                if !task!.isEmpty && !person!.isEmpty {
-                                                    let staff = Staff(task: task!, person: person!, context: sharedContext)
-                                                    staff.manga = manga
+                        let privateContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+                        privateContext.parentContext = sharedContext
+                        
+                        privateContext.performBlock() {
+                            for mangaProperty in mangaProperties! {
+                                autoreleasepool {
+                                    let id = mangaProperty["id"] as? Int
+                                    let mangaTitle = mangaProperty["title"] as? String
+                                    let imageRemotePath = mangaProperty["imageRemotePath"] as? String
+                                    let bayesianAverage = mangaProperty["bayesianAverage"] as? Double
+                                    let plotSummary = mangaProperty["plotSummary"] as? String
+                                    let staff = mangaProperty["staff"] as? [[String:String]]
+                                    let alternativeTitles = mangaProperty["alternativeTitles"] as? [String]
+                                    let genres = mangaProperty["genres"] as? [String]
+                                    
+                                    if id != nil && mangaTitle != nil {
+                                        let manga = Manga(id: id!, title: mangaTitle!, context: privateContext)
+                                        if imageRemotePath != nil {
+                                            manga.imageRemotePath = imageRemotePath!
+                                        }
+                                        if bayesianAverage != nil {
+                                            manga.bayesianAverage = bayesianAverage!
+                                        }
+                                        if plotSummary != nil {
+                                            manga.plotSummary = plotSummary!
+                                        }
+                                        if staff != nil {
+                                            for staffMember in staff! {
+                                                let task = staffMember["task"]
+                                                let person = staffMember["person"]
+                                                if task != nil && person != nil {
+                                                    if !task!.isEmpty && !person!.isEmpty {
+                                                        let staff = Staff(task: task!, person: person!, context: privateContext)
+                                                        staff.manga = manga
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                    if alternativeTitles != nil {
-                                        for anAlternativeTitle: String in alternativeTitles! {
-                                            let alternativeTitle = AlternativeTitle(title: anAlternativeTitle, context: sharedContext)
-                                            alternativeTitle.manga = manga
+                                        if alternativeTitles != nil {
+                                            for anAlternativeTitle: String in alternativeTitles! {
+                                                let alternativeTitle = AlternativeTitle(title: anAlternativeTitle, context: privateContext)
+                                                alternativeTitle.manga = manga
+                                            }
                                         }
-                                    }
-                                    if genres != nil {
-                                        for aGenre: String in genres! {
-                                            let genre = Genre(name: aGenre, context: sharedContext)
-                                            genre.manga = manga
+                                        if genres != nil {
+                                            for aGenre: String in genres! {
+                                                let genre = Genre(name: aGenre, context: privateContext)
+                                                genre.manga = manga
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-
-                        UserDefaults.sharedInstance.lastFetchedLatestManga = NSDate()
-                        dispatch_async(dispatch_get_main_queue()) {
-                            CoreDataStackManager.sharedInstance.saveContext()  
+                            
+                            do {
+                                try privateContext.save()
+                            } catch {
+                            }
+                            sharedContext.performBlock() {
+                                CoreDataStackManager.sharedInstance.saveContext()
+                            }
                         }
                     }
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -128,7 +136,7 @@ class AnimeNewsNetworkBatchUpdater: NSObject {
                     }
                 }
                 mangaIDsInCurrentBatch = [Int]()
-                usleep(200000) // 1 request per second per IP address, we set to 2 seconds to be on the safe side
+                usleep(200_000) // 1 request per second per IP address, we set to 2 seconds to be on the safe side
             }
         }
         
@@ -201,9 +209,12 @@ func fetchAllMangaIDs() -> [Int] {
     fetchRequest.entity = NSEntityDescription.entityForName("Manga", inManagedObjectContext: sharedContext)
     fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
     fetchRequest.propertiesToFetch = ["id"]
+    
+    let privateContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+    privateContext.persistentStoreCoordinator = sharedContext.persistentStoreCoordinator
 
     do {
-        let results = try sharedContext.executeFetchRequest(fetchRequest)
+        let results = try privateContext.executeFetchRequest(fetchRequest)
         var allMangaIDs = [Int]()
         for result in results as! [NSDictionary] {
             if let id = result["id"] as? Int {

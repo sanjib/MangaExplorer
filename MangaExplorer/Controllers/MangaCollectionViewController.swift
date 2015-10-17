@@ -83,12 +83,13 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         super.viewDidAppear(true)
         
         // Init data if manga table is empty
-        if fetchedResultsController.fetchedObjects?.count == 0 {
+        if UserDefaults.sharedInstance.didInitDatabase == false {            
             performSegueWithIdentifier("InitDataSegue", sender: self)
         } else {
             if UserDefaults.sharedInstance.shouldFetchLatestManga() {
-                // FIX ME
-//                AnimeNewsNetworkBatchUpdater.sharedInstance.updateWithLatestMangas()
+                print("fetch latest manga")
+                UserDefaults.sharedInstance.lastFetchedLatestManga = NSDate()
+                AnimeNewsNetworkBatchUpdater.sharedInstance.updateWithLatestMangas()
             }
         }
     }
@@ -266,7 +267,8 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
                         manga.fetchImageData { fetchComplete in
                             if fetchComplete {
                                 dispatch_async(dispatch_get_main_queue()) {
-                                    self.collectionView.reloadItemsAtIndexPaths([indexPath])
+//                                    self.collectionView.reloadItemsAtIndexPaths([indexPath])
+                                    self.safeReloadAtIndexPath(indexPath)
                                     NSNotificationCenter.defaultCenter().postNotificationName("refreshMangaImageNotification", object: nil)
                                 }
                             }
@@ -277,6 +279,14 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         } else {
             cell.mangaImageView.image = photoPlaceholderImage
             cell.activityIndicator.stopAnimating()
+        }
+    }
+    
+    func safeReloadAtIndexPath(indexPath: NSIndexPath) {
+        if let fetchedObjectsCount = fetchedResultsController.fetchedObjects?.count {
+            if fetchedObjectsCount >= indexPath.row {
+                self.collectionView.reloadItemsAtIndexPaths([indexPath])
+            }
         }
     }
     

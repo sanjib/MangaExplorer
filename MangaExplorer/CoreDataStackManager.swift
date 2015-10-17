@@ -24,6 +24,7 @@ class CoreDataStackManager: NSObject {
         
     lazy var applicationDocumentDirectory: NSURL = {
         let url = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first!
+        print(url.path!)
         return url
     }()
     
@@ -51,7 +52,7 @@ class CoreDataStackManager: NSObject {
         if persistentStoreCoordinator == nil {
             return nil
         }
-        let managedObjectContext = NSManagedObjectContext()
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
         return managedObjectContext
     }()

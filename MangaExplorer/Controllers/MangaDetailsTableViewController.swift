@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MangaDetailsTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MangaDetailsTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var mangaImageView: UIImageView!
     @IBOutlet weak var mangaBackgroundImageView: UIImageView!
     @IBOutlet weak var mangaTitleLabel: UILabel!
@@ -69,7 +69,7 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMangaImage", name: "refreshMangaImageNotification", object: nil)
         
         manga = fetchManga()
-
+        
         // Content
         setMangaCharacterImagesInCache()
         setMangaImage()
@@ -93,21 +93,6 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         tableReloadForContentUpdate()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        if manga.charactersFetchInProgress == true {
-            // Stop all NSURLSession tasks
-            NSURLSession.sharedSession().getTasksWithCompletionHandler() { dataTasks, uploadTasks, downloadTasks in
-                for dataTask in dataTasks {
-                    dataTask.cancel()
-                }
-            }
-            NSURLSession.sharedSession().invalidateAndCancel()
-            manga.charactersFetchInProgress = false
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        }
     }
         
     // MARK: - Reset table layout
@@ -350,43 +335,74 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         switch manga.character.count {
         case 0:
             if manga.charactersFetchInProgress == false {
-                manga.charactersFetchInProgress = true
+
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = true
                 charactersFetchInProgress.hidden = false
                 charactersFetchInProgress.text = "Fetch in progress..."
-                AniListApi.sharedInstance.getAllCharactersSmallModel(manga.title) { allCharactersSmallModel, errorString in
-                    if allCharactersSmallModel != nil {
-                        for aCharacter in allCharactersSmallModel! {
-                            var firstName = ""
-                            if let aFirstName = aCharacter["name_first"] as? String {
-                                firstName = aFirstName
-                            }
-                            var lastName = ""
-                            if let aLastName = aCharacter["name_last"] as? String {
-                                lastName = aLastName
-                            }
-                            let character = Character(firstName: firstName, lastName: lastName, context: self.sharedContext)
-                            if let imageRemotePath = aCharacter["image_url_med"] as? String {
-                                character.imageRemotePath = imageRemotePath
-                            }
-                            character.manga = self.manga
-                        }
-                        
-                        dispatch_async(dispatch_get_main_queue()) {
-                            CoreDataStackManager.sharedInstance.saveContext()
-                            self.charactersFetchInProgress.text = ""
-                            self.charactersFetchInProgress.hidden = true
-                            self.charactersCollectionView.reloadData()
-                            self.tableReloadForContentUpdate()
-                        }
-                    } else {
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.charactersFetchInProgress.text = "Not available"
-                        }
-                    }
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                    self.manga.charactersFetchInProgress = false
+
+                let privateContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+                privateContext.parentContext = sharedContext
+                
+                let fetchRequest = NSFetchRequest()
+                fetchRequest.entity = NSEntityDescription.entityForName("Manga", inManagedObjectContext: privateContext)
+                fetchRequest.predicate = NSPredicate(format: "id=%@", manga.id)
+                
+                var mangaCopy: Manga? = nil
+                do {
+                    let results = try privateContext.executeFetchRequest(fetchRequest)
+                    mangaCopy = results.first as? Manga
+                } catch {
                 }
+                
+                if mangaCopy != nil {
+                    mangaCopy!.charactersFetchInProgress = true
+                    AniListApi.sharedInstance.getAllCharactersSmallModel(mangaCopy!.title) { allCharactersSmallModel, errorString in
+                        if allCharactersSmallModel != nil {
+
+                            privateContext.performBlock() {
+                                for aCharacter in allCharactersSmallModel! {
+                                    var firstName = ""
+                                    if let aFirstName = aCharacter["name_first"] as? String {
+                                        firstName = aFirstName
+                                    }
+                                    var lastName = ""
+                                    if let aLastName = aCharacter["name_last"] as? String {
+                                        lastName = aLastName
+                                    }
+                                    let character = Character(firstName: firstName, lastName: lastName, context: privateContext)
+                                    if let imageRemotePath = aCharacter["image_url_med"] as? String {
+                                        character.imageRemotePath = imageRemotePath
+                                    }
+                                    character.manga = mangaCopy!
+                                }
+                                do {
+                                    try privateContext.save()
+                                } catch {
+                                }
+                                self.sharedContext.performBlock() {
+                                    CoreDataStackManager.sharedInstance.saveContext()
+                                }
+                                if self.manga != nil && mangaCopy!.id == self.manga.id {
+                                    dispatch_async(dispatch_get_main_queue()) {
+                                        self.charactersFetchInProgress.text = ""
+                                        self.charactersFetchInProgress.hidden = true
+                                        self.charactersCollectionView.reloadData()
+                                        self.tableReloadForContentUpdate()
+                                    }
+                                }
+                            }
+                        } else {
+                            if self.manga != nil && mangaCopy!.id == self.manga.id {
+                                dispatch_async(dispatch_get_main_queue()) {
+                                    self.charactersFetchInProgress.text = "Not available"
+                                }
+                            }
+                        }
+                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                        mangaCopy!.charactersFetchInProgress = false
+                    }
+                }
+                
             } else {
                 charactersFetchInProgress.hidden = false
                 charactersFetchInProgress.text = "Fetch in progress..."
@@ -488,17 +504,27 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         
         var cellWidth: CGFloat!
         
+        // Landscape
         if UIApplication.sharedApplication().statusBarOrientation.isLandscape == true {
             let totalSpacingBetweenCells = (minimumSpacingPerCell * cellsPerRowInLandscpaeMode) - minimumSpacingPerCell
             let availableWidthForCells = charactersCollectionView.frame.size.width - totalSpacingBetweenCells
             cellWidth = availableWidthForCells / cellsPerRowInLandscpaeMode
+            
+            // Portrait
         } else {
             let totalSpacingBetweenCells = (minimumSpacingPerCell * cellsPerRowInPortraitMode) - minimumSpacingPerCell
             let availableWidthForCells = charactersCollectionView.frame.size.width - totalSpacingBetweenCells
             cellWidth = availableWidthForCells / cellsPerRowInPortraitMode
         }
         
+        // Get 2 digit floored decimal point precision
+        cellWidth = floor(cellWidth*100)/100
+        
+        // In storyboard, the manga image height:width ratio is specified as 1.3:1,
+        // 44 points is fixed space allocated to title and author labels
         layout.itemSize = CGSize(width: cellWidth, height: 60)
+        
+        charactersCollectionView.collectionViewLayout.invalidateLayout()
         charactersCollectionView.collectionViewLayout = layout
     }
     
@@ -508,5 +534,4 @@ class MangaDetailsTableViewController: UITableViewController, UICollectionViewDe
         charactersCollectionView.collectionViewLayout.invalidateLayout()
         charactersCollectionView.performBatchUpdates(nil, completion: nil)
     }
-
 }

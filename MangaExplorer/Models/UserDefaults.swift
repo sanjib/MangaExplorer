@@ -54,7 +54,7 @@ class UserDefaults {
     func shouldFetchLatestManga() -> Bool {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         if lastFetchedLatestManga != nil {
-            let daysSinceLastUpdate = calendar.components(NSCalendarUnit.Day, fromDate: lastFetchedLatestManga!, toDate: NSDate(), options: [])            
+            let daysSinceLastUpdate = calendar.components(NSCalendarUnit.Day, fromDate: lastFetchedLatestManga!, toDate: NSDate(), options: [])
             switch latestMangasFetchFrequency {
             case LatestMangasFetchFrequency.Daily:
                 if daysSinceLastUpdate.day >= 1 {
@@ -74,6 +74,19 @@ class UserDefaults {
             return false
         } else {
             return true
+        }
+    }
+    
+    var didInitDatabase: Bool {
+        get {
+            if let didInitDatabase = NSUserDefaults.standardUserDefaults().valueForKey("DidInitDatabase") as? Bool {
+                return didInitDatabase
+            } else {
+                return false
+            }
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "DidInitDatabase")
         }
     }
     

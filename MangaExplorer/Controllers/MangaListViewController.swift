@@ -128,18 +128,16 @@ class MangaListViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.beginUpdates()
     }
     
-    // FIX LATER
-    
-//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-//        switch type {
-//        case .Insert:
-//            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-//        case .Delete:
-//            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-//        default:
-//            return
-//        }
-//    }
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        default:
+            return
+        }
+    }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.endUpdates()

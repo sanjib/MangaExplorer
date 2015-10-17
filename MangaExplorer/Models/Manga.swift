@@ -38,7 +38,7 @@ class Manga: NSManagedObject {
         isWished = false
         isFavorite = false
     }
-    
+
     var fetchInProgress = false
     var charactersFetchInProgress = false
     

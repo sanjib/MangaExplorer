@@ -40,6 +40,7 @@ class InitDataViewController: UIViewController {
                 progress.removeObserver(self, forKeyPath: "fractionCompleted")
                 progress.resignCurrent()
                 
+                UserDefaults.sharedInstance.didInitDatabase = true
                 NSNotificationCenter.defaultCenter().postNotificationName("performFetchForFetchedResultsControllerInTopRatedMangas", object: nil)
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
