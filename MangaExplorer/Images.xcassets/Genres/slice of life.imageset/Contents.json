@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "vegan_food-25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "vegan_food-50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "vegan_food-100.png"
+      "filename" : "vegan_food-75.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

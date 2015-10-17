@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "manga-explorer-70.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "manga-explorer-140.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "manga-explorer-200.png"
+      "filename" : "manga-explorer-210.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

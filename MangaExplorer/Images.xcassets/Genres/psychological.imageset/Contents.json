@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "mental_state-25.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "mental_state-50.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "mental_state-100.png"
+      "filename" : "mental_state-75.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

@@ -62,7 +62,9 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            NSLog("Perform fetch failed: \(error)")
+            #if DEBUG
+                NSLog("Perform fetch failed: \(error)")
+            #endif
         }
         setMangaImagesInCacheForFirstFetchBatchSize()
         
@@ -87,7 +89,6 @@ class MangaCollectionViewController: UIViewController, UICollectionViewDelegate,
             performSegueWithIdentifier("InitDataSegue", sender: self)
         } else {
             if UserDefaults.sharedInstance.shouldFetchLatestManga() {
-                print("fetch latest manga")
                 UserDefaults.sharedInstance.lastFetchedLatestManga = NSDate()
                 AnimeNewsNetworkBatchUpdater.sharedInstance.updateWithLatestMangas()
             }

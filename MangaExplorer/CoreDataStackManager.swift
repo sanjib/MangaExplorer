@@ -24,7 +24,9 @@ class CoreDataStackManager: NSObject {
         
     lazy var applicationDocumentDirectory: NSURL = {
         let url = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first!
-        print(url.path!)
+        #if DEBUG
+            print(url.path!)
+        #endif
         return url
     }()
     
@@ -41,7 +43,9 @@ class CoreDataStackManager: NSObject {
         do {
             try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         } catch {
-            NSLog("CoreDataStackManager persistentStoreCoordinator error \(error)")
+            #if DEBUG
+                NSLog("CoreDataStackManager persistentStoreCoordinator error \(error)")
+            #endif
             abort()
         }
         return coordinator
@@ -63,7 +67,9 @@ class CoreDataStackManager: NSObject {
                 do {
                     try context.save()
                 } catch {
-                    NSLog("CoreDataStackManager saveContext error \(error)")
+                    #if DEBUG
+                        NSLog("CoreDataStackManager saveContext error \(error)")
+                    #endif
                     abort()
                 }
             }

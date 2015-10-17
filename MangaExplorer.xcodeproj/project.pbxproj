@@ -21,6 +21,7 @@
 		2037B56B1B9A3B2000F3094A /* InitDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B56A1B9A3B2000F3094A /* InitDataViewController.swift */; };
 		2037B56D1B9A3B4400F3094A /* MangaCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B56C1B9A3B4400F3094A /* MangaCollectionViewController.swift */; };
 		2037B56F1B9A3B5600F3094A /* GenresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2037B56E1B9A3B5600F3094A /* GenresViewController.swift */; };
+		204472CC1BD1DEAD00156FB1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 204472CB1BD1DEAD00156FB1 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		205CBF661BA4E05F00CADACF /* GenreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CBF651BA4E05F00CADACF /* GenreTableViewCell.swift */; };
 		206331E71BA40B9500709DB8 /* AddToButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206331E61BA40B9500709DB8 /* AddToButton.swift */; };
 		206D03861BA6952300FFE84B /* MangaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206D03851BA6952300FFE84B /* MangaTableViewCell.swift */; };
@@ -31,7 +32,6 @@
 		208A93D01B9A29170098F0FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A93CF1B9A29170098F0FC /* AppDelegate.swift */; };
 		208A93D31B9A29170098F0FC /* MangaExplorer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 208A93D11B9A29170098F0FC /* MangaExplorer.xcdatamodeld */; };
 		208A93D81B9A29170098F0FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 208A93D61B9A29170098F0FC /* Main.storyboard */; };
-		208A93DA1B9A29170098F0FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 208A93D91B9A29170098F0FC /* Images.xcassets */; };
 		208A93DD1B9A29170098F0FC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 208A93DB1B9A29170098F0FC /* LaunchScreen.xib */; };
 		208A93E91B9A29170098F0FC /* MangaExplorerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A93E81B9A29170098F0FC /* MangaExplorerTests.swift */; };
 		208A93FB1B9A297F0098F0FC /* AnimeNewsNetworkApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208A93F51B9A297E0098F0FC /* AnimeNewsNetworkApi.swift */; };
@@ -72,6 +72,7 @@
 		2037B56A1B9A3B2000F3094A /* InitDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InitDataViewController.swift; path = Controllers/InitDataViewController.swift; sourceTree = "<group>"; };
 		2037B56C1B9A3B4400F3094A /* MangaCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MangaCollectionViewController.swift; path = Controllers/MangaCollectionViewController.swift; sourceTree = "<group>"; };
 		2037B56E1B9A3B5600F3094A /* GenresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenresViewController.swift; path = Controllers/GenresViewController.swift; sourceTree = "<group>"; };
+		204472CB1BD1DEAD00156FB1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		205CBF651BA4E05F00CADACF /* GenreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenreTableViewCell.swift; path = Views/GenreTableViewCell.swift; sourceTree = "<group>"; };
 		206331E61BA40B9500709DB8 /* AddToButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddToButton.swift; path = Views/AddToButton.swift; sourceTree = "<group>"; };
 		206D03851BA6952300FFE84B /* MangaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MangaTableViewCell.swift; path = Views/MangaTableViewCell.swift; sourceTree = "<group>"; };
@@ -84,7 +85,6 @@
 		208A93CF1B9A29170098F0FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		208A93D21B9A29170098F0FC /* MangaExplorer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MangaExplorer.xcdatamodel; sourceTree = "<group>"; };
 		208A93D71B9A29170098F0FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		208A93D91B9A29170098F0FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		208A93DC1B9A29170098F0FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		208A93E21B9A29170098F0FC /* MangaExplorerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MangaExplorerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		208A93E71B9A29170098F0FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,11 +146,11 @@
 				208A93F21B9A292A0098F0FC /* Models */,
 				208A93CF1B9A29170098F0FC /* AppDelegate.swift */,
 				208A93D61B9A29170098F0FC /* Main.storyboard */,
-				208A93D91B9A29170098F0FC /* Images.xcassets */,
 				208A93DB1B9A29170098F0FC /* LaunchScreen.xib */,
 				208A93D11B9A29170098F0FC /* MangaExplorer.xcdatamodeld */,
 				2037B5681B9A2E6F00F3094A /* CoreDataStackManager.swift */,
 				200A25A61BCFBF1200E98EF3 /* Reachability.swift */,
+				204472CB1BD1DEAD00156FB1 /* Images.xcassets */,
 				208A93CD1B9A29170098F0FC /* Supporting Files */,
 			);
 			path = MangaExplorer;
@@ -283,6 +283,7 @@
 				TargetAttributes = {
 					208A93C91B9A29170098F0FC = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = Q2PNQUM9NY;
 					};
 					208A93E11B9A29170098F0FC = {
 						CreatedOnToolsVersion = 6.4;
@@ -315,9 +316,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				208A93D81B9A29170098F0FC /* Main.storyboard in Resources */,
+				204472CC1BD1DEAD00156FB1 /* Images.xcassets in Resources */,
 				208A93DD1B9A29170098F0FC /* LaunchScreen.xib in Resources */,
 				2006CDE31BAD0A98002B4CDB /* Manga-Data.json in Resources */,
-				208A93DA1B9A29170098F0FC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,7 +427,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -472,7 +474,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -497,10 +500,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MangaExplorer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.objectcoder.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -508,10 +516,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_TESTABILITY = NO;
 				INFOPLIST_FILE = MangaExplorer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.objectcoder.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

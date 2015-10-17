@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "dogWaggingTailRight_201.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "dogWaggingTailRight_402.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "dogWaggingTailRight.png"
+      "filename" : "dogWaggingTailRight.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

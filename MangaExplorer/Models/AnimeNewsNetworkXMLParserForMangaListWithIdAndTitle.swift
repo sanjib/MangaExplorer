@@ -60,11 +60,15 @@ class AnimeNewsNetworkXMLParserForMangaListWithIdAndTitle: NSObject, NSXMLParser
     // Error detection
     
     func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
-        NSLog("parseErrorOccurred: \(parseError)")
+        #if DEBUG
+            NSLog("parseErrorOccurred: \(parseError)")
+        #endif
     }
     
     func parser(parser: NSXMLParser, validationErrorOccurred validationError: NSError) {
-        NSLog("validationErrorOccurred: \(validationError)")
+        #if DEBUG
+            NSLog("validationErrorOccurred: \(validationError)")
+        #endif
     }
     
 }
