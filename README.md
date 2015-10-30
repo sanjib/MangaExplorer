@@ -20,6 +20,8 @@ You can use Manga Explorer to discover new mangas using the Genre tab or search 
 favorite mangas by title or author directly from the Search tab. You can also share 
 beautiful snapshots of manga details with your friends.
 
+![Download at the App Store](https://raw.githubusercontent.com/sanjibahmad/MangaExplorer/master/Screenshots/Download_on_the_App_Store_Badge_US-UK_135x40.png)
+
 [Manga Explorer Home and Privacy Policy page](http://objectcoder.com/manga-explorer/)
 
 [Video Demo](https://youtu.be/pyV2cFAX6HQ)
